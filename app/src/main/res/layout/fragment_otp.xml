@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.lupapassword.OtpFragment">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/ic_back"
+            android:layout_marginLeft="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="TODO" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvMasuk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/appBar"
+        android:text="Masuk"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvKodeDigit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMasuk"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="15dp"
+        android:text="Ketik 6 digit kode yang dikirimkan ke "
+        android:textSize="14sp" />
+
+
+    <LinearLayout
+        android:id="@+id/linearOtp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/tvKodeDigit"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/kode1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint=" 2 ">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etKode1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/kode2"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:hint=" 2 ">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etKode2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/kode3"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:hint=" 2 ">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etKode3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/kode4"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:hint=" 2 ">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etKode4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/kode5"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:hint=" 2 ">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etKode5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/kode6"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:hint=" 2 ">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etKode6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/kirimUlangKode"
+        android:layout_marginLeft="25dp"
+        android:textSize="14sp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/linearOtp"
+        android:text="Kirim Ulang OTP dalam 60 detik"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mintaKodeVertif"
+        android:layout_marginTop="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/kirimUlangKode"
+        android:layout_centerInParent="true"
+        android:text="Minta kode baru via Email"
+        android:textColor="@color/DARKBLUE05"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

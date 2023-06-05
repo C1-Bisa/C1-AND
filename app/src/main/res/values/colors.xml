@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- DARKBLUE05 -->
+    <color name="DARKBLUE05">#4B1979</color>
+    <color name="DARKBLUE04">#7126B5</color>
+    <color name="DARKBLUE03">#A06ECE</color>
+    <color name="DARKBLUE02">#D0B7E6</color>
+    <color name="DARKBLUE01">#E2D4F0</color>
+
+    <!-- DARKBLUE05 -->
+    <color name="LIMEGREEN05">#AA9B87</color>
+    <color name="LIMEGREEN04">#D4C2A8</color>
+    <color name="LIMEGREEN03">#FFE9CA</color>
+    <color name="LIMEGREEN02">#FFF0DC</color>
+    <color name="LIMEGREEN01">#FFF8ED</color>
+
+    <!-- Allert -->
+    <color name="Red">#F7FF0000</color>
+    <color name="Yellow">#FFE500</color>
+    <color name="Green">#73CA5C</color>
+
+    <!-- Neutral -->
+    <color name="NEUTRAL05">#000000</color>
+    <color name="NEUTRAL04">#3C3C3C</color>
+    <color name="NEUTRAL03">#8A8A8A</color>
+    <color name="NEUTRAL02">#D0D0D0</color>
+    <color name="NEUTRAL01">#FFFFFF</color>
+
+    <color name="background">#E4E4E4</color>
+</resources>
