@@ -13,7 +13,18 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+<!--        for bottom sheet dialog-->
+        <item name="bottomSheetDialogTheme">@style/bottomSheetDialogTheme</item>
     </style>
 
+    <!--    for background bottom dialog-->
+    <style name="bottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyle</item>
+    </style>
+    <style name="bottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/background_dialog</item>
+    </style>
+    <!--   -->
 
 </resources>
