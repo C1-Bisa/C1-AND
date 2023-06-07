@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.akun.AkunFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/TitleAkunHarusLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/akun"
+                android:textSize="24sp"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="12dp"
+                android:textColor="#151515"
+
+                />
+
+            <TextView
+                android:id="@+id/txt_harus_login_riwayat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/maaf_anda_harus_login_terlebih_dahulu"
+                android:textColor="#151515"
+                android:layout_below="@+id/TitleAkunHarusLogin"
+                />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_illustration_man"
+                android:layout_below="@+id/txt_harus_login_riwayat"
+                />
+
+            <Button
+                android:id="@+id/btnMasukAkun"
+                style="@style/Btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/poppins_bold"
+                android:lineHeight="20dp"
+                android:text="@string/masuk"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_below="@+id/imageView"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

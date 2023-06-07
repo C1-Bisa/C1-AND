@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="1dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="16dp">
+        <LinearLayout
+            android:id="@+id/labelRiwayat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/bg_label_riwayat"
+            android:visibility="visible">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unpaid"
+                android:textSize="14sp"
+                android:lineHeight="20dp"
+                android:gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/NEUTRAL01"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/labelRiwayat"
+            android:layout_marginTop="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/maps_ic" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/labelRiwayat"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="230dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/maps_ic" />
+
+
+
+        <RelativeLayout
+            android:id="@+id/layoutFlightScheduleRiwayat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="40dp"
+            android:layout_below="@id/labelRiwayat">
+            <LinearLayout
+                android:id="@+id/layoutDeparture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jakarta"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="14sp"
+                    android:lineHeight="20dp"
+                    android:textColor="@color/NEUTRAL05"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5 Maret 2023"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="12sp"
+                    android:lineHeight="20dp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/NEUTRAL05"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="19:30"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="12sp"
+                    android:lineHeight="20dp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/NEUTRAL05"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutFlightTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="13dp"
+                android:layout_toEndOf="@id/layoutDeparture"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4h 0m"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="12sp"
+                    android:lineHeight="18dp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/NEUTRAL03"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:src="@drawable/ic_arrow"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutArrive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/layoutFlightTime"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Melbourne"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="14sp"
+                    android:lineHeight="20dp"
+                    android:textColor="@color/NEUTRAL05"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5 Maret 2023"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="12sp"
+                    android:lineHeight="20dp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/NEUTRAL05"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="23:10"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="12sp"
+                    android:lineHeight="20dp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/NEUTRAL05"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+        <View
+            android:id="@+id/gridRiwayat"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/NEUTRAL02"
+            android:layout_below="@id/layoutFlightScheduleRiwayat"
+            android:layout_marginTop="16dp"/>
+        <RelativeLayout
+            android:id="@+id/price_riwayat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gridRiwayat"
+            android:layout_marginTop="10dp">
+            <LinearLayout
+                android:id="@+id/layoutPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Booking code :"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="14sp"
+                    android:lineHeight="20dp"
+                    android:textColor="@color/NEUTRAL05"/>
+                <TextView
+                    android:id="@+id/codeBooking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="453716288"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="12sp"
+                    android:lineHeight="20dp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/NEUTRAL05"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutClass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="13dp"
+                android:layout_toEndOf="@id/layoutPrice"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Class :"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="14sp"
+                    android:lineHeight="20dp"
+                    android:textColor="@color/NEUTRAL05"/>
+
+                <TextView
+                    android:id="@+id/class_plane"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Economy"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="12sp"
+                    android:lineHeight="20dp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/NEUTRAL05"/>
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvPriceFlightRiwayat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IDR 5.950.000"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="16sp"
+                android:lineHeight="24dp"
+                android:textColor="@color/DARKBLUE05"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
+
+
