@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
+                android:id="@+id/btnBack"
                 android:src="@drawable/ic_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -27,6 +28,7 @@
                 android:layout_centerVertical="true"
                 app:tint="@color/NEUTRAL01" />
             <TextView
+                android:id="@+id/tvPencarian"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="JKT > MLB  - 2 Penumpang - Economy"

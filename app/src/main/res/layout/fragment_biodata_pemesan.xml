@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.home.BiodataPemesanFragment">
+
+<!--    app bar-->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:background="@color/DARKBLUE05"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/btnBack"
+                android:src="@drawable/ic_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                app:tint="@color/NEUTRAL01" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:lineHeight="20dp"
+                android:text="Biodata Pemesan"
+                android:textColor="@color/NEUTRAL01"
+                android:textSize="14sp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@id/btnBack"/>
+        </RelativeLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/background_border_primary_purple_three"
+        app:layout_constraintTop_toBottomOf="@id/appBar">
+        <LinearLayout
+            android:id="@+id/layoutTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/background_rounded_topleft_topright_purple_three"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:lineHeight="20dp"
+                android:text="Biodata Pemesan"
+                android:textColor="@color/NEUTRAL01"
+                android:textSize="16sp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@id/btnBack"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layoutNameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_below="@id/layoutTitle"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Lengkap"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="14sp"
+                android:lineHeight="20dp"
+                android:textColor="@color/DARKBLUE05"/>
+
+            <EditText
+                android:id="@+id/etNamaLengkapPemesan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_rounded_neutral_two"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="Nama"
+                android:textSize="16sp"
+                android:textColor="@color/NEUTRAL04"
+                android:textColorHint="@color/NEUTRAL03"
+                android:inputType="textPersonName"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="4dp"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/layoutOptionClan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_below="@id/layoutNameField">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Punya Nama Keluarga?"
+                android:textSize="14sp"
+                android:textColor="@color/NEUTRAL05"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"/>
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/optionClan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                app:trackTint="#4B1979"
+                app:thumbTint="#FFFFFF"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+<!--        nama keluarga jika option clan active maka visibility visible-->
+        <LinearLayout
+            android:id="@+id/layoutNameClan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_below="@id/layoutOptionClan"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Keluarga"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="14sp"
+                android:lineHeight="20dp"
+                android:textColor="@color/DARKBLUE05"/>
+
+            <EditText
+                android:id="@+id/etNameClan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_rounded_neutral_two"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="Nama Keluarga"
+                android:textSize="16sp"
+                android:textColor="@color/NEUTRAL04"
+                android:textColorHint="@color/NEUTRAL03"
+                android:inputType="textPersonName"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="4dp"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+<!--        no telephone-->
+        <LinearLayout
+            android:id="@+id/layoutNoTelephone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_below="@id/layoutNameClan"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nomor Telepon"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="14sp"
+                android:lineHeight="20dp"
+                android:textColor="@color/DARKBLUE05"/>
+
+            <EditText
+                android:id="@+id/etNoTelephone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_rounded_neutral_two"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="Nomer Telephone"
+                android:textSize="16sp"
+                android:textColor="@color/NEUTRAL04"
+                android:textColorHint="@color/NEUTRAL03"
+                android:inputType="phone"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="4dp"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+<!--        email -->
+        <LinearLayout
+            android:id="@+id/layoutEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_below="@id/layoutNoTelephone"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="14sp"
+                android:lineHeight="20dp"
+                android:textColor="@color/DARKBLUE05"/>
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_rounded_neutral_two"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="email"
+                android:textSize="16sp"
+                android:textColor="@color/NEUTRAL04"
+                android:textColorHint="@color/NEUTRAL03"
+                android:inputType="textWebEmailAddress"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="4dp"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btnSimpanBiodataPemesan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Simpan"
+        android:fontFamily="@font/poppins_medium"
+        android:lineHeight="24dp"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:textColor="@color/NEUTRAL01"
+        android:layout_marginBottom="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        style="@style/Btn"
+        android:backgroundTint="@color/DARKBLUE05"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
