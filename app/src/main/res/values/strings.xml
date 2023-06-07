@@ -2,4 +2,14 @@
     <string name="app_name">FinalProject</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="riwayat_pesanan">Riwayat Pesanan</string>
+    <string name="maaf_anda_harus_login_terlebih_dahulu">Maaf, anda harus login terlebih dahulu</string>
+    <string name="masuk">Masuk</string>
+    <string name="masukan_otp">Masukan OTP</string>
+    <string name="ketik_6_digit_kode_yang_dikirimkan">Ketik 6 digit kode yang dikirimkan</string>
+    <string name="ke">ke</string>
+    <string name="minta_kode_baru_via_email">minta kode baru via email</string>
+    <string name="kirim_ulang_otp_dalam_60_detik">kirim ulang otp dalam 60 detik</string>
+    <string name="akun">Akun</string>
+    <string name="todo">TODO</string>
 </resources>

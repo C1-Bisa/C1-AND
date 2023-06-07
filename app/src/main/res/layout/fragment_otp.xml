@@ -1,170 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.lupapassword.OtpFragment">
 
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBar"
-        android:background="@color/white"
+    <ImageView
+        android:id="@+id/back"
+        android:src="@drawable/ic_back"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:contentDescription="@string/todo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="40dp">
 
-        <ImageView
-            android:src="@drawable/ic_back"
-            android:layout_marginLeft="25dp"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvMasukkanOtp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="TODO" />
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="40dp"
+            android:text="@string/masukan_otp"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvMasuk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="40dp"
-        android:layout_below="@id/appBar"
-        android:text="Masuk"
-        android:textColor="@color/black"
-        android:textSize="40sp"
-        android:textStyle="bold" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvKodeDigit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvMasuk"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="15dp"
-        android:text="Ketik 6 digit kode yang dikirimkan ke "
-        android:textSize="14sp" />
-
-
-    <LinearLayout
-        android:id="@+id/linearOtp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/tvKodeDigit"
-        android:orientation="horizontal">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/kode1"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvKodeDigit"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint=" 2 ">
+            android:layout_below="@id/tvMasukkanOtp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/ketik_6_digit_kode_yang_dikirimkan"
+            android:textSize="14sp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etKode1"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvKodeDigit"
+            android:gravity="center"
+            >
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvKe"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginEnd="4dp"
+                android:gravity="center"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/ke"
+                android:textSize="14sp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/kode2"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:hint=" 2 ">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etKode2"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvNomor"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:maxWidth="220dp"
+                android:gravity="center"
+                android:fontFamily="@font/poppins_bold"
+                android:text="+62824244534"
+                android:textSize="14sp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/kode3"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearOtp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/tvKodeDigit"
+
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/kode1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                app:boxCornerRadiusTopEnd="18dp"
+                app:boxCornerRadiusBottomEnd="18dp"
+                app:boxCornerRadiusBottomStart="18dp"
+                app:boxCornerRadiusTopStart="18dp"
+                android:layout_marginEnd="12dp"
+                android:hint="2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etKode1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="18sp"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/kode2"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                app:boxCornerRadiusTopEnd="18dp"
+                app:boxCornerRadiusBottomEnd="18dp"
+                app:boxCornerRadiusBottomStart="18dp"
+                app:boxCornerRadiusTopStart="18dp"
+                android:layout_marginEnd="12dp"
+                android:hint="8">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etKode2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="18sp"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/kode3"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                app:boxCornerRadiusTopEnd="18dp"
+                app:boxCornerRadiusBottomEnd="18dp"
+                app:boxCornerRadiusBottomStart="18dp"
+                app:boxCornerRadiusTopStart="18dp"
+                android:layout_marginEnd="12dp"
+                android:hint="2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etKode3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="18sp"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/kode4"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                app:boxCornerRadiusTopEnd="18dp"
+                app:boxCornerRadiusBottomEnd="18dp"
+                app:boxCornerRadiusBottomStart="18dp"
+                app:boxCornerRadiusTopStart="18dp"
+                android:layout_marginEnd="12dp"
+                android:hint="2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etKode4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="18sp"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/kode5"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                app:boxCornerRadiusTopEnd="18dp"
+                app:boxCornerRadiusBottomEnd="18dp"
+                app:boxCornerRadiusBottomStart="18dp"
+                app:boxCornerRadiusTopStart="18dp"
+                android:layout_marginEnd="12dp"
+                android:hint="2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etKode5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="18sp"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/kode6"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                app:boxCornerRadiusTopEnd="18dp"
+                app:boxCornerRadiusBottomEnd="18dp"
+                app:boxCornerRadiusBottomStart="18dp"
+                app:boxCornerRadiusTopStart="18dp"
+                android:layout_marginEnd="12dp"
+                android:hint="2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etKode6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="18sp"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/kirimUlangKode"
+            android:textSize="14sp"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="15dp"
+            android:layout_below="@id/linearOtp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/black"
+            android:text="@string/kirim_ulang_otp_dalam_60_detik"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mintaKodeVertif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:hint=" 2 ">
+            android:layout_below="@+id/kirimUlangKode"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="41dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/minta_kode_baru_via_email"
+            android:textColor="@color/DARKBLUE05"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etKode3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
+    </RelativeLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/kode4"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:hint=" 2 ">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etKode4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/kode5"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:hint=" 2 ">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etKode5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/kode6"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:hint=" 2 ">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etKode6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/kirimUlangKode"
-        android:layout_marginLeft="25dp"
-        android:textSize="14sp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/linearOtp"
-        android:text="Kirim Ulang OTP dalam 60 detik"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mintaKodeVertif"
-        android:layout_marginTop="35dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/kirimUlangKode"
-        android:layout_centerInParent="true"
-        android:text="Minta kode baru via Email"
-        android:textColor="@color/DARKBLUE05"
-        android:textSize="14sp"
-        android:textStyle="bold" />
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
