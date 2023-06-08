@@ -78,32 +78,53 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-
-            android:id="@+id/TitleRiwayatPesananNonVisible"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/poppins_bold"
-            android:text="@string/riwayat_pesanan"
-            android:textColor="#151515"
-            android:textSize="24sp"
+            android:orientation="horizontal">
 
-            />
+            <TextView
+                android:id="@+id/TitleRiwayatPesananNonVisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/riwayat_pesanan"
+                android:textColor="#151515"
+                android:textSize="24sp"
 
-        <TextView
-            android:id="@+id/tanggalPemesanan"
-            android:layout_width="wrap_content"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search"
+                android:layout_marginStart="105dp"
+                android:layout_marginTop="45dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="32dp"
-            android:fontFamily="@font/poppins_bold"
-            android:text="Maret 2023"
-            android:textColor="#151515"
-            android:textSize="16sp"
 
-            />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tanggalPemesanan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Maret 2023"
+                android:textColor="#151515"
+                android:textSize="16sp"
+                />
+
+        </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_riwayat"

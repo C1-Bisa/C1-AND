@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.notifikasi.NotifikasiFragment">
+
+    <TextView
+        android:id="@+id/tv_notif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:text="Notifikasi"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf = "@id/tv_notif" >
+
+        <RelativeLayout
+            android:id="@+id/detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+
+            <ImageView
+                android:id="@+id/imgnotif"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_notifikasi" />
+
+
+            <TextView
+                android:id="@+id/tanggal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="139dp"
+                android:layout_toRightOf="@id/promo"
+                android:text="20 Maret, 14:04" />
+
+            <ImageView
+                android:id="@+id/pointer"
+                android:layout_width="10dp"
+                android:layout_height="19dp"
+                android:layout_marginLeft="7dp"
+                android:layout_toRightOf="@id/tanggal"
+                android:src="@drawable/point_hijau" />
+
+            <TextView
+                android:id="@+id/promo"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/imgnotif"
+                android:text="@string/promosi"
+                android:textSize="13sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/DetailPromo"
+                android:layout_width="329dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/promo"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_toRightOf="@+id/imgnotif"
+                android:text="Dapatkan Potongan 50% Tiket! "
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/syaratketentuan"
+                android:layout_width="223dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/DetailPromo"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@+id/imgnotif"
+                android:text="Syarat dan Ketentuan berlaku!"
+                android:textSize="13sp" />
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/white"
+        card_view:cardCornerRadius="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf = "@id/cardView"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/notif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+
+            <ImageView
+                android:id="@+id/imgnotifikasi"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_notifikasi" />
+
+
+            <TextView
+                android:id="@+id/tgl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="139dp"
+                android:layout_toRightOf="@id/notifications"
+                android:text="5 Maret, 14:04" />
+
+            <ImageView
+                android:id="@+id/pointerred"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_toRightOf="@id/tgl"
+                android:src="@drawable/point_merah" />
+
+            <TextView
+                android:id="@+id/notifications"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/imgnotifikasi"
+                android:text="Notifikasi"
+                android:textSize="13sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/DetailNotif"
+                android:layout_width="329dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/notifications"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_toRightOf="@+id/imgnotifikasi"
+                android:text="Terdapat Perubahan pada jadwal penerbangan kode booking 45GT6. Cek jadwal perjalanan Anda disini!"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
