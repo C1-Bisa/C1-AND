@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/riwayatFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -15,4 +15,78 @@
         android:name="com.binar.finalproject.view.lupapassword.OtpFragment"
         android:label="fragment_otp"
         tools:layout="@layout/fragment_otp" />
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="com.binar.finalproject.view.SplashScreen"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreen_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.binar.finalproject.view.register.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/biodataPemesanFragment"
+        android:name="com.binar.finalproject.view.home.BiodataPemesanFragment"
+        android:label="fragment_biodata_pemesan"
+        tools:layout="@layout/fragment_biodata_pemesan" />
+    <fragment
+        android:id="@+id/biodataPenumpangFragment"
+        android:name="com.binar.finalproject.view.home.BiodataPenumpangFragment"
+        android:label="fragment_biodata_penumpang"
+        tools:layout="@layout/fragment_biodata_penumpang" />
+    <fragment
+        android:id="@+id/akunFragment"
+        android:name="com.binar.finalproject.view.akun.AkunFragment"
+        android:label="fragment_akun"
+        tools:layout="@layout/fragment_akun" />
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.binar.finalproject.view.home.CheckoutFragment"
+        android:label="fragment_checkout"
+        tools:layout="@layout/fragment_checkout" />
+    <fragment
+        android:id="@+id/detailPenerbanganFragment"
+        android:name="com.binar.finalproject.view.home.DetailPenerbanganFragment"
+        android:label="fragment_detail_penerbangan"
+        tools:layout="@layout/fragment_detail_penerbangan" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.binar.finalproject.view.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/detailRiwayatFragment"
+        android:name="com.binar.finalproject.view.riwayat.DetailRiwayatFragment"
+        android:label="fragment_detail_riwayat"
+        tools:layout="@layout/fragment_detail_riwayat" />
+    <fragment
+        android:id="@+id/hasilPencarianFragment"
+        android:name="com.binar.finalproject.view.home.HasilPencarianFragment"
+        android:label="fragment_hasil_pencarian"
+        tools:layout="@layout/fragment_hasil_pencarian" />
+    <fragment
+        android:id="@+id/lupaPasswordFragment"
+        android:name="com.binar.finalproject.view.lupapassword.LupaPasswordFragment"
+        android:label="fragment_lupa_password"
+        tools:layout="@layout/fragment_lupa_password" />
+    <fragment
+        android:id="@+id/notifikasiFragment"
+        android:name="com.binar.finalproject.view.notifikasi.NotifikasiFragment"
+        android:label="fragment_notifikasi"
+        tools:layout="@layout/fragment_notifikasi" />
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.binar.finalproject.view.home.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" />
+    <fragment
+        android:id="@+id/riwayatFragment"
+        android:name="com.binar.finalproject.view.riwayat.RiwayatFragment"
+        android:label="fragment_riwayat"
+        tools:layout="@layout/fragment_riwayat" />
 </navigation>
