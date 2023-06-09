@@ -4,66 +4,198 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.akun.AkunFragment">
+    tools:context=".view.akun.AkunFragment"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/TitleAkunHarusLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/akun"
+            android:textColor="#151515"
+            android:textSize="24sp"
+
+            />
+
+        <TextView
+            android:id="@+id/txt_harus_login_riwayat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TitleAkunHarusLogin"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/maaf_anda_harus_login_terlebih_dahulu"
+            android:textColor="#151515" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_harus_login_riwayat"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_illustration_man" />
+
+        <Button
+            android:id="@+id/btnMasukAkun"
+            style="@style/Btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/poppins_bold"
+            android:lineHeight="20dp"
+            android:text="@string/masuk"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_akun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:text="Akun"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/white"
+        card_view:cardCornerRadius="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf = "@id/tv_akun" >
 
         <RelativeLayout
+            android:id="@+id/ubah"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
 
-            <TextView
-                android:id="@+id/TitleAkunHarusLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/akun"
-                android:textSize="24sp"
-                android:fontFamily="@font/poppins_bold"
-                android:layout_marginTop="32dp"
-                android:layout_marginStart="12dp"
-                android:textColor="#151515"
-
-                />
-
-            <TextView
-                android:id="@+id/txt_harus_login_riwayat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="100dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="@string/maaf_anda_harus_login_terlebih_dahulu"
-                android:textColor="#151515"
-                android:layout_below="@+id/TitleAkunHarusLogin"
-                />
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_illustration_man"
-                android:layout_below="@+id/txt_harus_login_riwayat"
-                />
+                android:id="@+id/imgnotif"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/pensil" />
 
-            <Button
-                android:id="@+id/btnMasukAkun"
-                style="@style/Btn"
-                android:layout_width="match_parent"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/DetailProfile"
+                android:layout_width="288dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:fontFamily="@font/poppins_bold"
-                android:lineHeight="20dp"
-                android:text="@string/masuk"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:layout_below="@+id/imageView"/>
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@+id/imgnotif"
+                android:text="Ubah Profil"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
 
         </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
-    </ScrollView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/white"
+        card_view:cardCornerRadius="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf = "@id/cardView" >
+
+        <RelativeLayout
+            android:id="@+id/setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+
+            <ImageView
+                android:id="@+id/imgsetting"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_settings" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/Pengaturan"
+                android:layout_width="329dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@+id/imgsetting"
+                android:text="Pengaturan Akun"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/white"
+        card_view:cardCornerRadius="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf = "@id/card" >
+
+        <RelativeLayout
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+
+            <ImageView
+                android:id="@+id/imglogout"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_logout" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/DetailLogout"
+                android:layout_width="329dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_toRightOf="@+id/imglogout"
+                android:text="Keluar"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
