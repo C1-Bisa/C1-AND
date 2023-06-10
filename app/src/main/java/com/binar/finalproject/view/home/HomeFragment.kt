@@ -187,8 +187,12 @@ class HomeFragment : Fragment() {
             //apakah baby dihitung ???
             //simpan hasil total dan komposisi jumlah penumpang dengan livedata<List> di viewmodel
             val totalPassenger = countPassengers(bindingDialog.tvPassangerAdult,bindingDialog.tvPassangerChild,bindingDialog.tvPassangerBaby)
-            val total = "$totalPassenger Penumpang"
-            binding.tvPassengers.text = total
+
+            if(totalPassenger >= 1){
+                val total = "$totalPassenger Penumpang"
+                binding.tvPassengers.text = total
+            }
+
             dialog.dismiss()
         }
         dialog.show()
@@ -215,7 +219,7 @@ class HomeFragment : Fragment() {
 
         bindingDialog.decPassangerAdult.setOnClickListener {
             var totalAdult = bindingDialog.tvPassangerAdult.text.toString().toInt()
-            if(totalAdult > 1){
+            if(totalAdult >= 1){
                 totalAdult -= 1
             }
             bindingDialog.tvPassangerAdult.text = totalAdult.toString()
@@ -223,14 +227,14 @@ class HomeFragment : Fragment() {
 
         bindingDialog.decPassangerChild.setOnClickListener {
             var totalChild = bindingDialog.tvPassangerChild.text.toString().toInt()
-            if(totalChild > 1){
+            if(totalChild >= 1){
                 totalChild -= 1
             }
             bindingDialog.tvPassangerChild.text = totalChild.toString()
         }
         bindingDialog.decPassangerBaby.setOnClickListener {
             var totalBaby = bindingDialog.tvPassangerBaby.text.toString().toInt()
-            if(totalBaby > 1){
+            if(totalBaby >= 1){
                 totalBaby -= 1
             }
             bindingDialog.tvPassangerBaby.text = totalBaby.toString()
