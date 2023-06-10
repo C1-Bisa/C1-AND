@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/biodataPenumpangFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -15,4 +15,14 @@
         android:name="com.binar.finalproject.view.lupapassword.OtpFragment"
         android:label="fragment_otp"
         tools:layout="@layout/fragment_otp" />
+    <fragment
+        android:id="@+id/hasilPencarianFragment"
+        android:name="com.binar.finalproject.view.home.HasilPencarianFragment"
+        android:label="fragment_hasil_pencarian"
+        tools:layout="@layout/fragment_hasil_pencarian" />
+    <fragment
+        android:id="@+id/biodataPenumpangFragment"
+        android:name="com.binar.finalproject.view.home.BiodataPenumpangFragment"
+        android:label="fragment_biodata_penumpang"
+        tools:layout="@layout/fragment_biodata_penumpang" />
 </navigation>
