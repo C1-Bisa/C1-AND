@@ -57,6 +57,7 @@
         app:layout_constraintTop_toBottomOf="@id/rvDateFlight"
         >
         <LinearLayout
+            android:id="@+id/btnFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -88,6 +89,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/btnFilterHarga"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
