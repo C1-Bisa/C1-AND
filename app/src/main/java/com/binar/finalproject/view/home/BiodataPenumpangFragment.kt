@@ -1,6 +1,7 @@
 package com.binar.finalproject.view.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,7 +39,9 @@ class BiodataPenumpangFragment : Fragment() {
 
     private fun setRvBioPassenger() {
         biodataPassengerAdapter = BiodataPassengerAdapter(listOf(
-            BiodataPassenger("Adult","")
+            BiodataPassenger("Adult",""),
+            BiodataPassenger("Child",""),
+            BiodataPassenger("Baby","")
         ), requireContext())
 
         binding.rvBioPassenger.apply {
@@ -52,6 +55,8 @@ class BiodataPenumpangFragment : Fragment() {
             if(bioIsNotEmpty){
                 Toast.makeText(context,
                     biodataPassengerAdapter.getDataBioPassenger().toString(), Toast.LENGTH_SHORT).show()
+
+                Log.i("DATA_PASSENGGER", biodataPassengerAdapter.getDataBioPassenger().toString())
             }
         }
     }

@@ -12,18 +12,24 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.*
 import com.binar.finalproject.model.Destination
 import com.binar.finalproject.model.DestinationFavorite
+import com.binar.finalproject.model.airport.Airport
 import com.binar.finalproject.view.adapter.DestinationFavoriteAdapter
 import com.binar.finalproject.view.adapter.SearchDestinationAdapter
+import com.binar.finalproject.viewmodel.AirportViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.squareup.timessquare.CalendarPickerView
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding : FragmentHomeBinding
@@ -32,6 +38,8 @@ class HomeFragment : Fragment() {
     private lateinit var destinationFavoriteAdapter: DestinationFavoriteAdapter
     private lateinit var searchDestinationAdapter: SearchDestinationAdapter
 
+    //viewmodel
+    private val airportViewModel : AirportViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -350,26 +358,27 @@ class HomeFragment : Fragment() {
         dialogSearchDestination.window?.setGravity(Gravity.BOTTOM);
 
         //testing adapter searchdestination
-        val listDestination = listOf(
-            Destination(1, "Jakarta", "CGK"),
-            Destination(2, "Bandung", "BDO"),
-            Destination(3, "Jayapura", "DJJ"),
-            Destination(4, "Yogyakarta", "YIA"),
-            Destination(5, "Denpasar Bali", "DPS"),
-            Destination(6, "Banda Aceh", "BTJ"),
-            Destination(7,"Lombok", "LOP"),
-            Destination(8, "Surabaya", "SUB")
-        )
-        searchDestinationAdapter = SearchDestinationAdapter(listDestination)
+        var listDestination = mutableListOf<Airport>()
+        searchDestinationAdapter = SearchDestinationAdapter(ArrayList())
 
         bindingSearch.rvDestination.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = searchDestinationAdapter
         }
 
+        //get data from api airport
+        airportViewModel.getDataAirport()
+
+        airportViewModel.dataAirport.observe(viewLifecycleOwner){
+            if (it.isNotEmpty()){
+                searchDestinationAdapter.setListSearchDestination(it)
+                listDestination.addAll(it)
+            }
+        }
+
         //ketika item list di klik maka akan set text sesuai dengan action typenya
         searchDestinationAdapter.onClickDestination = {
-            val destinationAirport = "${it.airport} (${it.code})"
+            val destinationAirport = "${it.airportLocation} (${it.airportCode})"
             if(destinationAirport != binding.tvDeparture.text && destinationAirport != binding.tvArrival.text){
                 if(action == "departure"){
                     binding.tvDeparture.text = destinationAirport
@@ -397,11 +406,11 @@ class HomeFragment : Fragment() {
     }
 
     //filtering input search destination
-    private fun filterDestination(newText: String?, listDestination : List<Destination>) {
-        val listSearchDestination = mutableListOf<Destination>()
+    private fun filterDestination(newText: String?, listDestination : List<Airport>) {
+        val listSearchDestination = mutableListOf<Airport>()
 
         for(item in listDestination){
-            if(item.airport.toLowerCase().contains(newText!!.toLowerCase())){
+            if(item.airportLocation.toLowerCase().contains(newText!!.toLowerCase())){
                 listSearchDestination.add(item)
             }
         }
