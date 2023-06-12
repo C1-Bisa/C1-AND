@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.finalproject.databinding.ItemSearchDestinationBinding
 import com.binar.finalproject.model.Destination
+import com.binar.finalproject.model.airport.Airport
 
-class SearchDestinationAdapter(private var listDestination : List<Destination>) : RecyclerView.Adapter<SearchDestinationAdapter.ViewHolder>() {
+class SearchDestinationAdapter(private var listDestination : List<Airport>) : RecyclerView.Adapter<SearchDestinationAdapter.ViewHolder>() {
 
-    var onClickDestination : ((Destination)-> Unit)? = null
+    var onClickDestination : ((Airport)-> Unit)? = null
     class ViewHolder(var binding : ItemSearchDestinationBinding): RecyclerView.ViewHolder(binding.root) {
 
     }
@@ -23,7 +24,7 @@ class SearchDestinationAdapter(private var listDestination : List<Destination>) 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-       val destination =  "${listDestination[position].airport} (${listDestination[position].code})"
+       val destination =  "${listDestination[position].airportLocation} (${listDestination[position].airportCode})"
        holder.binding.tvDestination.text = destination
 
        holder.binding.itemList.setOnClickListener {
@@ -31,7 +32,7 @@ class SearchDestinationAdapter(private var listDestination : List<Destination>) 
        }
     }
 
-    fun setListSearchDestination(list : List<Destination>){
+    fun setListSearchDestination(list : List<Airport>){
         listDestination = list
         notifyDataSetChanged()
     }
