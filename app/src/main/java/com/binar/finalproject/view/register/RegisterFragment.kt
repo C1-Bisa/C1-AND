@@ -6,12 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentLoginBinding
 import com.binar.finalproject.databinding.FragmentRegisterBinding
+import com.binar.finalproject.model.user.PostRegister
+import com.binar.finalproject.viewmodel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class RegisterFragment : Fragment() {
+    // viewmodel
+    private val userViewModel : UserViewModel by viewModels()
 
     lateinit var binding: FragmentRegisterBinding
     override fun onCreateView(
@@ -38,7 +45,14 @@ class RegisterFragment : Fragment() {
 
 
         if (namaLengkap.isNotEmpty() && email.isNotEmpty() && nomorTelepon.isNotEmpty() && password.isNotEmpty()){
-            Toast.makeText(context, "Register Successful", Toast.LENGTH_SHORT).show()
+            userViewModel.postRegist(PostRegister(email, namaLengkap, password, nomorTelepon))
+            userViewModel.responseUserRegist.observe(viewLifecycleOwner){
+                if (it != null){
+                    Toast.makeText(context, "Register Successful", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(context, "Kata sandi harus di isi", Toast.LENGTH_SHORT).show()
+                }
+            }
         }else{
             Toast.makeText(context, "Kata sandi harus di isi", Toast.LENGTH_SHORT).show()
         }
