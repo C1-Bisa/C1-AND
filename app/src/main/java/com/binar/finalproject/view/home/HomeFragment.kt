@@ -22,6 +22,7 @@ import com.binar.finalproject.model.airport.Airport
 import com.binar.finalproject.view.adapter.DestinationFavoriteAdapter
 import com.binar.finalproject.view.adapter.SearchDestinationAdapter
 import com.binar.finalproject.viewmodel.AirportViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.squareup.timessquare.CalendarPickerView
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,6 +52,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //untuk menampilkan kembalii bottom navigation
+        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNav.visibility = View.VISIBLE
 
         setRecycleViewDestinationFavorite()
 
