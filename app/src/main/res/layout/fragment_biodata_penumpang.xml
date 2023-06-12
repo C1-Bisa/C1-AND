@@ -44,6 +44,7 @@
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBioPassenger"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
@@ -56,7 +57,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent">
         <Button
-            android:id="@+id/btnPilihKursi"
+            android:id="@+id/btnLanjutPilihKursi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Lanjut Pilih Kursi"
