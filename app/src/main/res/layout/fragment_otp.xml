@@ -74,7 +74,7 @@
                 android:maxWidth="220dp"
                 android:gravity="center"
                 android:fontFamily="@font/poppins_bold"
-                android:text="+62824244534"
+                android:text="example@gmail.com"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -105,6 +105,7 @@
                     android:id="@+id/etKode1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxLength="1"
                     android:gravity="center"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_bold"
@@ -128,6 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:maxLength="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_bold"
                     android:textSize="18sp"
@@ -150,6 +152,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:maxLength="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_bold"
                     android:textSize="18sp"
@@ -172,6 +175,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:maxLength="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_bold"
                     android:textSize="18sp"
@@ -194,6 +198,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:maxLength="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_bold"
                     android:textSize="18sp"
@@ -216,6 +221,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:maxLength="1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_bold"
                     android:textSize="18sp"
@@ -248,6 +254,19 @@
             android:textColor="@color/DARKBLUE05"
             android:textSize="14sp"
             android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVerif"
+            android:layout_marginLeft="50dp"
+            style="@style/Btn"
+            app:cornerRadius="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mintaKodeVertif"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Verification"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 

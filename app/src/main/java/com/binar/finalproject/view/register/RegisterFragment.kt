@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.binar.finalproject.R
-import com.binar.finalproject.databinding.FragmentLoginBinding
 import com.binar.finalproject.databinding.FragmentRegisterBinding
 import com.binar.finalproject.model.user.PostRegister
 import com.binar.finalproject.viewmodel.UserViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -32,16 +33,19 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNav.visibility = View.GONE
         binding.btnDaftar.setOnClickListener {
             getRegister()
+
         }
     }
 
     private fun getRegister() {
-        var namaLengkap = binding.etMasukanNamaRegister.text.toString()
-        var email = binding.etMasukanEmailRegister.text.toString()
-        var nomorTelepon = binding.etMasukanNomorTelepon.text.toString()
-        var password = binding.etMasukanPasswordRegister.text.toString()
+        val namaLengkap = binding.etMasukanNamaRegister.text.toString()
+        val email = binding.etMasukanEmailRegister.text.toString()
+        val nomorTelepon = binding.etMasukanNomorTelepon.text.toString()
+        val password = binding.etMasukanPasswordRegister.text.toString()
 
 
         if (namaLengkap.isNotEmpty() && email.isNotEmpty() && nomorTelepon.isNotEmpty() && password.isNotEmpty()){
@@ -49,6 +53,7 @@ class RegisterFragment : Fragment() {
             userViewModel.responseUserRegist.observe(viewLifecycleOwner){
                 if (it != null){
                     Toast.makeText(context, "Register Successful", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_registerFragment_to_otpFragment)
                 }else{
                     Toast.makeText(context, "Kata sandi harus di isi", Toast.LENGTH_SHORT).show()
                 }
