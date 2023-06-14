@@ -1,6 +1,8 @@
 package com.binar.finalproject.network
 
 import com.binar.finalproject.model.airport.ResponseDataAirport
+import com.binar.finalproject.model.searchflight.ResponseDataFlight
+import com.binar.finalproject.model.searchflight.SearchFlight
 import com.binar.finalproject.model.user.PostRegister
 import com.binar.finalproject.model.user.ResponRegister
 import retrofit2.Call
@@ -15,5 +17,9 @@ interface RestfulApi {
 
     @POST("user/register")
     fun postRegistUser(@Body data :  PostRegister) : Call<ResponRegister>
+
+    //sementara buat get data flight
+    @POST("flight/searchflight")
+    fun getSearchDataFlight(@Body data: SearchFlight) : Call<ResponseDataFlight>
 
 }
