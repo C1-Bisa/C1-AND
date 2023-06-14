@@ -1,5 +1,6 @@
 package com.binar.finalproject.view.home
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -13,20 +14,26 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.*
 import com.binar.finalproject.model.Destination
 import com.binar.finalproject.model.DestinationFavorite
 import com.binar.finalproject.model.airport.Airport
+import com.binar.finalproject.model.searchflight.SearchFlight
 import com.binar.finalproject.view.adapter.DestinationFavoriteAdapter
 import com.binar.finalproject.view.adapter.SearchDestinationAdapter
 import com.binar.finalproject.viewmodel.AirportViewModel
+import com.binar.finalproject.viewmodel.FlightSearchViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.squareup.timessquare.CalendarPickerView
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -41,6 +48,16 @@ class HomeFragment : Fragment() {
 
     //viewmodel
     private val airportViewModel : AirportViewModel by viewModels()
+    private val flightSearchViewModel : FlightSearchViewModel by viewModels()
+
+    //data class for search flight
+    private lateinit var dataSearch : SearchFlight
+
+    //from and to
+    private var from = "Jakarta"
+    private var to = "Bali"
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -104,8 +121,101 @@ class HomeFragment : Fragment() {
         binding.setSeatClass.setOnClickListener {
             setSeatClassPassengers()
         }
+
+        //klik button pencarian penerbangan
+        binding.btnSearchFlight.setOnClickListener {
+            searchFlight()
+
+        }
+        //belum bisa
+
+        showDataSearchFlight()
+
     }
 
+    private fun searchFlight() {
+
+        val from : String = if(flightSearchViewModel.searchFrom.value != null){
+            flightSearchViewModel.searchFrom.value.toString()
+        }else{
+            "Jakarta"
+        }
+
+        val to : String = if(flightSearchViewModel.searchTo.value != null){
+            flightSearchViewModel.searchTo.value.toString()
+        }else{
+            "Bali"
+        }
+
+        val dateDeparture = if(flightSearchViewModel.searchDateDeparture.value != null){
+            flightSearchViewModel.searchDateDeparture.value.toString()
+        }else{
+            changeFormatDateEn(binding.tvDateDeparture.text.toString())
+        }
+
+        val dateReturn = if(binding.optionFlight.isChecked){
+            if (flightSearchViewModel.searchDateReturn.value != null){
+                flightSearchViewModel.searchDateReturn.value.toString()
+            }else{
+                changeFormatDateEn(binding.tvDateReturn.text.toString())
+            }
+
+        }else{
+            ""
+        }
+
+
+
+        val dataBundle = Bundle().apply {
+            putSerializable("DATA_SEARCH", SearchFlight(
+                dateDeparture,
+                "00:00",
+                from,
+                dateReturn,
+                to
+            ))
+        }
+        findNavController().navigate(R.id.action_homeFragment_to_hasilPencarianFragment, dataBundle)
+    }
+
+    //menampilkan data dari viewmodel flightsearch
+    private fun showDataSearchFlight() {
+        flightSearchViewModel.seatClass.observe(viewLifecycleOwner){
+            binding.tvSeatClass.text = it
+        }
+
+        flightSearchViewModel.countPassenger.observe(viewLifecycleOwner){
+            binding.tvPassengers.text = it
+        }
+
+        flightSearchViewModel.from.observe(viewLifecycleOwner){
+            binding.tvDeparture.text = it
+        }
+
+        flightSearchViewModel.to.observe(viewLifecycleOwner){
+            binding.tvArrival.text = it
+        }
+
+        flightSearchViewModel.dateDeparture.observe(viewLifecycleOwner){
+            binding.tvDateDeparture.text = it
+        }
+
+        flightSearchViewModel.dateReturn.observe(viewLifecycleOwner){
+            binding.tvDateReturn.text = it
+
+        }
+    }
+
+    //ubah menjadi en date
+    private fun changeFormatDateEn(input : String) : String{
+
+        val inputFormatterDate = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id", "ID"))
+        val outputFormatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val date = LocalDate.parse(input, inputFormatterDate)
+        return date.format(outputFormatterDate)
+    }
+
+    //CHOICE SEATCLASS
     private fun setSeatClassPassengers() {
         //ketika klik set seat masih tidak menyimpan pilihan sementara di antara 4 pilihan tersebut
 
@@ -140,7 +250,8 @@ class HomeFragment : Fragment() {
         }
 
         bindingDialog.btnSaveClass.setOnClickListener {
-            binding.tvSeatClass.text = seatClass
+            flightSearchViewModel.setSeatClass(seatClass)
+//            binding.tvSeatClass.text = seatClass
             dialog.dismiss()
         }
         dialog.show()
@@ -179,6 +290,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+    //SET COUNT PASSENGERS
     //mengatur jumlah penumpang berdasarkan kategori usia dari dewasa, anak-anak, hingga balita
     private fun setPassengers() {
         //bottom sheet
@@ -203,7 +315,8 @@ class HomeFragment : Fragment() {
 
             if(totalPassenger >= 1){
                 val total = "$totalPassenger Penumpang"
-                binding.tvPassengers.text = total
+                flightSearchViewModel.setCountPassenger(total)
+//                binding.tvPassengers.text = total
             }
 
             dialog.dismiss()
@@ -265,6 +378,7 @@ class HomeFragment : Fragment() {
     }
 
 
+    //SET DATE FLIGHT AND RETURN DATE
     //menampilkan tanggal keberangkatan dan kepulangan(optional)
     private fun setDateFlight(checked : Boolean) {
         //nanti dikasih kondisi apakah tanggal pulang pergi atau single flight
@@ -279,13 +393,24 @@ class HomeFragment : Fragment() {
 
         dateFlight(bindingDialog, checked)
 
+
         bindingDialog.btnClose.setOnClickListener {
             dialog.dismiss()
         }
         bindingDialog.btnSaveDate.setOnClickListener {
-            binding.tvDateDeparture.text = bindingDialog.tvDepartureDate.text
-            binding.tvDateReturn.text = bindingDialog.tvReturnDate.text
-            binding.tvDateReturn.setTextColor(Color.BLACK)
+            if(checked){
+                flightSearchViewModel.setDateDeparture(bindingDialog.tvDepartureDate.text.toString())
+                flightSearchViewModel.setDateReturn(bindingDialog.tvReturnDate.text.toString())
+
+                flightSearchViewModel.setSearchDateDeparture(changeFormatDateEn(bindingDialog.tvDepartureDate.text.toString()))
+                flightSearchViewModel.setSearchReturnDate(changeFormatDateEn(bindingDialog.tvReturnDate.text.toString()))
+
+                binding.tvDateReturn.setTextColor(Color.BLACK)
+            }else{
+                flightSearchViewModel.setDateDeparture(bindingDialog.tvDepartureDate.text.toString())
+                flightSearchViewModel.setSearchDateDeparture(changeFormatDateEn(bindingDialog.tvDepartureDate.text.toString()))
+
+            }
             dialog.dismiss()
         }
         dialog.show()
@@ -312,6 +437,7 @@ class HomeFragment : Fragment() {
                 .withSelectedDate(startDate)
         }
 
+        //kurang deklarasi hari
         bindingDialog.dateFlight.setOnDateSelectedListener(object : CalendarPickerView.OnDateSelectedListener {
             override fun onDateSelected(date: Date) {
                 val selectedDates = bindingDialog.dateFlight.selectedDates
@@ -322,7 +448,6 @@ class HomeFragment : Fragment() {
                     bindingDialog.tvDepartureDate.text = convertDateFormatID(dateFormat.format(dateDeparture).toString())
                     bindingDialog.tvReturnDate.text = convertDateFormatID(dateFormat.format(dateReturn).toString())
                 }else{
-
                     bindingDialog.tvDepartureDate.text = convertDateFormatID(dateFormat.format(date).toString())
                 }
             }
@@ -340,6 +465,7 @@ class HomeFragment : Fragment() {
         return formatDateID.format(date)
     }
 
+    //SET LOCATION FLIGHT AND DESTINATION
     //menampilkan dialog untuk pencarian destinasi
     private fun setLocationFlight(action : String) {
 
@@ -375,6 +501,7 @@ class HomeFragment : Fragment() {
         airportViewModel.getDataAirport()
 
         airportViewModel.dataAirport.observe(viewLifecycleOwner){
+            listDestination.clear()
             if (it.isNotEmpty()){
                 searchDestinationAdapter.setListSearchDestination(it)
                 listDestination.addAll(it)
@@ -386,9 +513,16 @@ class HomeFragment : Fragment() {
             val destinationAirport = "${it.airportLocation} (${it.airportCode})"
             if(destinationAirport != binding.tvDeparture.text && destinationAirport != binding.tvArrival.text){
                 if(action == "departure"){
-                    binding.tvDeparture.text = destinationAirport
+                    from = it.airportLocation
+
+                    flightSearchViewModel.setFrom(destinationAirport)
+                    flightSearchViewModel.setSearchFrom(it.airportLocation)
+
                 }else{
-                    binding.tvArrival.text = destinationAirport
+                    to = it.airportLocation
+
+                    flightSearchViewModel.setTo(destinationAirport)
+                    flightSearchViewModel.setSearchTo(it.airportLocation)
                 }
             }
             dialogSearchDestination.dismiss()
@@ -425,13 +559,28 @@ class HomeFragment : Fragment() {
         }
     }
 
+    //
     //menukar tujuan destinasi dengan tempat keberangkatan
     private fun setChangePosition() {
         val departure = binding.tvDeparture.text
         val arrival = binding.tvArrival.text
 
+        val fromTemporary = to
+        val toTemporary = from
+
         binding.tvDeparture.text = arrival
         binding.tvArrival.text = departure
+
+        //local var
+        from = toTemporary
+        to = fromTemporary
+
+        //update viewmodel
+        //belum benar
+        flightSearchViewModel.setSearchFrom(toTemporary)
+        flightSearchViewModel.setSearchTo(fromTemporary)
+
+
     }
 
     //menampilkan list destinasi favorit

@@ -137,10 +137,10 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
+                                        android:fontFamily="@font/poppins_medium"
                                         android:gravity="center"
                                         android:lineHeight="24dp"
-                                        android:text="Melbourne (MLB)"
-                                        android:fontFamily="@font/poppins_medium"
+                                        android:text="Bali (DPS)"
                                         android:textColor="@color/black"
                                         android:textSize="16sp" />
                                 </RelativeLayout>
@@ -375,7 +375,7 @@
                             </RelativeLayout>
                         </LinearLayout>
                         <Button
-                            android:id="@+id/btnSaveSeatPassenger"
+                            android:id="@+id/btnSearchFlight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Cari Penerbangan"
