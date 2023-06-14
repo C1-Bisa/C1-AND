@@ -54,8 +54,8 @@ class HomeFragment : Fragment() {
     private lateinit var dataSearch : SearchFlight
 
     //from and to
-    private var from = "Jakarta"
-    private var to = "Bali"
+    private lateinit var from : String
+    private lateinit var to : String
 
 
     override fun onCreateView(
@@ -75,6 +75,10 @@ class HomeFragment : Fragment() {
         bottomNav.visibility = View.VISIBLE
 
         setRecycleViewDestinationFavorite()
+
+        //initial
+        from = "Jakarta"
+        to = "Bali"
 
         //tukar destination dengan tempat keberangkatan
         binding.btnChange.setOnClickListener {
@@ -136,6 +140,7 @@ class HomeFragment : Fragment() {
     private fun searchFlight() {
 
         val from : String = if(flightSearchViewModel.searchFrom.value != null){
+            Log.d("HASIL_FROM", flightSearchViewModel.searchFrom.value.toString())
             flightSearchViewModel.searchFrom.value.toString()
         }else{
             "Jakarta"
@@ -174,6 +179,8 @@ class HomeFragment : Fragment() {
                 dateReturn,
                 to
             ))
+            putString("DATA_PASSENGER", binding.tvPassengers.text.toString())
+            putString("DATA_SEATCLASS", binding.tvSeatClass.text.toString())
         }
         findNavController().navigate(R.id.action_homeFragment_to_hasilPencarianFragment, dataBundle)
     }
@@ -509,6 +516,7 @@ class HomeFragment : Fragment() {
         }
 
         //ketika item list di klik maka akan set text sesuai dengan action typenya
+        //
         searchDestinationAdapter.onClickDestination = {
             val destinationAirport = "${it.airportLocation} (${it.airportCode})"
             if(destinationAirport != binding.tvDeparture.text && destinationAirport != binding.tvArrival.text){
@@ -565,20 +573,24 @@ class HomeFragment : Fragment() {
         val departure = binding.tvDeparture.text
         val arrival = binding.tvArrival.text
 
-        val fromTemporary = to
-        val toTemporary = from
+        val fromTemporary = this.to
+        val toTemporary = this.from
 
-        binding.tvDeparture.text = arrival
-        binding.tvArrival.text = departure
+//        binding.tvDeparture.text = arrival
+//        binding.tvArrival.text = departure
+
+        flightSearchViewModel.setFrom(arrival as String)
+        flightSearchViewModel.setTo(departure as String)
+
 
         //local var
-        from = toTemporary
-        to = fromTemporary
-
+        this.from = fromTemporary
+        this.to = toTemporary
+        Log.d("HASIL_CHANGE", "$from $to")
         //update viewmodel
         //belum benar
-        flightSearchViewModel.setSearchFrom(toTemporary)
-        flightSearchViewModel.setSearchTo(fromTemporary)
+        flightSearchViewModel.setSearchFrom(fromTemporary)
+        flightSearchViewModel.setSearchTo(toTemporary)
 
 
     }

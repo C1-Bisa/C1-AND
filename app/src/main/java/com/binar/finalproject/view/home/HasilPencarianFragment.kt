@@ -65,9 +65,10 @@ class HasilPencarianFragment : Fragment() {
         //nanti get bundle dari fragment home berupa data class dari input passenger
 //        val data = SearchFlight("2023-09-14","00:00","Bali","","Jakarta")
         //cth
-
+        //GET BUNDLE FROM HOME FRAGMENT
         val getDataSearch = arguments?.getSerializable("DATA_SEARCH")
-
+        val getPassenger = arguments?.getString("DATA_PASSENGER")
+        val getSeatClass = arguments?.getString("DATA_SEATCLASS")
         if(getDataSearch != null){
             dataSearchFlight = getDataSearch as SearchFlight
 
@@ -75,6 +76,10 @@ class HasilPencarianFragment : Fragment() {
             setRecycleViewDate()
             setRvFlightSearchResult()
             getAllDataFlight(dataSearchFlight)
+
+            //set text appbar
+            val titleBar = "${getDataSearch.from} > ${getDataSearch.to} - $getPassenger - $getSeatClass"
+            binding.tvPencarian.text = titleBar
         }
 
         //menampilkan recycleview date departure

@@ -27,19 +27,21 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 app:tint="@color/NEUTRAL01" />
+
             <TextView
                 android:id="@+id/tvPencarian"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="JKT > MLB  - 2 Penumpang - Economy"
-                android:textColor="@color/NEUTRAL01"
-                android:textSize="14sp"
-                android:lineHeight="20dp"
-                android:fontFamily="@font/poppins_medium"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_centerInParent="true"
-                android:layout_centerVertical="true"/>
+                android:fontFamily="@font/poppins_medium"
+                android:lineHeight="20dp"
+                android:layout_toEndOf="@id/btnBack"
+                android:text="JKT > MLB  - 2 Penumpang - Economy"
+                android:textColor="@color/NEUTRAL01"
+                android:textSize="14sp" />
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -120,6 +122,16 @@
                 android:layout_marginBottom="6dp" />
         </LinearLayout>
     </RelativeLayout>
+    <!--    Recycleview data penerbangan per tanggal diatas-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDataFlight"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutFilter"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:listitem="@layout/item_data_flight" />
     <!--    illustration loading-->
     <RelativeLayout
         android:id="@+id/layoutLoadingData"
@@ -208,14 +220,4 @@
             android:backgroundTint="@color/DARKBLUE04"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
-    <!--    Recycleview data penerbangan per tanggal diatas-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvDataFlight"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutFilter"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:listitem="@layout/item_data_flight" />
 </androidx.constraintlayout.widget.ConstraintLayout>
