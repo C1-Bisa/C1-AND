@@ -17,16 +17,17 @@ class DataStore(private val context: Context) {
             name = "user_prefs"
         )
         val IS_LOGGED_IN = booleanPreferencesKey("is_logged_in")
-        val TOKEN = stringPreferencesKey("token_user")
         val EMAIL = stringPreferencesKey("email_user")
+        val TOKEN = stringPreferencesKey("token_user")
 
     }
 
     suspend fun saveUser(email : String, token : String){
         context.counterDataStore.edit { preferences ->
             preferences[IS_LOGGED_IN] = true
-            preferences[TOKEN] = token
             preferences[EMAIL] = email
+            preferences[TOKEN] = token
+
         }
     }
 
@@ -36,14 +37,16 @@ class DataStore(private val context: Context) {
         }
     }
 
+    val getEmailUser : Flow<String> = context.counterDataStore.data.map {
+        it[EMAIL] ?: ""
+    }
+
     val getToken : Flow<String> = context.counterDataStore.data.map {
         it[TOKEN] ?: ""
 
     }
 
-    val getEmailUser : Flow<String> = context.counterDataStore.data.map {
-        it[EMAIL] ?: ""
-    }
+
 
 
     suspend fun clear() {
