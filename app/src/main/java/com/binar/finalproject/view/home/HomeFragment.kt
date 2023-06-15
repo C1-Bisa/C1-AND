@@ -12,12 +12,14 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.*
+import com.binar.finalproject.databinding.FragmentHomeBinding
 import com.binar.finalproject.model.Destination
 import com.binar.finalproject.model.DestinationFavorite
 import com.binar.finalproject.model.airport.Airport
@@ -109,6 +111,17 @@ class HomeFragment : Fragment() {
         binding.optionFlight.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked){
                 binding.setDateReturn.visibility = View.VISIBLE
+
+                if(!dateReturnBeforeDateDeparture(flightSearchViewModel.dateDeparture.value.toString(), flightSearchViewModel.dateReturn.value.toString())){
+                    //set date return trip more than date departure date
+                    val dateDeparture = flightSearchViewModel.dateDeparture.value
+                    val dateReturnTrip = setDateReturn(dateDeparture.toString())
+                    flightSearchViewModel.setDateReturn(setDateReturn(dateReturnTrip))
+                    flightSearchViewModel.setSearchReturnDate(changeFormatDateEn(setDateReturn(dateReturnTrip)))
+                }
+
+                Toast.makeText(context, "${flightSearchViewModel.dateDeparture.value}", Toast.LENGTH_SHORT).show()
+
             }else{
                 binding.setDateReturn.visibility = View.GONE
             }
@@ -243,7 +256,26 @@ class HomeFragment : Fragment() {
         val bindingDialog = SeatclassDialogLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(bindingDialog.root)
 
-        var seatClass = "Economy"
+        //tambahan
+        var seatClass : String
+
+        if(flightSearchViewModel.seatClass.value != null){
+
+            seatClass = flightSearchViewModel.seatClass.value.toString()
+
+            when(seatClass){
+                "Economy" -> setChoiceClass(0, bindingDialog)
+                "Premium Economy" -> setChoiceClass(1, bindingDialog)
+                "Business" -> setChoiceClass(2, bindingDialog)
+                else-> setChoiceClass(3, bindingDialog)
+            }
+
+        }else{
+            seatClass = "Business"
+            flightSearchViewModel.setSeatClass(seatClass)
+            setChoiceClass(2, bindingDialog)
+        }
+
         //
         bindingDialog.btnClose.setOnClickListener {
             dialog.dismiss()
@@ -268,7 +300,6 @@ class HomeFragment : Fragment() {
 
         bindingDialog.btnSaveClass.setOnClickListener {
             flightSearchViewModel.setSeatClass(seatClass)
-//            binding.tvSeatClass.text = seatClass
             dialog.dismiss()
         }
         dialog.show()
@@ -317,6 +348,14 @@ class HomeFragment : Fragment() {
         dialog.setContentView(R.layout.passanger_dialog_layout)
         val bindingDialog = PassangerDialogLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(bindingDialog.root)
+
+        //deklarsi dari view model
+        //set konfigurasi jumlah penumpang yang di dapatkan dari viewmodel
+        if(flightSearchViewModel.dataPassenger.value != null){
+            bindingDialog.tvPassangerAdult.text = flightSearchViewModel.dataPassenger.value!![0].toString()
+            bindingDialog.tvPassangerChild.text = flightSearchViewModel.dataPassenger.value!![1].toString()
+            bindingDialog.tvPassangerBaby.text = flightSearchViewModel.dataPassenger.value!![2].toString()
+        }
         //
         bindingDialog.btnClose.setOnClickListener {
             dialog.dismiss()
@@ -329,11 +368,14 @@ class HomeFragment : Fragment() {
             //apakah baby dihitung ???
             //simpan hasil total dan komposisi jumlah penumpang dengan livedata<List> di viewmodel
             val totalPassenger = countPassengers(bindingDialog.tvPassangerAdult,bindingDialog.tvPassangerChild,bindingDialog.tvPassangerBaby)
-            flightSearchViewModel.setDataPassenger(0, bindingDialog.tvPassangerAdult.text.toString().toInt())
-            flightSearchViewModel.setDataPassenger(1, bindingDialog.tvPassangerChild.text.toString().toInt())
-            flightSearchViewModel.setDataPassenger(2, bindingDialog.tvPassangerBaby.text.toString().toInt())
 
             if(totalPassenger >= 1){
+
+                //set data jumlah passenger ke dalam viewmodel
+                flightSearchViewModel.setDataPassenger(0, bindingDialog.tvPassangerAdult.text.toString().toInt())
+                flightSearchViewModel.setDataPassenger(1, bindingDialog.tvPassangerChild.text.toString().toInt())
+                flightSearchViewModel.setDataPassenger(2, bindingDialog.tvPassangerBaby.text.toString().toInt())
+
                 val total = "$totalPassenger Penumpang"
                 flightSearchViewModel.setCountPassenger(total)
 //                binding.tvPassengers.text = total
@@ -444,17 +486,46 @@ class HomeFragment : Fragment() {
         val startDate = Date()
         val endDate = Date()
         val nextYear = Calendar.getInstance()
+        //initial date return and departure
+        val dateDeparture = flightSearchViewModel.dateDeparture.value.toString()
+        val dateReturn = flightSearchViewModel.dateReturn.value.toString()
+        val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale("id", "ID"))
+        var dateDepartureFormat : Date = Date()
+        var dateReturnFormat : Date = Date()
+        if(dateDeparture.isNotEmpty() && dateReturn.isNotEmpty()){
+            dateDepartureFormat = dateFormat.parse(dateDeparture) as Date
+            dateReturnFormat = dateFormat.parse(dateReturn) as Date
+        }
+
         nextYear.add(Calendar.YEAR, 1)
 
         if(checked){
-            bindingDialog.dateFlight.init(startDate,nextYear.time)
-                .inMode(CalendarPickerView.SelectionMode.RANGE)
-                .withSelectedDate(startDate)
+            //kondisi untuk mempermudah pemilihan tanggal penerbangan
+            if(dateDeparture.isNotEmpty() && dateReturn.isNotEmpty()){
+                bindingDialog.dateFlight.init(startDate,nextYear.time)
+                    .inMode(CalendarPickerView.SelectionMode.RANGE)
+                    .withSelectedDates(listOf(dateDepartureFormat, dateReturnFormat))
+                bindingDialog.dateFlight.scrollToDate(dateDepartureFormat)
+            }else{
+                bindingDialog.dateFlight.init(startDate,nextYear.time)
+                    .inMode(CalendarPickerView.SelectionMode.RANGE)
+                    .withSelectedDate(startDate)
+            }
+
+
         }else{
-            bindingDialog.layoutDateReturn.visibility = View.GONE
-            bindingDialog.dateFlight.init(startDate,nextYear.time)
-                .inMode(CalendarPickerView.SelectionMode.SINGLE)
-                .withSelectedDate(startDate)
+            if(dateDeparture.isNotEmpty()){
+                bindingDialog.layoutDateReturn.visibility = View.GONE
+                bindingDialog.dateFlight.init(startDate,nextYear.time)
+                    .inMode(CalendarPickerView.SelectionMode.SINGLE)
+                    .withSelectedDate(dateDepartureFormat)
+                bindingDialog.dateFlight.scrollToDate(dateDepartureFormat)
+            }else{
+                bindingDialog.layoutDateReturn.visibility = View.GONE
+                bindingDialog.dateFlight.init(startDate,nextYear.time)
+                    .inMode(CalendarPickerView.SelectionMode.SINGLE)
+                    .withSelectedDate(startDate)
+            }
         }
 
         //kurang deklarasi hari
@@ -483,6 +554,26 @@ class HomeFragment : Fragment() {
         val formatDateID = SimpleDateFormat("dd MMMM yyyy", Locale("id", "ID"))
         val date: Date = inputFormat.parse(dateString) as Date
         return formatDateID.format(date)
+    }
+
+    //set date pada return trip sehingga date return tidak < dari date departure
+    private fun setDateReturn(date : String) : String{
+        val dateReturnFormat = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id", "ID"))
+        val dateDeparture = flightSearchViewModel.dateDeparture.value
+        val parseDateDeparture = LocalDate.parse(dateDeparture, dateReturnFormat)
+
+        return parseDateDeparture.plusDays(1).format(dateReturnFormat)
+    }
+
+    //set kondisi apakah date departure trip sesudah date return trip
+
+    private fun dateReturnBeforeDateDeparture(dateDepart : String, dateRet : String) : Boolean{
+        val formatDate = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id", "ID"))
+        val dateDeparture = LocalDate.parse(dateDepart, formatDate)
+        val dateReturn = LocalDate.parse(dateRet, formatDate)
+
+        // Membandingkan tanggal apakah tanggal departure sebelum tanggal return
+        return dateDeparture.isBefore(dateReturn)
     }
 
     //SET LOCATION FLIGHT AND DESTINATION

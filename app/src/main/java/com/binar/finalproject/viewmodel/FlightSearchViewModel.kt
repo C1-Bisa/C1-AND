@@ -53,7 +53,7 @@ class FlightSearchViewModel : ViewModel() {
     init {
         _dateDeparture.postValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id", "ID"))))
         _dateReturn.postValue(LocalDateTime.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id", "ID"))))
-        _dataPassenger.value = mutableListOf(2,0,0)
+        _dataPassenger.value = mutableListOf(1,0,0)
     }
 
     fun setFrom(data: String){
