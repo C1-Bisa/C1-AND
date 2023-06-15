@@ -33,11 +33,11 @@
             android:text="@string/masukan_otp"
             android:textColor="@color/black"
             android:textSize="28sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_bold"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvKodeDigit"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvMasukkanOtp"
@@ -46,6 +46,7 @@
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
             android:text="@string/ketik_6_digit_kode_yang_dikirimkan"
+            android:textColor="@color/black"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -73,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:maxWidth="220dp"
                 android:gravity="center"
-                android:fontFamily="@font/poppins_bold"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_regular"
                 android:text="example@gmail.com"
                 android:textSize="14sp" />
 
@@ -85,156 +87,100 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:gravity="center"
             android:layout_below="@+id/tvKodeDigit"
-
             android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/kode1"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="50dp"
-                android:layout_height="55dp"
-                app:boxCornerRadiusTopEnd="18dp"
-                app:boxCornerRadiusBottomEnd="18dp"
-                app:boxCornerRadiusBottomStart="18dp"
-                app:boxCornerRadiusTopStart="18dp"
-                android:layout_marginEnd="12dp"
-                >
+                android:layout_height="50dp"
+                android:inputType="number"
+                android:maxLength="1"
+                android:text="1"
+                android:gravity="center"
+                android:layout_marginEnd="10dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_medium"
+                android:background="@drawable/shape_otp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etKode1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLength="1"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textSize="18sp"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/kode2"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="50dp"
-                android:layout_height="55dp"
-                app:boxCornerRadiusTopEnd="18dp"
-                app:boxCornerRadiusBottomEnd="18dp"
-                app:boxCornerRadiusBottomStart="18dp"
-                app:boxCornerRadiusTopStart="18dp"
-                android:layout_marginEnd="12dp">
+                android:layout_height="50dp"
+                android:inputType="number"
+                android:maxLength="1"
+                android:text="1"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_medium"
+                android:background="@drawable/shape_otp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etKode2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:maxLength="1"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textSize="18sp"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/kode3"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="50dp"
-                android:layout_height="55dp"
-                app:boxCornerRadiusTopEnd="18dp"
-                app:boxCornerRadiusBottomEnd="18dp"
-                app:boxCornerRadiusBottomStart="18dp"
-                app:boxCornerRadiusTopStart="18dp"
-                android:layout_marginEnd="12dp">
+                android:layout_height="50dp"
+                android:inputType="number"
+                android:maxLength="1"
+                android:text="1"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_medium"
+                android:background="@drawable/shape_otp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etKode3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:maxLength="1"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textSize="18sp"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/kode4"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="50dp"
-                android:layout_height="55dp"
-                app:boxCornerRadiusTopEnd="18dp"
-                app:boxCornerRadiusBottomEnd="18dp"
-                app:boxCornerRadiusBottomStart="18dp"
-                app:boxCornerRadiusTopStart="18dp"
-                android:layout_marginEnd="12dp">
+                android:layout_height="50dp"
+                android:inputType="number"
+                android:maxLength="1"
+                android:text="1"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_medium"
+                android:background="@drawable/shape_otp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etKode4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:maxLength="1"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textSize="18sp"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/kode5"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="50dp"
-                android:layout_height="55dp"
-                app:boxCornerRadiusTopEnd="18dp"
-                app:boxCornerRadiusBottomEnd="18dp"
-                app:boxCornerRadiusBottomStart="18dp"
-                app:boxCornerRadiusTopStart="18dp"
-                android:layout_marginEnd="12dp">
+                android:layout_height="50dp"
+                android:inputType="number"
+                android:maxLength="1"
+                android:text="1"
+                android:paddingTop="5dp"
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etKode5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:maxLength="1"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textSize="18sp"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:gravity="center"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_medium"
+                android:background="@drawable/shape_otp"/>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/kode6"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="50dp"
-                android:layout_height="55dp"
-                app:boxCornerRadiusTopEnd="18dp"
-                app:boxCornerRadiusBottomEnd="18dp"
-                app:boxCornerRadiusBottomStart="18dp"
-                app:boxCornerRadiusTopStart="18dp"
-                android:layout_marginEnd="12dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etKode6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:maxLength="1"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textSize="18sp"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
-
+                android:layout_height="50dp"
+                android:inputType="number"
+                android:maxLength="1"
+                android:text="2"
+                android:gravity="center"
+                android:layout_marginEnd="5dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_medium"
+                android:background="@drawable/shape_otp"/>
         </LinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/kirimUlangKode"
             android:textSize="14sp"
             android:layout_marginTop="24dp"
-            android:layout_marginStart="15dp"
             android:layout_below="@id/linearOtp"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/black"
@@ -269,5 +215,6 @@
             android:textColor="@color/white" />
 
     </RelativeLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

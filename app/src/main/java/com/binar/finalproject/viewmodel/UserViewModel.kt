@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.binar.finalproject.model.otpcode.PutDataOtp
 import com.binar.finalproject.model.otpcode.ResponseOtp
+import com.binar.finalproject.model.resetpassword.PatchResetPassword
+import com.binar.finalproject.model.resetpassword.ResponseResetPassword
 import com.binar.finalproject.model.user.PostRegister
 import com.binar.finalproject.model.user.ResponRegister
 import com.binar.finalproject.model.user.login.PostLogin
@@ -21,9 +23,15 @@ import javax.inject.Inject
 class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : ViewModel(){
 
 
+    //mutablelive data untuk Login
+    private val _responseResetPassword = MutableLiveData<ResponseResetPassword?>()
+    val responseResetPassword : LiveData<ResponseResetPassword?> = _responseResetPassword
+
+    //mutablelive data untuk Login
     private val _responseLogin = MutableLiveData<ResponseLogin?>()
     val responseLogin : LiveData<ResponseLogin?> = _responseLogin
 
+    //mutablelive data untuk OTP
     private val _responseOtp = MutableLiveData<ResponseOtp?>()
     val responseOtp : LiveData<ResponseOtp?> = _responseOtp
 
@@ -32,7 +40,7 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
     val responseUserRegist : LiveData<ResponRegister?> = _responseUserRegist
 
 
-
+    // viewmodel untuk otp
     fun putVerificationOtp(otp : PutDataOtp){
         apiUser.verificationOTP(otp).enqueue(object : Callback<ResponseOtp>{
             override fun onResponse(call: Call<ResponseOtp>, response: Response<ResponseOtp>) {
@@ -50,8 +58,30 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
 
         })
     }
+    // viewmodel untuk reset password
+    fun patchResetPassword(resetPassword : PatchResetPassword){
+        apiUser.resetPassword(resetPassword).enqueue(object : Callback<ResponseResetPassword>{
+            override fun onResponse(
+                call: Call<ResponseResetPassword>,
+                response: Response<ResponseResetPassword>
+            ) {
+                if (response.isSuccessful){
+                    _responseResetPassword.postValue(response.body()!!)
+                    Log.i("STATUS", response.body()!!.message)
 
+                }else{
+                    _responseOtp.postValue(null)
+                }
+            }
 
+            override fun onFailure(call: Call<ResponseResetPassword>, t: Throwable) {
+                _responseOtp.postValue(null)
+            }
+
+        })
+    }
+
+    // viewmodel untuk login
     fun postLogin(data : PostLogin){
         apiUser.postLogin(data).enqueue(object : Callback<ResponseLogin>{
             override fun onResponse(call: Call<ResponseLogin>, response: Response<ResponseLogin>) {

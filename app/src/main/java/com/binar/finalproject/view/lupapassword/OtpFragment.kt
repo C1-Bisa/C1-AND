@@ -40,12 +40,12 @@ class OtpFragment : Fragment() {
 
 
         binding.btnVerif.setOnClickListener{
-            val kodeNo1 = binding.etKode1.text.toString()
-            val kodeNo2 = binding.etKode2.text.toString()
-            val kodeNo3 = binding.etKode3.text.toString()
-            val kodeNo4 = binding.etKode4.text.toString()
-            val kodeNo5 = binding.etKode5.text.toString()
-            val kodeNo6 = binding.etKode6.text.toString()
+            val kodeNo1 = binding.kode1.text.toString()
+            val kodeNo2 = binding.kode2.text.toString()
+            val kodeNo3 = binding.kode3.text.toString()
+            val kodeNo4 = binding.kode4.text.toString()
+            val kodeNo5 = binding.kode5.text.toString()
+            val kodeNo6 = binding.kode6.text.toString()
 
             if (kodeNo1.isNotEmpty() && kodeNo2.isNotEmpty() && kodeNo3.isNotEmpty() && kodeNo4.isNotEmpty() && kodeNo5.isNotEmpty() && kodeNo6.isNotEmpty()){
                 userViewModel.putVerificationOtp(PutDataOtp("$kodeNo1$kodeNo2$kodeNo3$kodeNo4$kodeNo5$kodeNo6"))

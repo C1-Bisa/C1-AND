@@ -57,9 +57,16 @@ class LoginFragment : Fragment() {
             getLogin()
 
         }
+        dataSotreUser.getEmailUser.asLiveData().observe(viewLifecycleOwner){email ->
+            Log.i("EMAILUSER", email)
+
+        }
+
         dataSotreUser.getToken.asLiveData().observe(viewLifecycleOwner){token ->
             Log.i("TOKEN", token)
         }
+
+
     }
 
     private fun getLogin() {
@@ -72,11 +79,12 @@ class LoginFragment : Fragment() {
 
             userLoginVm.responseLogin.observe(viewLifecycleOwner){
                 if (it != null){
-                    val tokenUserrr = it.data.token
+                    val emailUser1 = it.data.email
+                    val tokenUser1 = it.data.token
 
-                    if (tokenUserrr.isNotEmpty()){
+                    if (emailUser1.isNotEmpty() && tokenUser1.isNotEmpty()){
                         lifecycleScope.launch {
-                            dataSotreUser.saveUser(tokenUserrr)
+                            dataSotreUser.saveUser(emailUser1, tokenUser1)
                         }
 
 

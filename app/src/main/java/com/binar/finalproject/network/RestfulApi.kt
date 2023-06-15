@@ -3,6 +3,8 @@ package com.binar.finalproject.network
 import com.binar.finalproject.model.airport.ResponseDataAirport
 import com.binar.finalproject.model.otpcode.PutDataOtp
 import com.binar.finalproject.model.otpcode.ResponseOtp
+import com.binar.finalproject.model.resetpassword.PatchResetPassword
+import com.binar.finalproject.model.resetpassword.ResponseResetPassword
 import com.binar.finalproject.model.searchflight.ResponseDataFlight
 import com.binar.finalproject.model.searchflight.SearchFlight
 import com.binar.finalproject.model.user.PostRegister
@@ -10,6 +12,7 @@ import com.binar.finalproject.model.user.ResponRegister
 import com.binar.finalproject.model.user.login.PostLogin
 import com.binar.finalproject.model.user.login.ResponseLogin
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface RestfulApi {
@@ -29,5 +32,8 @@ interface RestfulApi {
 
     @PUT("user/verification")
     fun verificationOTP(@Body otp : PutDataOtp) : Call<ResponseOtp>
+
+    @PATCH
+    fun resetPassword(@Body resetPassword : PatchResetPassword) : Call<ResponseResetPassword>
 
 }
