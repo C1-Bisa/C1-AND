@@ -58,6 +58,8 @@ class HomeFragment : Fragment() {
     private lateinit var to : String
 
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -77,8 +79,14 @@ class HomeFragment : Fragment() {
         setRecycleViewDestinationFavorite()
 
         //initial
-        from = "Jakarta"
-        to = "Bali"
+        if(flightSearchViewModel.searchFrom.value != null && flightSearchViewModel.searchTo.value != null){
+            from = flightSearchViewModel.searchFrom.value.toString()
+            to = flightSearchViewModel.searchTo.value.toString()
+        }else{
+            from = "Jakarta"
+            to = "Bali"
+        }
+
 
         //tukar destination dengan tempat keberangkatan
         binding.btnChange.setOnClickListener {
@@ -129,6 +137,7 @@ class HomeFragment : Fragment() {
         //klik button pencarian penerbangan
         binding.btnSearchFlight.setOnClickListener {
             searchFlight()
+            Log.d("DATA_PASSENGER", flightSearchViewModel.dataPassenger.value.toString())
 
         }
         //belum bisa
@@ -187,6 +196,7 @@ class HomeFragment : Fragment() {
 
     //menampilkan data dari viewmodel flightsearch
     private fun showDataSearchFlight() {
+
         flightSearchViewModel.seatClass.observe(viewLifecycleOwner){
             binding.tvSeatClass.text = it
         }
@@ -319,6 +329,9 @@ class HomeFragment : Fragment() {
             //apakah baby dihitung ???
             //simpan hasil total dan komposisi jumlah penumpang dengan livedata<List> di viewmodel
             val totalPassenger = countPassengers(bindingDialog.tvPassangerAdult,bindingDialog.tvPassangerChild,bindingDialog.tvPassangerBaby)
+            flightSearchViewModel.setDataPassenger(0, bindingDialog.tvPassangerAdult.text.toString().toInt())
+            flightSearchViewModel.setDataPassenger(1, bindingDialog.tvPassangerChild.text.toString().toInt())
+            flightSearchViewModel.setDataPassenger(2, bindingDialog.tvPassangerBaby.text.toString().toInt())
 
             if(totalPassenger >= 1){
                 val total = "$totalPassenger Penumpang"

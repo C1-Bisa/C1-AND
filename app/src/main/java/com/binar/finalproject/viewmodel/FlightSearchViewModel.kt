@@ -46,9 +46,14 @@ class FlightSearchViewModel : ViewModel() {
     private val _searchDateReturn = MutableLiveData<String>()
     val searchDateReturn : LiveData<String> = _searchDateReturn
 
+    //menyimpan data jumlah penumpang sesuai usianya
+    private val _dataPassenger = MutableLiveData<MutableList<Int>>()
+    val dataPassenger : LiveData<MutableList<Int>> get()= _dataPassenger
+
     init {
         _dateDeparture.postValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id", "ID"))))
         _dateReturn.postValue(LocalDateTime.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id", "ID"))))
+        _dataPassenger.value = mutableListOf(2,0,0)
     }
 
     fun setFrom(data: String){
@@ -90,6 +95,15 @@ class FlightSearchViewModel : ViewModel() {
 
     fun setSearchReturnDate(date: String){
         _searchDateReturn.postValue(date)
+    }
+
+    fun setDataPassenger(index: Int,num : Int){
+        _dataPassenger.value?.apply {
+            if (index in indices) {
+                set(index, num)
+//                _dataPassenger.value = this
+            }
+        }
     }
 
 
