@@ -145,6 +145,10 @@ class HasilPencarianFragment : Fragment() {
                 binding.layoutSearchNotFound.visibility = View.VISIBLE
             }
         }
+
+        flightSearchResultAdapter.onClickItemFlight = {
+            findNavController().navigate(R.id.action_hasilPencarianFragment_to_detailPenerbanganFragment)
+        }
     }
 
     //menampilkan dialog filter

@@ -88,8 +88,7 @@ class HomeFragment : Fragment() {
             from = "Jakarta"
             to = "Bali"
         }
-
-
+        
         //tukar destination dengan tempat keberangkatan
         binding.btnChange.setOnClickListener {
             val animBtn = AnimationUtils.loadAnimation(context, R.anim.anim_rotate)
@@ -120,7 +119,7 @@ class HomeFragment : Fragment() {
                     flightSearchViewModel.setSearchReturnDate(changeFormatDateEn(setDateReturn(dateReturnTrip)))
                 }
 
-                Toast.makeText(context, "${flightSearchViewModel.dateDeparture.value}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "${flightSearchViewModel.dateDeparture.value}", Toast.LENGTH_SHORT).show()
 
             }else{
                 binding.setDateReturn.visibility = View.GONE
@@ -487,21 +486,25 @@ class HomeFragment : Fragment() {
         val endDate = Date()
         val nextYear = Calendar.getInstance()
         //initial date return and departure
-        val dateDeparture = flightSearchViewModel.dateDeparture.value.toString()
-        val dateReturn = flightSearchViewModel.dateReturn.value.toString()
+        val dateDepartureVm = flightSearchViewModel.dateDeparture.value.toString()
+        val dateReturnVm = flightSearchViewModel.dateReturn.value.toString()
         val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale("id", "ID"))
         var dateDepartureFormat : Date = Date()
         var dateReturnFormat : Date = Date()
-        if(dateDeparture.isNotEmpty() && dateReturn.isNotEmpty()){
-            dateDepartureFormat = dateFormat.parse(dateDeparture) as Date
-            dateReturnFormat = dateFormat.parse(dateReturn) as Date
+        if(dateDepartureVm.isNotEmpty() && dateReturnVm.isNotEmpty()){
+            dateDepartureFormat = dateFormat.parse(dateDepartureVm) as Date
+            dateReturnFormat = dateFormat.parse(dateReturnVm) as Date
+
+            //set text date departure and date return
+            bindingDialog.tvDepartureDate.text = dateDepartureVm
+            bindingDialog.tvReturnDate.text = dateReturnVm
         }
 
         nextYear.add(Calendar.YEAR, 1)
 
         if(checked){
             //kondisi untuk mempermudah pemilihan tanggal penerbangan
-            if(dateDeparture.isNotEmpty() && dateReturn.isNotEmpty()){
+            if(dateDepartureVm.isNotEmpty() && dateReturnVm.isNotEmpty()){
                 bindingDialog.dateFlight.init(startDate,nextYear.time)
                     .inMode(CalendarPickerView.SelectionMode.RANGE)
                     .withSelectedDates(listOf(dateDepartureFormat, dateReturnFormat))
@@ -514,7 +517,7 @@ class HomeFragment : Fragment() {
 
 
         }else{
-            if(dateDeparture.isNotEmpty()){
+            if(dateDepartureVm.isNotEmpty()){
                 bindingDialog.layoutDateReturn.visibility = View.GONE
                 bindingDialog.dateFlight.init(startDate,nextYear.time)
                     .inMode(CalendarPickerView.SelectionMode.SINGLE)
