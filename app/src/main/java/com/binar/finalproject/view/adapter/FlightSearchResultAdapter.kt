@@ -17,6 +17,8 @@ import kotlin.math.min
 
 //untuk type data pada list bisa menggunakan tipe data generik sehingga sesuai inputan pulan atau berangkat
 class FlightSearchResultAdapter(private var listFligth : List<Berangkat>) : RecyclerView.Adapter<FlightSearchResultAdapter.ViewHolder>() {
+
+    var onClickItemFlight : ((Berangkat)->Unit)? = null
     class ViewHolder(var binding : ItemDataFlightBinding) : RecyclerView.ViewHolder(binding.root){
 
     }
@@ -48,6 +50,11 @@ class FlightSearchResultAdapter(private var listFligth : List<Berangkat>) : Recy
         holder.binding.tvAirlineAndSeatClass.text = airlineAndSeatClass
         //estimation duration flight
         holder.binding.tvDurationFlight.text = setFlightDuration(listPosition.departureTime, listPosition.arrivalTime)
+
+        //onclick
+        holder.binding.itemFlight.setOnClickListener {
+            onClickItemFlight?.invoke(listPosition)
+        }
 
     }
 
