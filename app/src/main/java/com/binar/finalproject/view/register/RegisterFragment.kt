@@ -33,8 +33,10 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav.visibility = View.GONE
+
         binding.btnDaftar.setOnClickListener {
             getRegister()
 
@@ -48,12 +50,19 @@ class RegisterFragment : Fragment() {
         val password = binding.etMasukanPasswordRegister.text.toString()
 
 
+
+
         if (namaLengkap.isNotEmpty() && email.isNotEmpty() && nomorTelepon.isNotEmpty() && password.isNotEmpty()){
             userViewModel.postRegist(PostRegister(email, namaLengkap, password, nomorTelepon))
             userViewModel.responseUserRegist.observe(viewLifecycleOwner){
+
+                // response message belom berhasil
                 if (it != null){
+                    val idBundle = Bundle().apply {
+                        putInt("ID_USER", it.data.user.id)
+                    }
                     Toast.makeText(context, "Register Successful", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_registerFragment_to_otpFragment)
+                    findNavController().navigate(R.id.action_registerFragment_to_otpFragment, idBundle)
                 }else{
                     Toast.makeText(context, "Kata sandi harus di isi", Toast.LENGTH_SHORT).show()
                 }

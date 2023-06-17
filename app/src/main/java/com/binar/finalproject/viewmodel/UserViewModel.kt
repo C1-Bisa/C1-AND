@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.binar.finalproject.model.otpcode.GetResendResponseOtp
 import com.binar.finalproject.model.otpcode.PutDataOtp
 import com.binar.finalproject.model.otpcode.ResponseOtp
 import com.binar.finalproject.model.resetpassword.PatchResetPassword
@@ -34,6 +35,11 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
     private val _responseLogin = MutableLiveData<ResponseLogin?>()
     val responseLogin : LiveData<ResponseLogin?> = _responseLogin
 
+
+    //mutablelive data untuk resend OTP
+    private val _resendResponseOtp = MutableLiveData<GetResendResponseOtp?>()
+    val resendResponseOtp : LiveData<GetResendResponseOtp?> = _resendResponseOtp
+
     //mutablelive data untuk OTP
     private val _responseOtp = MutableLiveData<ResponseOtp?>()
     val responseOtp : LiveData<ResponseOtp?> = _responseOtp
@@ -49,6 +55,29 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
     //live data untuk data response updateprofile
     private val _responseUpdateProfile = MutableLiveData<ResponseUpdateProfileUser?>()
     val responseUpdateProfile : LiveData<ResponseUpdateProfileUser?> = _responseUpdateProfile
+
+
+
+    fun resendOTP(id : Int){
+        apiUser.getResendOtp(id).enqueue(object : Callback<GetResendResponseOtp>{
+            override fun onResponse(
+                call: Call<GetResendResponseOtp>,
+                response: Response<GetResendResponseOtp>
+            ) {
+                if (response.isSuccessful){
+                    _resendResponseOtp.postValue(response.body()!!)
+                    Log.i("STATUS", response.body()!!.message)
+                }else{
+                    _resendResponseOtp.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<GetResendResponseOtp>, t: Throwable) {
+                _resendResponseOtp.postValue(null)
+            }
+
+        })
+    }
 
     // viewmodel untuk otp
     fun putVerificationOtp(otp : PutDataOtp){
@@ -121,7 +150,7 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
             ) {
                if (response.isSuccessful){
                    _responseUserRegist.postValue(response.body()!!)
-                   Log.i("STATUS", response.body()!!.status.toString())
+                   Log.i("STATUS", response.body()!!.status)
                }else{
                    _responseUserRegist.postValue(null)
                }

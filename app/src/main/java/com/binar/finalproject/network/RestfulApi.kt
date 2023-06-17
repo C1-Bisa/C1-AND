@@ -1,6 +1,7 @@
 package com.binar.finalproject.network
 
 import com.binar.finalproject.model.airport.ResponseDataAirport
+import com.binar.finalproject.model.otpcode.GetResendResponseOtp
 import com.binar.finalproject.model.otpcode.PutDataOtp
 import com.binar.finalproject.model.otpcode.ResponseOtp
 import com.binar.finalproject.model.resetpassword.PatchResetPassword
@@ -36,7 +37,7 @@ interface RestfulApi {
     @PUT("user/verification")
     fun verificationOTP(@Body otp : PutDataOtp) : Call<ResponseOtp>
 
-    @PATCH
+    @PUT("user/resetPassword")
     fun resetPassword(@Body resetPassword : PatchResetPassword) : Call<ResponseResetPassword>
 
     //MENGGUNAKAN ENDPOINT TERBARU
@@ -45,5 +46,8 @@ interface RestfulApi {
 
     @PUT("user/update")
     fun updateUserProfile(@Header("Authorization") tokenUser: String, @Body putDataUser : PutDataUpdateProfile) : Call<ResponseUpdateProfileUser>
+
+    @GET("user/resendcode/{userId}")
+    fun getResendOtp(@Path("userId") id : Int) : Call<GetResendResponseOtp>
 
 }
