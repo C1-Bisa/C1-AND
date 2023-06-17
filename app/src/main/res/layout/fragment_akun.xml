@@ -9,6 +9,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/layoutUserNotLogged"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/poppins_bold"
             android:text="@string/akun"
             android:textColor="#151515"
@@ -64,138 +65,157 @@
     </RelativeLayout>
 
 
-    <TextView
-        android:id="@+id/tv_akun"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layoutUserLogged"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:text="Akun"
-        android:textColor="@color/black"
-        android:textSize="26sp"
-        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_akun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:text="Akun"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:backgroundTint="@color/white"
-        card_view:cardCornerRadius="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf = "@id/tv_akun" >
-
-        <RelativeLayout
-            android:id="@+id/ubah"
+        <LinearLayout
+            android:id="@+id/updateProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf = "@id/tv_akun" >
 
-
-            <ImageView
-                android:id="@+id/imgnotif"
-                android:layout_width="19dp"
-                android:layout_height="19dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/pensil" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/DetailProfile"
-                android:layout_width="288dp"
+            <RelativeLayout
+                android:id="@+id/ubah"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="2dp"
-                android:layout_toRightOf="@+id/imgnotif"
-                android:text="Ubah Profil"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:layout_margin="10dp">
 
 
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/imgnotif"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/pensil" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:backgroundTint="@color/white"
-        card_view:cardCornerRadius="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf = "@id/cardView" >
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/DetailProfile"
+                    android:layout_width="288dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/imgnotif"
+                    android:text="Ubah Profil"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/NEUTRAL02"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/setting"
+        <LinearLayout
+            android:id="@+id/card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf = "@id/updateProfile" >
 
-
-            <ImageView
-                android:id="@+id/imgsetting"
-                android:layout_width="24dp"
+            <RelativeLayout
+                android:id="@+id/setting"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_settings" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/Pengaturan"
-                android:layout_width="329dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
-                android:layout_marginTop="2dp"
-                android:layout_toRightOf="@+id/imgsetting"
-                android:text="Pengaturan Akun"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:layout_margin="10dp">
 
 
+                <ImageView
+                    android:id="@+id/imgsetting"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_settings" />
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/Pengaturan"
+                    android:layout_width="329dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/imgsetting"
+                    android:text="Pengaturan Akun"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/NEUTRAL02"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
 
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:backgroundTint="@color/white"
-        card_view:cardCornerRadius="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf = "@id/card" >
-
-        <RelativeLayout
-            android:id="@+id/logout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf = "@id/card" >
 
-
-            <ImageView
-                android:id="@+id/imglogout"
-                android:layout_width="24dp"
+            <RelativeLayout
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_logout" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/DetailLogout"
-                android:layout_width="329dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
-                android:layout_toRightOf="@+id/imglogout"
-                android:text="Keluar"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:layout_margin="10dp">
 
 
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/imglogout"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_logout" />
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/DetailLogout"
+                    android:layout_width="329dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_toEndOf="@+id/imglogout"
+                    android:text="Keluar"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/NEUTRAL02"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
