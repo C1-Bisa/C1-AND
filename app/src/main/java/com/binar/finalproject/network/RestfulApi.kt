@@ -11,6 +11,9 @@ import com.binar.finalproject.model.user.PostRegister
 import com.binar.finalproject.model.user.ResponRegister
 import com.binar.finalproject.model.user.login.PostLogin
 import com.binar.finalproject.model.user.login.ResponseLogin
+import com.binar.finalproject.model.user.profile.ResponseUserProfile
+import com.binar.finalproject.model.user.updateprofile.PutDataUpdateProfile
+import com.binar.finalproject.model.user.updateprofile.ResponseUpdateProfileUser
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -35,5 +38,12 @@ interface RestfulApi {
 
     @PATCH
     fun resetPassword(@Body resetPassword : PatchResetPassword) : Call<ResponseResetPassword>
+
+    //MENGGUNAKAN ENDPOINT TERBARU
+    @GET("user/getProfile")
+    fun getProfileUser(@Header("Authorization") tokenUser: String) : Call<ResponseUserProfile>
+
+    @PUT("user/update")
+    fun updateUserProfile(@Header("Authorization") tokenUser: String, @Body putDataUser : PutDataUpdateProfile) : Call<ResponseUpdateProfileUser>
 
 }
