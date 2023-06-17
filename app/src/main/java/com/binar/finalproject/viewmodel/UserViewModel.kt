@@ -12,6 +12,9 @@ import com.binar.finalproject.model.user.PostRegister
 import com.binar.finalproject.model.user.ResponRegister
 import com.binar.finalproject.model.user.login.PostLogin
 import com.binar.finalproject.model.user.login.ResponseLogin
+import com.binar.finalproject.model.user.profile.ResponseUserProfile
+import com.binar.finalproject.model.user.updateprofile.PutDataUpdateProfile
+import com.binar.finalproject.model.user.updateprofile.ResponseUpdateProfileUser
 import com.binar.finalproject.network.RestfulApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
@@ -39,6 +42,13 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
     private val _responseUserRegist = MutableLiveData<ResponRegister?>()
     val responseUserRegist : LiveData<ResponRegister?> = _responseUserRegist
 
+    //live data untuk data response getprofile
+    private val _responseDataProfile = MutableLiveData<ResponseUserProfile?>()
+    val responseDataProfile : LiveData<ResponseUserProfile?> = _responseDataProfile
+
+    //live data untuk data response updateprofile
+    private val _responseUpdateProfile = MutableLiveData<ResponseUpdateProfileUser?>()
+    val responseUpdateProfile : LiveData<ResponseUpdateProfileUser?> = _responseUpdateProfile
 
     // viewmodel untuk otp
     fun putVerificationOtp(otp : PutDataOtp){
@@ -124,6 +134,47 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
         })
     }
 
+    //untuk get user profile
+    fun getUserProfile(token : String){
+        apiUser.getProfileUser(tokenUser = "Bearer $token").enqueue(object : Callback<ResponseUserProfile>{
+            override fun onResponse(
+                call: Call<ResponseUserProfile>,
+                response: Response<ResponseUserProfile>
+            ) {
+                if(response.isSuccessful){
+                    _responseDataProfile.postValue(response.body())
+                }else{
+                    _responseDataProfile.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseUserProfile>, t: Throwable) {
+                _responseDataProfile.postValue(null)
+            }
+
+        })
+    }
+
+    //untuk update data user
+    fun updateProfileUser(token: String, dataUser : PutDataUpdateProfile){
+        apiUser.updateUserProfile(tokenUser = "Bearer $token", dataUser).enqueue(object : Callback<ResponseUpdateProfileUser>{
+            override fun onResponse(
+                call: Call<ResponseUpdateProfileUser>,
+                response: Response<ResponseUpdateProfileUser>
+            ) {
+                if(response.isSuccessful){
+                    _responseUpdateProfile.postValue(response.body())
+                }else{
+                    _responseUpdateProfile.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseUpdateProfileUser>, t: Throwable) {
+                _responseUpdateProfile.postValue(null)
+            }
+
+        })
+    }
 
 
 
