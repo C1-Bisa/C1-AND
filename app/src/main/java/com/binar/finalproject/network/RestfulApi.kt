@@ -37,7 +37,7 @@ interface RestfulApi {
     @PUT("user/verification")
     fun verificationOTP(@Body otp : PutDataOtp) : Call<ResponseOtp>
 
-    @PUT("user/resetPassword")
+    @POST("user/resetPassword")
     fun resetPassword(@Body resetPassword : PatchResetPassword) : Call<ResponseResetPassword>
 
     //MENGGUNAKAN ENDPOINT TERBARU

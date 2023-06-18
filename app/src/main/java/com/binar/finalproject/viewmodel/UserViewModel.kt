@@ -27,7 +27,7 @@ import javax.inject.Inject
 class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : ViewModel(){
 
 
-    //mutablelive data untuk Login
+    //mutablelive data untuk reset password
     private val _responseResetPassword = MutableLiveData<ResponseResetPassword?>()
     val responseResetPassword : LiveData<ResponseResetPassword?> = _responseResetPassword
 
