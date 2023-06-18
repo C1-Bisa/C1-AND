@@ -32,6 +32,7 @@
 
 
             <TextView
+                android:fontFamily="@font/poppins_regular"
                 android:id="@+id/tanggal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,6 +49,7 @@
                 android:src="@drawable/point_hijau" />
 
             <TextView
+                android:fontFamily="@font/poppins_regular"
                 android:id="@+id/promo"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
@@ -66,7 +68,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="Dapatkan Potongan 50% Tiket! "
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -76,6 +78,7 @@
                 android:layout_below="@+id/DetailPromo"
                 android:layout_marginLeft="1dp"
                 android:layout_marginTop="2dp"
+                android:fontFamily="@font/poppins_regular"
                 android:layout_toRightOf="@+id/imgnotif"
                 android:text="Syarat dan Ketentuan berlaku!"
                 android:textSize="13sp" />
