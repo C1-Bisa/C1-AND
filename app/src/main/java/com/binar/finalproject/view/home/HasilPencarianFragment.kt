@@ -5,6 +5,10 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -184,6 +188,26 @@ class HasilPencarianFragment : Fragment() {
         dialog.setContentView(R.layout.dialog_filter_hasil_penerbangan)
         val bindingDialogFilter = DialogFilterHasilPenerbanganBinding.inflate(layoutInflater)
         dialog.setContentView(bindingDialogFilter.root)
+
+        bindingDialogFilter.layoutHargaTermurah.setOnClickListener {
+            setHoverFilter(bindingDialogFilter, 0)
+        }
+
+        bindingDialogFilter.layoutKeberangkatanAwal.setOnClickListener {
+            setHoverFilter(bindingDialogFilter, 1)
+        }
+
+        bindingDialogFilter.layoutKeberangkatanAkhir.setOnClickListener {
+            setHoverFilter(bindingDialogFilter, 2)
+        }
+
+        bindingDialogFilter.layoutKedatanganAwal.setOnClickListener {
+            setHoverFilter(bindingDialogFilter, 3)
+        }
+
+        bindingDialogFilter.layoutKedatanganAkhir.setOnClickListener {
+            setHoverFilter(bindingDialogFilter, 4)
+        }
         //
         bindingDialogFilter.btnClose.setOnClickListener {
             dialog.dismiss()
@@ -194,6 +218,39 @@ class HasilPencarianFragment : Fragment() {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation;
         dialog.window?.setGravity(Gravity.BOTTOM);
+    }
+
+    private fun setHoverFilter(bindingDialogFilter: DialogFilterHasilPenerbanganBinding, index : Int) {
+        val listLayoutOption : List<RelativeLayout> = listOf(
+            bindingDialogFilter.layoutHargaTermurah, bindingDialogFilter.layoutKeberangkatanAwal, bindingDialogFilter.layoutKeberangkatanAkhir, bindingDialogFilter.layoutKedatanganAwal, bindingDialogFilter.layoutKedatanganAkhir
+        )
+
+        val listImageCeklis : List<ImageView> = listOf(
+            bindingDialogFilter.icCeklisHargaTermurah, bindingDialogFilter.icCeklisKeberangkatanAwal, bindingDialogFilter.icCeklisKeberangkatanAkhir, bindingDialogFilter.icCeklisKedatanganAwal, bindingDialogFilter.icCeklisKedatanganAkhir
+        )
+
+        val listTextView : List<TextView> = listOf(
+            bindingDialogFilter.tvHarga, bindingDialogFilter.tvKeberangkatanAwal, bindingDialogFilter.tvKeberangkatanAkhir, bindingDialogFilter.tvKedatanganAwal, bindingDialogFilter.tvKedatanganAkhir
+        )
+
+        val listTextViewOption : List<TextView> = listOf(
+            bindingDialogFilter.tvTermurah, bindingDialogFilter.tvPalingAwal, bindingDialogFilter.tvPalingAkhir, bindingDialogFilter.tvKedatanganPalingAwal, bindingDialogFilter.tvKedatanganPalingAkhir
+        )
+
+        for(i in listLayoutOption.indices){
+            if(i == index){
+                listLayoutOption[i].setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.DARKBLUE04))
+                listTextView[i].setTextColor(Color.WHITE)
+                listTextViewOption[i].setTextColor(Color.WHITE)
+                listImageCeklis[i].visibility = View.VISIBLE
+            }else{
+                listLayoutOption[i].setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+                listTextView[i].setTextColor(Color.BLACK)
+                listTextViewOption[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.DARKBLUE04))
+                listImageCeklis[i].visibility = View.GONE
+            }
+        }
+
     }
 
     //masih perlu difixan antara menggunakan tab layout atau recycleview
