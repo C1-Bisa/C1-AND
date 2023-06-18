@@ -190,15 +190,27 @@ class HomeFragment : Fragment() {
             ""
         }
 
+        val departureTime = if(flightSearchViewModel.departureTime.value != null){
+            flightSearchViewModel.departureTime.value.toString()
+        }else{
+            setTimeNow()
+        }
+
+        val seatClass = if(flightSearchViewModel.seatClass.value != null){
+            flightSearchViewModel.seatClass.value.toString()
+        }else{
+            binding.tvSeatClass.text.toString()
+        }
 
 
         val dataBundle = Bundle().apply {
             putSerializable("DATA_SEARCH", SearchFlight(
                 dateDeparture,
-                "00:00",
+                departureTime,
                 from,
                 dateReturn,
-                to
+                to,
+                seatClass
             ))
             putString("DATA_PASSENGER", binding.tvPassengers.text.toString())
             putString("DATA_SEATCLASS", binding.tvSeatClass.text.toString())
@@ -462,6 +474,7 @@ class HomeFragment : Fragment() {
             if(checked){
                 flightSearchViewModel.setDateDeparture(bindingDialog.tvDepartureDate.text.toString())
                 flightSearchViewModel.setDateReturn(bindingDialog.tvReturnDate.text.toString())
+                flightSearchViewModel.setDepartureTime(setTimeNow())
 
                 flightSearchViewModel.setSearchDateDeparture(changeFormatDateEn(bindingDialog.tvDepartureDate.text.toString()))
                 flightSearchViewModel.setSearchReturnDate(changeFormatDateEn(bindingDialog.tvReturnDate.text.toString()))
@@ -470,6 +483,7 @@ class HomeFragment : Fragment() {
             }else{
                 flightSearchViewModel.setDateDeparture(bindingDialog.tvDepartureDate.text.toString())
                 flightSearchViewModel.setSearchDateDeparture(changeFormatDateEn(bindingDialog.tvDepartureDate.text.toString()))
+                flightSearchViewModel.setDepartureTime(setTimeNow())
 
             }
             dialog.dismiss()
@@ -577,6 +591,19 @@ class HomeFragment : Fragment() {
 
         // Membandingkan tanggal apakah tanggal departure sebelum tanggal return
         return dateDeparture.isBefore(dateReturn)
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun setTimeNow() : String{
+        val currentTime = Date()
+        val formatPattern = SimpleDateFormat("HH:mm")
+        return formatPattern.format(currentTime)
+    }
+
+    //set tanggal jika 01 Juni 2023 menjadi 1 Juni
+    private fun modifyDate(date : String) : String{
+
+        return date.replaceFirst("^0".toRegex(), "")
     }
 
     //SET LOCATION FLIGHT AND DESTINATION

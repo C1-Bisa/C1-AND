@@ -13,8 +13,8 @@ import com.binar.finalproject.R
 import com.binar.finalproject.databinding.DialogFilterHasilPenerbanganBinding
 import com.binar.finalproject.databinding.FragmentHasilPencarianBinding
 import com.binar.finalproject.model.DateDeparture
-import com.binar.finalproject.model.flight.Flight
-import com.binar.finalproject.model.searchflight.Berangkat
+import com.binar.finalproject.model.searchflight.Flight
+import com.binar.finalproject.model.searchflight.PostSearchFlight
 import com.binar.finalproject.model.searchflight.SearchFlight
 import com.binar.finalproject.view.adapter.DepartureDateAdapter
 import com.binar.finalproject.view.adapter.FlightSearchResultAdapter
@@ -44,8 +44,9 @@ class HasilPencarianFragment : Fragment() {
     private var sortFromCheap : Boolean = true
 
     //search
-    private var dataSearchFlight = SearchFlight("2023-09-12","00:00","Bali","","Jakarta")
-
+    //post to search flight
+    private var postSearchFlight = PostSearchFlight("2023-09-12","00:00","Economy","","Jakarta")
+    private var dataSearchFlight = SearchFlight()
     //jika search pulang pergi maka menggunakan list dengan type data generik
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +63,9 @@ class HasilPencarianFragment : Fragment() {
         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav.visibility = View.GONE
 
+        //set visibility layout load dan recycleview
+        binding.layoutLoadingData.visibility = View.VISIBLE
+
         //nanti get bundle dari fragment home berupa data class dari input passenger
 //        val data = SearchFlight("2023-09-14","00:00","Bali","","Jakarta")
         //cth
@@ -70,12 +74,19 @@ class HasilPencarianFragment : Fragment() {
         val getPassenger = arguments?.getString("DATA_PASSENGER")
         val getSeatClass = arguments?.getString("DATA_SEATCLASS")
         if(getDataSearch != null){
+            //departure time sementara
             dataSearchFlight = getDataSearch as SearchFlight
+            postSearchFlight = PostSearchFlight(dataSearchFlight.departureDate,
+                "08:00",
+                getSeatClass.toString(),
+                dataSearchFlight.from,
+                dataSearchFlight.to)
 
-            Log.i("DATA_RESULT", getDataSearch.toString() + dataSearchFlight.toString())
+            Log.i("DATA_RESULT", dataSearchFlight.toString())
+            Log.i("DATA_RESULT_POST_FLIGHT", postSearchFlight.toString())
             setRecycleViewDate()
             setRvFlightSearchResult()
-            getAllDataFlight(dataSearchFlight)
+            getAllDataFlight(postSearchFlight)
 
             //set text appbar
             val titleBar = "${getDataSearch.from} > ${getDataSearch.to} - $getPassenger - $getSeatClass"
@@ -103,11 +114,11 @@ class HasilPencarianFragment : Fragment() {
     }
 
     private fun sortListItem(sortFromCheap: Boolean) {
-        flightViewModel.getDataFlight(dataSearchFlight)
+        flightViewModel.getDataFlight(postSearchFlight)
 
         flightViewModel.dataFlight.observe(viewLifecycleOwner){ it ->
             if(it.isNotEmpty()){
-                var sortList : kotlin.collections.List<Berangkat> = emptyList()
+                var sortList : kotlin.collections.List<Flight> = emptyList()
                 if(sortFromCheap){
                     sortList = it.sortedByDescending { it.price }
                     this.sortFromCheap = false
@@ -130,25 +141,39 @@ class HasilPencarianFragment : Fragment() {
         }
 
 
+        //item click flight
+        flightSearchResultAdapter.onClickItemFlight = {
+            if(it.toString().isNotEmpty()){
+                val dataFlightBundle = Bundle().apply {
+                    putSerializable("DATA_FLIGHT",it)
+                }
+                findNavController().navigate(R.id.action_hasilPencarianFragment_to_detailPenerbanganFragment, dataFlightBundle)
+            }
+        }
+
     }
 
-    private fun getAllDataFlight(dataSearch : SearchFlight){
+    private fun getAllDataFlight(dataSearch : PostSearchFlight){
         flightViewModel.getDataFlight(dataSearch)
 
         flightViewModel.dataFlight.observe(viewLifecycleOwner){
             if(it.isNotEmpty()){
                 flightSearchResultAdapter.setListFlight(it)
                 binding.layoutSearchNotFound.visibility = View.GONE
+                //set visibility layout load
+                binding.layoutLoadingData.visibility = View.GONE
             }else{
                 //masih terjadi kendala seharusnya data empty namun masih ada satu item list
                 flightSearchResultAdapter.setListFlight(emptyList())
                 binding.layoutSearchNotFound.visibility = View.VISIBLE
+                //set visibility layout load
+                binding.layoutLoadingData.visibility = View.GONE
             }
         }
 
-        flightSearchResultAdapter.onClickItemFlight = {
-            findNavController().navigate(R.id.action_hasilPencarianFragment_to_detailPenerbanganFragment)
-        }
+//        flightSearchResultAdapter.onClickItemFlight = {
+//            findNavController().navigate(R.id.action_hasilPencarianFragment_to_detailPenerbanganFragment)
+//        }
     }
 
     //menampilkan dialog filter
@@ -208,8 +233,16 @@ class HasilPencarianFragment : Fragment() {
             departureDateAdapter.setListDate(list)
             //change date departure
             dataSearchFlight.departureDate = it.date
-            getAllDataFlight(dataSearchFlight)
+            postSearchFlight.departureDate = it.date
+            getAllDataFlight(postSearchFlight)
             Log.d("HASIL_PERUBAHAN_DATE", dataSearchFlight.toString())
+            Log.d("HASIL_PERUBAHAN_DATE_POST", postSearchFlight.toString())
+
+            //set visibility layout load
+            binding.layoutLoadingData.visibility = View.VISIBLE
+            binding.layoutSearchNotFound.visibility = View.GONE
+
+
 //            Toast.makeText(context, "$it",Toast.LENGTH_SHORT).show()
         }
 

@@ -4,21 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.finalproject.databinding.ItemDataFlightBinding
-import com.binar.finalproject.model.flight.Flight
-import com.binar.finalproject.model.searchflight.Berangkat
+import com.binar.finalproject.model.searchflight.Flight
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
-import java.text.NumberFormat
 import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.math.min
 
 //untuk type data pada list bisa menggunakan tipe data generik sehingga sesuai inputan pulan atau berangkat
-class FlightSearchResultAdapter(private var listFligth : List<Berangkat>) : RecyclerView.Adapter<FlightSearchResultAdapter.ViewHolder>() {
+class FlightSearchResultAdapter(private var listFligth : List<Flight>) : RecyclerView.Adapter<FlightSearchResultAdapter.ViewHolder>() {
 
-    var onClickItemFlight : ((Berangkat)->Unit)? = null
+    var onClickItemFlight : ((Flight)->Unit)? = null
     class ViewHolder(var binding : ItemDataFlightBinding) : RecyclerView.ViewHolder(binding.root){
 
     }
@@ -46,9 +43,9 @@ class FlightSearchResultAdapter(private var listFligth : List<Berangkat>) : Recy
         val price = "IDR ${convertToCurrencyIDR(listPosition.price)}"
         holder.binding.tvPriceFlight.text = price
         //flight class
-        val airlineAndSeatClass = "${listPosition.airplane.airlineName} - ${listPosition.flightClass}"
+        val airlineAndSeatClass = "${listPosition.airline} - ${listPosition.flightClass}"
         holder.binding.tvAirlineAndSeatClass.text = airlineAndSeatClass
-        //estimation duration flight
+        //estimation duration flight (di json sudah ada data duration tinggal diganti)
         holder.binding.tvDurationFlight.text = setFlightDuration(listPosition.departureTime, listPosition.arrivalTime)
 
         //onclick
@@ -85,7 +82,7 @@ class FlightSearchResultAdapter(private var listFligth : List<Berangkat>) : Recy
 
     }
 
-    fun setListFlight(list : List<Berangkat>){
+    fun setListFlight(list : List<Flight>){
         listFligth = list
         notifyDataSetChanged()
     }

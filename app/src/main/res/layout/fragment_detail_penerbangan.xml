@@ -176,6 +176,7 @@
                     android:layout_marginStart="8dp"
                     >
                     <TextView
+                        android:id="@+id/tvAirline"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Jet Air-Economy"
@@ -184,6 +185,7 @@
                         android:fontFamily="@font/poppins_bold"
                         android:textColor="@color/NEUTRAL05"/>
                     <TextView
+                        android:id="@+id/tvAirlineCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="JT - 203"
@@ -201,6 +203,7 @@
                         android:textColor="@color/NEUTRAL05"
                         android:layout_marginTop="16dp"/>
                     <TextView
+                        android:id="@+id/tvInformation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Baggage 20 kg\nCabin baggage 7 kg\nIn Flight Entertainment"

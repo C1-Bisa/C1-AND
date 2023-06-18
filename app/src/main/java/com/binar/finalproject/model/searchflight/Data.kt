@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 
 data class Data(
     @SerializedName("flight")
-    val flight: Flight
+    val flight: List<Flight>
 )

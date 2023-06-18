@@ -32,6 +32,10 @@ class FlightSearchViewModel : ViewModel() {
     private val _dataSearch = MutableLiveData<SearchFlight?>()
     val dataSearch : LiveData<SearchFlight?> get() = _dataSearch
 
+    //menyimpan waktu pick date
+    private val _departureTime = MutableLiveData<String>()
+    val departureTime : LiveData<String> = _departureTime
+
 
     // data search
     private val _searchFrom = MutableLiveData<String>()
@@ -80,6 +84,9 @@ class FlightSearchViewModel : ViewModel() {
         _seatClass.postValue(seat)
     }
 
+    fun setDepartureTime(time :String){
+        _departureTime.postValue(time)
+    }
 
     fun setSearchFrom(data : String){
         _searchFrom.postValue(data)
