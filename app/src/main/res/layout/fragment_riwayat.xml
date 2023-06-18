@@ -69,200 +69,149 @@
     </RelativeLayout>
 
 
+<!--    set background ketika riwayat tidak kosong maka menggunakan background splash scree
+namun jika empty maka neutral 01-->
     <LinearLayout
         android:id="@+id/linearLayoutAfterData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_splash_screen"
+        android:background="@color/NEUTRAL01"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="20dp">
 
             <TextView
                 android:id="@+id/TitleRiwayatPesananAfterData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="50dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="@string/riwayat_pesanan"
                 android:textColor="#151515"
                 android:textSize="24sp"
-
+                android:layout_marginStart="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 />
-            <ImageView
+
+            <ImageButton
+                android:id="@+id/btnSearchRiwayat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_search"
-                android:layout_marginStart="105dp"
-                android:layout_marginTop="45dp"
-                />
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="#00FFFFFF"
+                android:src="@drawable/img_search"
+                tools:ignore="SpeakableTextPresentCheck" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="16dp"
+            >
 
             <TextView
                 android:id="@+id/tanggalPemesananAfterData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="32dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="Maret 2023"
                 android:textColor="#151515"
                 android:textSize="16sp"
-                />
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="24dp"/>
 
             <LinearLayout
                 android:id="@+id/btnFilterRiwayatAfterData"
-                android:layout_marginTop="25dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:layout_marginStart="200dp"
-                android:background="@drawable/background_border_fiter">
+                android:background="@drawable/background_border_fiter"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="24dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_filter"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
-                    android:layout_marginStart="8dp"/>
+                    android:src="@drawable/ic_filter" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Filter"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:textColor="@color/NEUTRAL05"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="12dp"
                     android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp"/>
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="6dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Filter"
+                    android:textColor="@color/NEUTRAL05"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-
+<!--        jika riwayat tidak kosong maka recycleview visibile namun jika empy maka layout riwayat empty visible-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_riwayatAfterData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="12dp"
+            android:visibility="visible"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/layoutRiwayatEmpty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/TitleRiwayatPesananNonVisible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="50dp"
-                android:fontFamily="@font/poppins_bold"
-                android:text="@string/riwayat_pesanan"
-                android:textColor="#151515"
-                android:textSize="24sp"
-
-                />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_search"
-                android:layout_marginStart="105dp"
-                android:layout_marginTop="45dp"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
+            android:layout_marginTop="150dp"
+            android:visibility="gone"
+            >
 
             <LinearLayout
-                android:id="@+id/btnFilterRiwayat"
-                android:layout_marginTop="25dp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="305dp"
-                android:background="@drawable/background_border_fiter">
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
                 <ImageView
+                    android:id="@+id/imgIllustrationNotFound"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_filter"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginStart="8dp"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/illustration_search_engine_not_found" />
+
+                <TextView
+                    android:id="@+id/tv_riwayatPesananAndakosong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Oops! Riwayat pesanan anda kosong!"
+                    android:textColor="@color/DARKBLUE05" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Filter"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:textColor="@color/NEUTRAL05"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp"/>
-
-
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Anda belum melakukan pesanan" />
             </LinearLayout>
-
-        </LinearLayout>
-
-        <ImageView
-            android:layout_marginTop="155dp"
-            android:id="@+id/imgIllustrationNotFound"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/illustration_search_engine_not_found" />
-
-        <TextView
-            android:id="@+id/tv_riwayatPesananAndakosong"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:layout_gravity="center"
-            android:textColor="@color/DARKBLUE05"
-            android:text="Oops! Riwayat pesanan anda kosong!"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/poppins_regular"
-            android:text="Anda belum melakukan pesanan"/>
-
+        </RelativeLayout>
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

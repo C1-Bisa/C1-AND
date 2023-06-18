@@ -91,7 +91,7 @@
         </RelativeLayout>
     </LinearLayout>
     <com.squareup.timessquare.CalendarPickerView
-        android:id="@+id/dateFlight"
+        android:id="@+id/dateRiwayat"
         android:layout_width="match_parent"
         android:layout_height="410dp"
         android:layout_marginTop="20dp"
@@ -111,12 +111,12 @@
         android:fontFamily="@font/poppins_medium"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="50dp"
         android:layout_marginTop="122dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/DARKBLUE05"
-        app:layout_constraintTop_toBottomOf="@id/dateFlight"
+        app:layout_constraintTop_toBottomOf="@id/dateRiwayat"
         app:layout_constraintBottom_toBottomOf="parent"
         style="@style/Btn"/>
 
