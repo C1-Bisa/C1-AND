@@ -37,8 +37,7 @@ class UpdateProfileFragment : Fragment() {
         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav.visibility = View.GONE
 
-        token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoiemVlemVyby4yMWluY0BnbWFpbC5jb20iLCJuYW1hIjoiWmVlIEFOWHkiLCJyb2xlIjoiVXNlciIsImlhdCI6MTY4Njk5OTI0NSwiZXhwIjoxNjg3MDAyODQ1fQ.wxTlG7HMX6jLxAJAC8S1NDz-PLmkXK7dk2XyVSTQy2M"
-
+        token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoiemVlemVyby4yMWluY0BnbWFpbC5jb20iLCJuYW1hIjoiWmVlIEFOWHl6Iiwicm9sZSI6IlVzZXIiLCJpYXQiOjE2ODcxMDMwMzQsImV4cCI6MTY4NzEwNjYzNH0.ddQBqGGnC-lzkJ_nijam3yt2YfWDv0fAtzxznYrEhJs"
         //nanti dikasih kondisi apakah toke null atau tidak
         setFillEditTextProfile()
         binding.btnUpdateProfile.setOnClickListener {
