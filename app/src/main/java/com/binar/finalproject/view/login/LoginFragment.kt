@@ -16,6 +16,7 @@ import com.binar.finalproject.databinding.FragmentLoginBinding
 import com.binar.finalproject.local.DataStore
 import com.binar.finalproject.model.resetpassword.PatchResetPassword
 import com.binar.finalproject.model.user.login.PostLogin
+import com.binar.finalproject.utils.showCustomToast
 import com.binar.finalproject.viewmodel.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -94,24 +95,39 @@ class LoginFragment : Fragment() {
 
 
                     }
-                    Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show()
+                    Toast(requireContext()).showCustomToast(
+                        "Login Berhasil !", requireActivity(), R.layout.toast_alert_green)
+
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }
             }
 
-        }else{
-            Toast.makeText(context, "Kata sandi harus di isi", Toast.LENGTH_SHORT).show()
+        }else if (email.isEmpty() && password.isEmpty()){
+            Toast(requireContext()).showCustomToast(
+                "Email dan password harus di isi!", requireActivity(), R.layout.toast_alert_red)
+
+        }else if(email.isEmpty()){
+            Toast(requireContext()).showCustomToast(
+                "Email tidak boleh kosong !", requireActivity(), R.layout.toast_alert_red)
+
+        }else if (password.isEmpty()){
+            Toast(requireContext()).showCustomToast(
+                "Password harus di isi !", requireActivity(), R.layout.toast_alert_red)
         }
 
     }
 
     private fun resetKataSandi(){
         val dataEmail = binding.etEmail.text.toString()
+
+
         if (dataEmail.isNotEmpty()){
             userLoginVm.patchResetPassword(PatchResetPassword(dataEmail))
             userLoginVm.responseResetPassword.observe(viewLifecycleOwner){
                 if (it != null){
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                    Toast(requireContext()).showCustomToast(
+                        "Tautan reset password terkirim!", requireActivity(), R.layout.toast_alert_green)
+
                     findNavController().navigate(R.id.action_loginFragment_to_lupaPasswordFragment)
 
                 }else{

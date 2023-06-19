@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentRegisterBinding
 import com.binar.finalproject.model.user.PostRegister
+import com.binar.finalproject.utils.showCustomToast
 import com.binar.finalproject.viewmodel.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,14 +62,17 @@ class RegisterFragment : Fragment() {
                     val idBundle = Bundle().apply {
                         putInt("ID_USER", it.data.user.id)
                     }
-                    Toast.makeText(context, "Register Successful", Toast.LENGTH_SHORT).show()
+                    Toast(requireContext()).showCustomToast(
+                        "Kode OTP telah dikirim", requireActivity(), R.layout.toast_alert_green)
                     findNavController().navigate(R.id.action_registerFragment_to_otpFragment, idBundle)
-                }else{
-                    Toast.makeText(context, "Kata sandi harus di isi", Toast.LENGTH_SHORT).show()
+                }else if (password.length < 8){
+                    Toast(requireContext()).showCustomToast(
+                        "Password minimal 8 karakter !", requireActivity(), R.layout.toast_alert_red)
                 }
             }
         }else{
-            Toast.makeText(context, "Kata sandi harus di isi", Toast.LENGTH_SHORT).show()
+            Toast(requireContext()).showCustomToast(
+                "Kata sandi harus di isi", requireActivity(), R.layout.toast_alert_red)
         }
     }
 
