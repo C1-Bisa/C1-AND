@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentLupaPasswordBinding
 import com.binar.finalproject.databinding.FragmentOtpBinding
@@ -17,7 +18,6 @@ class LupaPasswordFragment : Fragment() {
 
     lateinit var binding : FragmentLupaPasswordBinding
 
-    private val userViewModel : UserViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +33,10 @@ class LupaPasswordFragment : Fragment() {
 
         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav.visibility = View.GONE
+
+        binding.btnLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_lupaPasswordFragment_to_loginFragment)
+        }
 
 
     }

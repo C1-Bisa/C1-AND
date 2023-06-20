@@ -62,9 +62,10 @@
         android:name="com.binar.finalproject.view.lupapassword.LupaPasswordFragment"
         android:label="fragment_lupa_password"
         tools:layout="@layout/fragment_lupa_password" >
+
         <action
-            android:id="@+id/action_lupaPasswordFragment_to_otpFragment"
-            app:destination="@id/otpFragment" />
+            android:id="@+id/action_lupaPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashScreen"
