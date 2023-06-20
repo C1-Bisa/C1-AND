@@ -8,4 +8,5 @@ data class ResponseLogin(
     val `data`: Data,
     @SerializedName("status")
     val status: String
+
 )

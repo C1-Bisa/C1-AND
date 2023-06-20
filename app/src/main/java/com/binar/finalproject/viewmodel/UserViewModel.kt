@@ -1,6 +1,7 @@
 package com.binar.finalproject.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -109,12 +110,12 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
                     Log.i("STATUS", response.body()!!.message)
 
                 }else{
-                    _responseOtp.postValue(null)
+                    _responseResetPassword.postValue(null)
                 }
             }
 
             override fun onFailure(call: Call<ResponseResetPassword>, t: Throwable) {
-                _responseOtp.postValue(null)
+                _responseResetPassword.postValue(null)
             }
 
         })
@@ -129,11 +130,13 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
                     Log.i("STATUS", response.body()!!.status)
                 }else{
                     _responseLogin.postValue(null)
+
                 }
             }
 
             override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {
                 _responseLogin.postValue(null)
+
             }
 
         })
