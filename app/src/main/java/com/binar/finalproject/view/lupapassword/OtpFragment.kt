@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentOtpBinding
 import com.binar.finalproject.model.otpcode.PutDataOtp
+import com.binar.finalproject.utils.showCustomToast
 import com.binar.finalproject.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -75,12 +76,14 @@ class OtpFragment : Fragment() {
             userViewModel.putVerificationOtp(PutDataOtp("$kodeNo1$kodeNo2$kodeNo3$kodeNo4$kodeNo5$kodeNo6"))
             userViewModel.responseOtp.observe(viewLifecycleOwner){
                 if (it != null){
-                    Toast.makeText(context, "Verifikasi berhasil", Toast.LENGTH_SHORT).show()
+                    Toast(requireContext()).showCustomToast(
+                        "Verifikasi berhasil !", requireActivity(), R.layout.toast_alert_red)
                     findNavController().navigate(R.id.action_otpFragment_to_loginFragment)
                 }
             }
         }else{
-            Toast.makeText(context, "Nomor verifikasi harus terisi", Toast.LENGTH_SHORT).show()
+            Toast(requireContext()).showCustomToast(
+                "Kode OTP harus di isi!", requireActivity(), R.layout.toast_alert_red)
         }
     }
 

@@ -6,6 +6,8 @@ import com.binar.finalproject.model.otpcode.PutDataOtp
 import com.binar.finalproject.model.otpcode.ResponseOtp
 import com.binar.finalproject.model.resetpassword.PatchResetPassword
 import com.binar.finalproject.model.resetpassword.ResponseResetPassword
+import com.binar.finalproject.model.resetpassword.createnewpassword.PutCreateNewPassword
+import com.binar.finalproject.model.resetpassword.createnewpassword.ResponseCreateNewPassword
 import com.binar.finalproject.model.searchflight.PostSearchFlight
 import com.binar.finalproject.model.searchflight.ResponseDataFlight
 import com.binar.finalproject.model.searchflight.SearchFlight
@@ -13,6 +15,7 @@ import com.binar.finalproject.model.user.PostRegister
 import com.binar.finalproject.model.user.ResponRegister
 import com.binar.finalproject.model.user.login.PostLogin
 import com.binar.finalproject.model.user.login.ResponseLogin
+import com.binar.finalproject.model.user.logout.ResponseLogout
 import com.binar.finalproject.model.user.profile.ResponseUserProfile
 import com.binar.finalproject.model.user.updateprofile.PutDataUpdateProfile
 import com.binar.finalproject.model.user.updateprofile.ResponseUpdateProfileUser
@@ -29,6 +32,9 @@ interface RestfulApi {
 
     @POST("user/login")
     fun postLogin(@Body data : PostLogin) : Call<ResponseLogin>
+
+    @POST("user/logout")
+    fun postLogout() : Call<ResponseLogout>
 
     //sementara buat get data flight
     //dapat diganti dengan query map
@@ -53,5 +59,8 @@ interface RestfulApi {
 
     @GET("user/resendcode/{userId}")
     fun getResendOtp(@Path("userId") id : Int) : Call<GetResendResponseOtp>
+
+    @PUT("user/createNewPassword/{userId}/{otp}")
+    fun putCreateNewPassword(@Body createNewPasw : PutCreateNewPassword) : Call<ResponseCreateNewPassword>
 
 }

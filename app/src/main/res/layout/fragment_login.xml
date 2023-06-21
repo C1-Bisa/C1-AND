@@ -18,7 +18,7 @@
         android:fontFamily="@font/poppins_bold"
         android:text="Masuk"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView

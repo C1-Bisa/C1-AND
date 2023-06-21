@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -69,9 +69,10 @@
         android:name="com.binar.finalproject.view.lupapassword.LupaPasswordFragment"
         android:label="fragment_lupa_password"
         tools:layout="@layout/fragment_lupa_password" >
+
         <action
-            android:id="@+id/action_lupaPasswordFragment_to_otpFragment"
-            app:destination="@id/otpFragment" />
+            android:id="@+id/action_lupaPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashScreen"
@@ -129,6 +130,10 @@
         <action
             android:id="@+id/action_akunFragment_to_updateProfileFragment"
             app:destination="@id/updateProfileFragment" />
+        <action
+            android:id="@+id/action_akunFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/updateProfileFragment"

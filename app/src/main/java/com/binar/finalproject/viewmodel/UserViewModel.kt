@@ -1,6 +1,7 @@
 package com.binar.finalproject.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +14,7 @@ import com.binar.finalproject.model.user.PostRegister
 import com.binar.finalproject.model.user.ResponRegister
 import com.binar.finalproject.model.user.login.PostLogin
 import com.binar.finalproject.model.user.login.ResponseLogin
+import com.binar.finalproject.model.user.logout.ResponseLogout
 import com.binar.finalproject.model.user.profile.ResponseUserProfile
 import com.binar.finalproject.model.user.updateprofile.PutDataUpdateProfile
 import com.binar.finalproject.model.user.updateprofile.ResponseUpdateProfileUser
@@ -30,6 +32,11 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
     //mutablelive data untuk reset password
     private val _responseResetPassword = MutableLiveData<ResponseResetPassword?>()
     val responseResetPassword : LiveData<ResponseResetPassword?> = _responseResetPassword
+
+
+    //mutablelive data untuk logout
+    private val _responseLogout = MutableLiveData<ResponseLogout?>()
+    val responseLogout : LiveData<ResponseLogout?> = _responseLogout
 
     //mutablelive data untuk Login
     private val _responseLogin = MutableLiveData<ResponseLogin?>()
@@ -109,12 +116,34 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
                     Log.i("STATUS", response.body()!!.message)
 
                 }else{
-                    _responseOtp.postValue(null)
+                    _responseResetPassword.postValue(null)
                 }
             }
 
             override fun onFailure(call: Call<ResponseResetPassword>, t: Throwable) {
-                _responseOtp.postValue(null)
+                _responseResetPassword.postValue(null)
+            }
+
+        })
+    }
+
+    fun postLogoutUser(){
+        apiUser.postLogout().enqueue(object : Callback<ResponseLogout>{
+            override fun onResponse(
+                call: Call<ResponseLogout>,
+                response: Response<ResponseLogout>
+            ) {
+                if (response.isSuccessful){
+                    _responseLogout.postValue(response.body()!!)
+                    Log.i("STATUS", response.body()!!.message)
+
+                }else{
+                    _responseLogout.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseLogout>, t: Throwable) {
+                _responseLogout.postValue(null)
             }
 
         })
@@ -129,11 +158,13 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
                     Log.i("STATUS", response.body()!!.status)
                 }else{
                     _responseLogin.postValue(null)
+
                 }
             }
 
             override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {
                 _responseLogin.postValue(null)
+
             }
 
         })
