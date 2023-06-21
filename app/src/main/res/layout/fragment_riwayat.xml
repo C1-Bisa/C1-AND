@@ -72,7 +72,7 @@
 <!--    set background ketika riwayat tidak kosong maka menggunakan background splash scree
 namun jika empty maka neutral 01-->
     <LinearLayout
-        android:id="@+id/linearLayoutAfterData"
+        android:id="@+id/linearLayoutLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/NEUTRAL01"

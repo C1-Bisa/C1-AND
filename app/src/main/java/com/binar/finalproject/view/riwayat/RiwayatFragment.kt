@@ -14,6 +14,7 @@ import com.binar.finalproject.databinding.FragmentNotifikasiBinding
 import com.binar.finalproject.databinding.FragmentRiwayatBinding
 import com.binar.finalproject.databinding.SearchDialogLayoutBinding
 import com.binar.finalproject.databinding.SearchDialogRiwayatBinding
+import com.binar.finalproject.local.DataStoreUser
 import com.binar.finalproject.model.RiwayatModel
 import com.binar.finalproject.view.adapter.AdapterRiwayat
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -25,6 +26,8 @@ class RiwayatFragment : Fragment() {
     lateinit var binding : FragmentRiwayatBinding
 
     private lateinit var riwayatListData : AdapterRiwayat
+
+    private lateinit var dataSotreUser : DataStoreUser
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +48,18 @@ class RiwayatFragment : Fragment() {
         binding.btnFilterRiwayatAfterData.setOnClickListener {
             showDialogFilterDateRiwayat()
         }
+
+        dataSotreUser = DataStoreUser(requireContext().applicationContext)
+
+        if (dataSotreUser.isAlreadyLogin()) {
+            binding.layoutNonLogin.visibility = View.GONE
+            binding.linearLayoutLogin.visibility = View.VISIBLE
+        } else {
+            binding.layoutNonLogin.visibility = View.VISIBLE
+            binding.linearLayoutLogin.visibility = View.GONE
+
+        }
+
     }
 
     private fun showDialogFilterDateRiwayat() {
