@@ -195,6 +195,7 @@
                                 android:id="@+id/setDateDeparture"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginEnd="5dp"
                                 android:layout_weight="1">
                                 <ImageView
                                     android:id="@+id/imgDateDeparture"
@@ -238,7 +239,7 @@
                                 android:id="@+id/setDateReturn"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
+                                android:layout_marginStart="5dp"
                                 android:layout_weight="1"
                                 android:visibility="gone">
                                 <ImageView
@@ -291,6 +292,7 @@
                                 android:id="@+id/setPassangers"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginEnd="5dp"
                                 android:layout_weight="1">
                                 <ImageView
                                     android:id="@+id/imgPassangers"
@@ -334,7 +336,7 @@
                                 android:id="@+id/setSeatClass"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
+                                android:layout_marginStart="5dp"
                                 android:layout_weight="1">
                                 <ImageView
                                     android:id="@+id/imgSeatClass"
@@ -361,7 +363,7 @@
                                         android:id="@+id/tvSeatClass"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Business"
+                                        android:text="Bussiness"
                                         android:layout_marginTop="6dp"
                                         android:textSize="14sp"
                                         android:fontFamily="@font/poppins_medium"

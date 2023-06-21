@@ -196,10 +196,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true">
+
                 <ImageButton
                     android:id="@+id/btnDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:background="@drawable/background_border_oval_neutraltwo"
                     android:padding="8dp"
                     android:src="@drawable/ic_expend_more"
