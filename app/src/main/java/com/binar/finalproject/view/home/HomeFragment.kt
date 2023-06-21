@@ -190,6 +190,7 @@ class HomeFragment : Fragment() {
             ""
         }
 
+        //perlu diberpaiki
         val departureTime = if(flightSearchViewModel.departureTime.value != null){
             flightSearchViewModel.departureTime.value.toString()
         }else{
@@ -201,6 +202,8 @@ class HomeFragment : Fragment() {
         }else{
             binding.tvSeatClass.text.toString()
         }
+
+        val numSeatPassenger = flightSearchViewModel.dataPassenger.value
 
 
         val dataBundle = Bundle().apply {
@@ -214,6 +217,7 @@ class HomeFragment : Fragment() {
             ))
             putString("DATA_PASSENGER", binding.tvPassengers.text.toString())
             putString("DATA_SEATCLASS", binding.tvSeatClass.text.toString())
+            putIntArray("DATA_LIST_NUM_SEAT", numSeatPassenger!!.toIntArray())
         }
         findNavController().navigate(R.id.action_homeFragment_to_hasilPencarianFragment, dataBundle)
     }
@@ -277,12 +281,12 @@ class HomeFragment : Fragment() {
             when(seatClass){
                 "Economy" -> setChoiceClass(0, bindingDialog)
                 "Premium Economy" -> setChoiceClass(1, bindingDialog)
-                "Business" -> setChoiceClass(2, bindingDialog)
+                "Bussiness" -> setChoiceClass(2, bindingDialog)
                 else-> setChoiceClass(3, bindingDialog)
             }
 
         }else{
-            seatClass = "Business"
+            seatClass = "Bussiness"
             flightSearchViewModel.setSeatClass(seatClass)
             setChoiceClass(2, bindingDialog)
         }
@@ -302,7 +306,8 @@ class HomeFragment : Fragment() {
         }
         bindingDialog.layoutBusiness.setOnClickListener {
             setChoiceClass(2, bindingDialog)
-            seatClass = "Business"
+            //yang bener Business (namun di endpoint bussiness)
+            seatClass = "Bussiness"
         }
         bindingDialog.layoutFirstClass.setOnClickListener {
             setChoiceClass(3, bindingDialog)
