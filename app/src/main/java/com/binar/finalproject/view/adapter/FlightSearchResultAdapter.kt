@@ -15,6 +15,7 @@ import java.util.*
 //untuk type data pada list bisa menggunakan tipe data generik sehingga sesuai inputan pulan atau berangkat
 class FlightSearchResultAdapter(private var listFligth : List<Flight>) : RecyclerView.Adapter<FlightSearchResultAdapter.ViewHolder>() {
 
+    var onClickDetailFlight : ((Flight)->Unit)? = null
     var onClickItemFlight : ((Flight)->Unit)? = null
     class ViewHolder(var binding : ItemDataFlightBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -48,7 +49,11 @@ class FlightSearchResultAdapter(private var listFligth : List<Flight>) : Recycle
         //estimation duration flight (di json sudah ada data duration tinggal diganti)
         holder.binding.tvDurationFlight.text = setFlightDuration(listPosition.departureTime, listPosition.arrivalTime)
 
-        //onclick
+        //onclick detail
+        holder.binding.btnDetail.setOnClickListener {
+            onClickDetailFlight?.invoke(listPosition)
+        }
+        //onclick pick flight
         holder.binding.itemFlight.setOnClickListener {
             onClickItemFlight?.invoke(listPosition)
         }
