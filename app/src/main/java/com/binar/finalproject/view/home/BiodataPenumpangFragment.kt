@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentBiodataPenumpangBinding
@@ -31,18 +32,34 @@ class BiodataPenumpangFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //get bundle
+        val getListSeatPassenger = arguments?.getIntArray("DATA_LIST_NUM_SEAT")
+
         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav.visibility = View.GONE
 
-        setRvBioPassenger()
+        if (getListSeatPassenger != null) {
+            setRvBioPassenger(getListSeatPassenger)
+        }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
-    private fun setRvBioPassenger() {
-        biodataPassengerAdapter = BiodataPassengerAdapter(listOf(
-            BiodataPassenger("Adult",""),
-            BiodataPassenger("Child",""),
-            BiodataPassenger("Baby","")
-        ), requireContext())
+    private fun setRvBioPassenger(item: IntArray) {
+        val listPassenger = mutableListOf<BiodataPassenger>()
+        for(i in item.indices){
+            for(z in 1 .. item[i]){
+                when(i){
+                    0 -> listPassenger.add(BiodataPassenger("Adult"))
+                    1 -> listPassenger.add(BiodataPassenger("Child"))
+                    2 -> listPassenger.add(BiodataPassenger("Baby"))
+                }
+            }
+
+        }
+        biodataPassengerAdapter = BiodataPassengerAdapter(listPassenger, requireContext())
 
         binding.rvBioPassenger.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

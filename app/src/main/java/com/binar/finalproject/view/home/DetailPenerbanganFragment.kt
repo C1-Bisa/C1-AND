@@ -7,11 +7,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.DialogTicketSoldOutBinding
 import com.binar.finalproject.databinding.FragmentDetailPenerbanganBinding
 import com.binar.finalproject.databinding.SeatclassDialogLayoutBinding
 import com.binar.finalproject.model.searchflight.Flight
+import com.binar.finalproject.model.searchflight.FlightTicketOneTrip
+import com.binar.finalproject.model.searchflight.FlightTicketRoundTrip
+import com.binar.finalproject.model.searchflight.SearchFlight
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -24,6 +28,14 @@ import java.util.*
 class DetailPenerbanganFragment : Fragment() {
 
     private lateinit var binding : FragmentDetailPenerbanganBinding
+    private lateinit var flight: Flight
+    private var flightTicketOneTrip = FlightTicketOneTrip()
+    private var flightTicketRoundTrip = FlightTicketRoundTrip()
+    private var dataSearchFlight = SearchFlight()
+
+    //status apakah flight departure atau flight return
+
+    private var statusPickFlightReturn : Boolean = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,16 +48,67 @@ class DetailPenerbanganFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnSelectFlight.setOnClickListener {
-//            jika ticket habis show dialog
-            showDialogTecketSoldOut()
-        }
 
         val getBundleDetailFlight = arguments?.getSerializable("DATA_FLIGHT")
+        val getDataSearch = arguments?.getSerializable("DATA_SEARCH")
+        val getPassenger = arguments?.getString("DATA_PASSENGER")
+        val getSeatClass = arguments?.getString("DATA_SEATCLASS")
+        val getPickFligtReturn = arguments?.getBoolean("STATUS_PICK_FLIGHT_RETURN")
+        val getDataRoundTrip = arguments?.getSerializable("DATA_FLIGHT_ROUND_TRIP")
+        val getListSeatPassenger = arguments?.getIntArray("DATA_LIST_NUM_SEAT")
 
         if(getBundleDetailFlight != null){
             setDataFlight(getBundleDetailFlight as Flight)
+            dataSearchFlight = getDataSearch as SearchFlight
+            flight = getBundleDetailFlight
             Log.i("DATA_DETAIL_FLIGHT", getBundleDetailFlight.toString())
+        }
+
+        if(getPickFligtReturn != null && getDataRoundTrip != null){
+            statusPickFlightReturn = getPickFligtReturn
+            flightTicketRoundTrip = getDataRoundTrip as FlightTicketRoundTrip
+        }
+
+        binding.btnSelectFlight.setOnClickListener {
+//            jika ticket habis show dialog
+//            showDialogTecketSoldOut()
+            if(flight.id.toString().isNotEmpty() && dataSearchFlight.returnDate.isEmpty() && !statusPickFlightReturn){
+                flightTicketOneTrip.flightIdDeparture = flight.id
+                Log.i("ID_FLIGHT_DEPARTURE", flightTicketOneTrip.flightIdDeparture.toString())
+
+                val putBundleDataFlight = Bundle().apply {
+                    putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
+                }
+
+                findNavController().navigate(R.id.action_detailPenerbanganFragment_to_biodataPemesanFragment, putBundleDataFlight)
+            }else{
+                if(!statusPickFlightReturn){
+                    flightTicketRoundTrip.flightIdDeparture = flight.id
+                    val putBundleFlight = Bundle().apply {
+                        putBoolean("STATUS_PICK_FLIGHT_RETURN", true)
+                        putSerializable("DATA_SEARCH", dataSearchFlight)
+                        putString("DATA_PASSENGER", getPassenger)
+                        putString("DATA_SEATCLASS", getSeatClass)
+                        putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
+                        putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
+                    }
+                    Log.i("ID_FLIGHT_DEPARTURE", flightTicketRoundTrip.toString())
+                    findNavController().navigate(R.id.action_detailPenerbanganFragment_to_hasilPencarianFragment, putBundleFlight)
+                }else{
+                    flightTicketRoundTrip.flightIdReturn = flight.id
+                    Log.i("ID_FLIGHT_DEPARTURE", flightTicketRoundTrip.toString())
+                    val putBundleDataFlight = Bundle().apply {
+                        putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
+                    }
+                    findNavController().navigate(R.id.action_detailPenerbanganFragment_to_biodataPemesanFragment, putBundleDataFlight)
+                }
+            }
+
+        }
+
+        //button back
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
         }
 
 
@@ -54,7 +117,8 @@ class DetailPenerbanganFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun setDataFlight(data: Flight) {
         //nanti diganti menggunakan data binding
-        binding.tvFlightDestination.text = "${data.airportFrom} -> ${data.airportTo} (${data.duration/60} ${data.duration%60})"
+        binding.tvFlightDestination.text = "${data.from} -> ${data.to}"
+        binding.tvFlightTime.text = "(${data.duration/60}h ${data.duration%60}m)"
         binding.tvTimeDeparture.text = timeFormate(data.departureTime)
         binding.tvDateDeparture.text = setDate(data.departureDate)
         binding.tvDepartureAirport.text = data.airportFrom

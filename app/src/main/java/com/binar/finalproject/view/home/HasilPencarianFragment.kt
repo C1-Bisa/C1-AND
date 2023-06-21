@@ -1,5 +1,6 @@
 package com.binar.finalproject.view.home
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,15 +19,15 @@ import com.binar.finalproject.R
 import com.binar.finalproject.databinding.DialogFilterHasilPenerbanganBinding
 import com.binar.finalproject.databinding.FragmentHasilPencarianBinding
 import com.binar.finalproject.model.DateDeparture
-import com.binar.finalproject.model.searchflight.Flight
-import com.binar.finalproject.model.searchflight.PostSearchFlight
-import com.binar.finalproject.model.searchflight.SearchFlight
+import com.binar.finalproject.model.searchflight.*
 import com.binar.finalproject.view.adapter.DepartureDateAdapter
 import com.binar.finalproject.view.adapter.FlightSearchResultAdapter
 import com.binar.finalproject.viewmodel.FlightViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.http.Query
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.*
@@ -51,7 +53,21 @@ class HasilPencarianFragment : Fragment() {
     //post to search flight
     private var postSearchFlight = PostSearchFlight("2023-09-12","00:00","Economy","","Jakarta")
     private var dataSearchFlight = SearchFlight()
-    //jika search pulang pergi maka menggunakan list dengan type data generik
+
+    //status apakah sedang mencari flight1 atau 2
+    private var statusFlightReturnFlight : Boolean = false
+
+    //inisialisasi data from bundle (home fragment)
+    private var numPassenger : String = ""
+    private var seatClass : String = ""
+    private var listNumSeatPassenger : IntArray = IntArray(3)
+
+    //khusus unutk round trip
+    private var flightTicketRoundTrip = FlightTicketRoundTrip()
+    private var flightTicketOneTrip = FlightTicketOneTrip()
+
+    //initial filter type
+    var setFilterIndex : Int? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -77,24 +93,62 @@ class HasilPencarianFragment : Fragment() {
         val getDataSearch = arguments?.getSerializable("DATA_SEARCH")
         val getPassenger = arguments?.getString("DATA_PASSENGER")
         val getSeatClass = arguments?.getString("DATA_SEATCLASS")
+        val getListSeatPassenger = arguments?.getIntArray("DATA_LIST_NUM_SEAT")
+
+        val getPickFligtReturn = arguments?.getBoolean("STATUS_PICK_FLIGHT_RETURN")
+        val getDataRoundTrip = arguments?.getSerializable("DATA_FLIGHT_ROUND_TRIP")
+
+        if(getPickFligtReturn != null && getDataRoundTrip != null){
+            statusFlightReturnFlight = getPickFligtReturn
+            flightTicketRoundTrip = getDataRoundTrip as FlightTicketRoundTrip
+            Log.i("STATUS_RETURN", statusFlightReturnFlight.toString())
+        }
+
         if(getDataSearch != null){
-            //departure time sementara
+            //app bar
+            val titleBar : String
+            //assignment
             dataSearchFlight = getDataSearch as SearchFlight
-            postSearchFlight = PostSearchFlight(dataSearchFlight.departureDate,
-                "08:00",
-                getSeatClass.toString(),
-                dataSearchFlight.from,
-                dataSearchFlight.to)
+            //assignment list num passenger
+            listNumSeatPassenger = getListSeatPassenger!!
 
-            Log.i("DATA_RESULT", dataSearchFlight.toString())
-            Log.i("DATA_RESULT_POST_FLIGHT", postSearchFlight.toString())
-            setRecycleViewDate()
-            setRvFlightSearchResult()
-            getAllDataFlight(postSearchFlight)
+            if(statusFlightReturnFlight){
+                //departure time sementara nanti diganti dengan jam pemilihan tanggal
+                postSearchFlight = PostSearchFlight(dataSearchFlight.returnDate,
+                    "08:00",
+                    getSeatClass.toString(),
+                    dataSearchFlight.to,
+                    dataSearchFlight.from)
 
+                Log.i("DATA_RESULT", dataSearchFlight.toString())
+                Log.i("DATA_RESULT_POST_FLIGHT", postSearchFlight.toString())
+                setRecycleViewDate()
+                setRvFlightSearchResult()
+                getAllDataFlight(postSearchFlight)
+
+                titleBar = "${getDataSearch.to} > ${getDataSearch.from} - $getPassenger - $getSeatClass"
+            }else{
+
+                postSearchFlight = PostSearchFlight(dataSearchFlight.departureDate,
+                    "08:00",
+                    getSeatClass.toString(),
+                    dataSearchFlight.from,
+                    dataSearchFlight.to)
+
+                Log.i("DATA_RESULT", dataSearchFlight.toString())
+                Log.i("DATA_RESULT_POST_FLIGHT", postSearchFlight.toString())
+                setRecycleViewDate()
+                setRvFlightSearchResult()
+                getAllDataFlight(postSearchFlight)
+                titleBar = "${getDataSearch.from} > ${getDataSearch.to} - $getPassenger - $getSeatClass"
+
+            }
             //set text appbar
-            val titleBar = "${getDataSearch.from} > ${getDataSearch.to} - $getPassenger - $getSeatClass"
             binding.tvPencarian.text = titleBar
+
+            //assignment
+            numPassenger = getPassenger.toString()
+            seatClass = getSeatClass.toString()
         }
 
         //menampilkan recycleview date departure
@@ -105,13 +159,21 @@ class HasilPencarianFragment : Fragment() {
             showDialogFilter()
         }
 
+
         //mencari harga tiket termurah atau termahal
         binding.btnFilterHarga.setOnClickListener {
             sortListItem(sortFromCheap)
         }
 
         binding.btnUbahPencarian.setOnClickListener {
+            //jangan menggunakan ini, namun menggunakan onbackpress
             findNavController().navigate(R.id.action_hasilPencarianFragment_to_homeFragment)
+        }
+
+        //btn back
+        binding.btnBack.setOnClickListener {
+
+            findNavController().navigateUp()
         }
 
 
@@ -145,13 +207,55 @@ class HasilPencarianFragment : Fragment() {
         }
 
 
-        //item click flight
-        flightSearchResultAdapter.onClickItemFlight = {
+        //item click detail flight to fragment detail flight
+        flightSearchResultAdapter.onClickDetailFlight = {
             if(it.toString().isNotEmpty()){
                 val dataFlightBundle = Bundle().apply {
                     putSerializable("DATA_FLIGHT",it)
+                    putSerializable("DATA_SEARCH", dataSearchFlight)
+                    putString("DATA_PASSENGER", numPassenger)
+                    putString("DATA_SEATCLASS", seatClass)
+                    putBoolean("STATUS_PICK_FLIGHT_RETURN", statusFlightReturnFlight)
+                    putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
+                    putIntArray("DATA_LIST_NUM_SEAT", listNumSeatPassenger)
                 }
                 findNavController().navigate(R.id.action_hasilPencarianFragment_to_detailPenerbanganFragment, dataFlightBundle)
+            }
+        }
+
+        //pick flight
+        flightSearchResultAdapter.onClickItemFlight = {
+            if(it.id.toString().isNotEmpty() && dataSearchFlight.returnDate.isEmpty() && !statusFlightReturnFlight){
+                flightTicketOneTrip.flightIdDeparture = it.id
+                Log.i("ID_FLIGHT_DEPARTURE", flightTicketOneTrip.flightIdDeparture.toString())
+
+                val putBundleDataFlight = Bundle().apply {
+                    putIntArray("DATA_LIST_NUM_SEAT", listNumSeatPassenger)
+                }
+                findNavController().navigate(R.id.action_hasilPencarianFragment_to_biodataPemesanFragment, putBundleDataFlight)
+            }else{
+                if(!statusFlightReturnFlight){
+                    flightTicketRoundTrip.flightIdDeparture = it.id
+                    val putBundleFlight = Bundle().apply {
+                        putBoolean("STATUS_PICK_FLIGHT_RETURN", true)
+                        putSerializable("DATA_SEARCH", dataSearchFlight)
+                        putString("DATA_PASSENGER", numPassenger)
+                        putString("DATA_SEATCLASS", seatClass)
+                        putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
+                        putIntArray("DATA_LIST_NUM_SEAT", listNumSeatPassenger)
+                    }
+                    Log.i("ID_FLIGHT_DEPARTURE", flightTicketRoundTrip.toString())
+                    findNavController().navigate(R.id.action_call_self, putBundleFlight)
+                }else{
+                    flightTicketRoundTrip.flightIdReturn = it.id
+                    Log.i("ID_FLIGHT_DEPARTURE", flightTicketRoundTrip.toString())
+
+                    val putBundleDataFlight = Bundle().apply {
+                        putIntArray("DATA_LIST_NUM_SEAT", listNumSeatPassenger)
+                    }
+
+                    findNavController().navigate(R.id.action_hasilPencarianFragment_to_biodataPemesanFragment, putBundleDataFlight)
+                }
             }
         }
 
@@ -189,28 +293,48 @@ class HasilPencarianFragment : Fragment() {
         val bindingDialogFilter = DialogFilterHasilPenerbanganBinding.inflate(layoutInflater)
         dialog.setContentView(bindingDialogFilter.root)
 
+
         bindingDialogFilter.layoutHargaTermurah.setOnClickListener {
             setHoverFilter(bindingDialogFilter, 0)
+            setFilterIndex = 0
         }
 
         bindingDialogFilter.layoutKeberangkatanAwal.setOnClickListener {
             setHoverFilter(bindingDialogFilter, 1)
+            setFilterIndex = 1
         }
 
         bindingDialogFilter.layoutKeberangkatanAkhir.setOnClickListener {
             setHoverFilter(bindingDialogFilter, 2)
+            setFilterIndex = 2
         }
 
         bindingDialogFilter.layoutKedatanganAwal.setOnClickListener {
             setHoverFilter(bindingDialogFilter, 3)
+            setFilterIndex = 3
         }
 
         bindingDialogFilter.layoutKedatanganAkhir.setOnClickListener {
             setHoverFilter(bindingDialogFilter, 4)
+            setFilterIndex = 4
         }
         //
         bindingDialogFilter.btnClose.setOnClickListener {
             dialog.dismiss()
+        }
+
+        bindingDialogFilter.btnSaveFilter.setOnClickListener {
+            if(setFilterIndex != null){
+                setFilterFlight(setFilterIndex!!)
+            }
+
+            dialog.dismiss()
+
+        }
+
+        //set hover default
+        if(setFilterIndex != null){
+            setHoverFilter(bindingDialogFilter, setFilterIndex!!)
         }
 
         dialog.show()
@@ -218,6 +342,21 @@ class HasilPencarianFragment : Fragment() {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation;
         dialog.window?.setGravity(Gravity.BOTTOM);
+    }
+
+    private fun setFilterFlight(index: Int) {
+        val listFilter = listOf<String>("toLower","earlyDeparture","lastDeparture","earlyArrive", "lastArrive")
+        val filterMap = mutableMapOf<String,Boolean>()
+        for (i in listFilter.indices){
+            if(i == index){
+                filterMap[listFilter[i]] = true
+                break
+            }
+
+        }
+
+        flightViewModel.getDataFlight(postSearchFlight, filterMap)
+
     }
 
     private fun setHoverFilter(bindingDialogFilter: DialogFilterHasilPenerbanganBinding, index : Int) {
@@ -256,16 +395,75 @@ class HasilPencarianFragment : Fragment() {
     //masih perlu difixan antara menggunakan tab layout atau recycleview
     //menampilkan list filter date
     private fun setRecycleViewDate() {
+        val departureDatePick : LocalDate
+        val inputDate : LocalDate
+        //terjadi masalah ketika back halaman
+        if(statusFlightReturnFlight){
+            inputDate = LocalDate.parse(dataSearchFlight.returnDate)
+            departureDatePick = LocalDate.parse(dataSearchFlight.departureDate)
+            Log.i("INFO DATE RETURN", inputDate.toString())
+        }else{
+            inputDate = LocalDate.parse(dataSearchFlight.departureDate)
+            departureDatePick = LocalDate.parse(dataSearchFlight.departureDate)
+            Log.i("INFO DATE DEPARTURE", inputDate.toString())
+        }
 
-        val inputDate = LocalDate.parse(dataSearchFlight.departureDate)
         var listDate = mutableListOf<LocalDate>()
         var listDay = mutableListOf<String>()
 
-        if (LocalDate.now() == inputDate){
-            listDate = setDate(inputDate,0,6)
+        //kurang membuat kondisi jika return date > departure date
+        //karena departure date dinamis tidak mengambil dari search date
+        //jika selisih dari pick departure date harus < return date
+        //dan list pada filter date departure date <= returnDate
+         if(statusFlightReturnFlight){
+             listDate = if(inputDate <= departureDatePick){
+                 setDate(inputDate,0,6)
+             }else{
+                 val dateDifference = countDifferenceDate(dataSearchFlight.departureDate,dataSearchFlight.returnDate)
+                 if(dateDifference > 3){
+                     setDate(inputDate, -3, 3)
+                 }else{
+                     setDate(inputDate, -dateDifference.toInt(), 3)
+                 }
+
+             }
         }else{
-            listDate = setDate(inputDate, -3, 3)
+            if(dataSearchFlight.returnDate.isEmpty()){
+                listDate = if (LocalDate.now() == inputDate){
+                    setDate(inputDate,0,6)
+                }else{
+                    setDate(inputDate, -3, 3)
+                }
+            }else{
+                //permasalahan
+                val dateDifference = countDifferenceDate(dataSearchFlight.departureDate,dataSearchFlight.returnDate)
+//                Toast.makeText(context, "$dateDifference", Toast.LENGTH_SHORT).show()
+                listDate = if(dateDifference <= 7){
+                    if (LocalDate.now() == inputDate){
+                        if(dateDifference > 6){
+                            setDate(inputDate,0,6)
+                        }else{
+                            setDate(inputDate,0,dateDifference.toInt())
+                        }
+                    }else{
+                        if(dateDifference < 3){
+                            setDate(inputDate, -3, dateDifference.toInt())
+                        }else{
+                            setDate(inputDate, -3, 3)
+                        }
+
+                    }
+                }else{
+                    if (LocalDate.now() == inputDate){
+                        setDate(inputDate,0,dateDifference.toInt())
+                    }else{
+                        setDate(inputDate, -3, dateDifference.toInt())
+                    }
+                }
+            }
+
         }
+
 
         listDay = setDay(listDate)
 
@@ -279,7 +477,12 @@ class HasilPencarianFragment : Fragment() {
         }
         departureDateAdapter = DepartureDateAdapter(list)
 
-        departureDateAdapter.dateDeparture = dataSearchFlight.departureDate
+        if(statusFlightReturnFlight){
+            departureDateAdapter.dateDeparture = dataSearchFlight.returnDate
+        }else{
+            departureDateAdapter.dateDeparture = dataSearchFlight.departureDate
+        }
+
         binding.rvDateFlight.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = departureDateAdapter
@@ -289,8 +492,15 @@ class HasilPencarianFragment : Fragment() {
             departureDateAdapter.dateDeparture = it.date
             departureDateAdapter.setListDate(list)
             //change date departure
-            dataSearchFlight.departureDate = it.date
-            postSearchFlight.departureDate = it.date
+            //ketika pindah screen maka data departure date tidak tersimpan, sehingga default ke date awal
+            if(statusFlightReturnFlight){
+                postSearchFlight.departureDate = it.date
+                dataSearchFlight.returnDate = it.date
+            }else{
+                dataSearchFlight.departureDate = it.date
+                postSearchFlight.departureDate = it.date
+            }
+
             getAllDataFlight(postSearchFlight)
             Log.d("HASIL_PERUBAHAN_DATE", dataSearchFlight.toString())
             Log.d("HASIL_PERUBAHAN_DATE_POST", postSearchFlight.toString())
@@ -321,6 +531,16 @@ class HasilPencarianFragment : Fragment() {
             listDate.add(date)
         }
         return listDate
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun countDifferenceDate(inputDateDeparture : String, inputDateReturn : String) : Long{
+        val dateFormat = SimpleDateFormat("yyyy-mm-dd")
+        val dateDeparture = dateFormat.parse(inputDateDeparture)
+        val dateReturn = dateFormat.parse(inputDateReturn)
+        val dateDifference = kotlin.math.abs(dateDeparture.time - dateReturn.time)
+
+        return dateDifference / (24 * 60 * 60 * 1000)
     }
 
 }
