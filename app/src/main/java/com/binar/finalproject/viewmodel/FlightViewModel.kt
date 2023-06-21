@@ -21,23 +21,24 @@ class FlightViewModel @Inject constructor(private val api : RestfulApi) : ViewMo
     val dataFlight : LiveData<List<Flight>> = _dataFlight
 
     //sementara
-    fun getDataFlight(data : PostSearchFlight){
-        api.getSearchDataFlight(data).enqueue(object : Callback<ResponseDataFlight>{
-            override fun onResponse(
-                call: Call<ResponseDataFlight>,
-                response: Response<ResponseDataFlight>
-            ) {
-                if(response.isSuccessful){
-                    _dataFlight.postValue(response.body()!!.data.flight)
-                }else{
+    fun getDataFlight(data : PostSearchFlight, filterMap : Map<String, Boolean> = mapOf("toLower" to false)){
+            api.getSearchDataFlight(data, filterMap).enqueue(object : Callback<ResponseDataFlight>{
+                override fun onResponse(
+                    call: Call<ResponseDataFlight>,
+                    response: Response<ResponseDataFlight>
+                ) {
+                    if(response.isSuccessful){
+                        _dataFlight.postValue(response.body()!!.data.flight)
+                    }else{
+                        _dataFlight.postValue(emptyList())
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseDataFlight>, t: Throwable) {
                     _dataFlight.postValue(emptyList())
                 }
-            }
 
-            override fun onFailure(call: Call<ResponseDataFlight>, t: Throwable) {
-                _dataFlight.postValue(emptyList())
-            }
+            })
 
-        })
     }
 }
