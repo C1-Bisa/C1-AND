@@ -15,6 +15,7 @@ import com.binar.finalproject.model.user.PostRegister
 import com.binar.finalproject.model.user.ResponRegister
 import com.binar.finalproject.model.user.login.PostLogin
 import com.binar.finalproject.model.user.login.ResponseLogin
+import com.binar.finalproject.model.user.logout.ResponseLogout
 import com.binar.finalproject.model.user.profile.ResponseUserProfile
 import com.binar.finalproject.model.user.updateprofile.PutDataUpdateProfile
 import com.binar.finalproject.model.user.updateprofile.ResponseUpdateProfileUser
@@ -31,6 +32,9 @@ interface RestfulApi {
 
     @POST("user/login")
     fun postLogin(@Body data : PostLogin) : Call<ResponseLogin>
+
+    @POST("user/logout")
+    fun postLogout() : Call<ResponseLogout>
 
     //sementara buat get data flight
     @POST("flight/searchflight")
