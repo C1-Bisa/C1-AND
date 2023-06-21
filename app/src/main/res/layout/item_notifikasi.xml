@@ -27,7 +27,7 @@
                 android:id="@+id/imgnotif"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_notifikasi" />
 
 
@@ -36,16 +36,16 @@
                 android:id="@+id/tanggal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="139dp"
-                android:layout_toRightOf="@id/promo"
+                android:layout_marginStart="139dp"
+                android:layout_toEndOf="@id/promo"
                 android:text="20 Maret, 14:04" />
 
             <ImageView
                 android:id="@+id/pointer"
                 android:layout_width="10dp"
                 android:layout_height="19dp"
-                android:layout_marginLeft="7dp"
-                android:layout_toRightOf="@id/tanggal"
+                android:layout_marginStart="7dp"
+                android:layout_toEndOf="@id/tanggal"
                 android:src="@drawable/point_hijau" />
 
             <TextView
@@ -53,7 +53,7 @@
                 android:id="@+id/promo"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/imgnotif"
+                android:layout_toEndOf="@id/imgnotif"
                 android:text="@string/promosi"
                 android:textSize="13sp" />
 
@@ -62,9 +62,9 @@
                 android:layout_width="329dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/promo"
-                android:layout_marginLeft="1dp"
+                android:layout_marginStart="1dp"
                 android:layout_marginTop="2dp"
-                android:layout_toRightOf="@+id/imgnotif"
+                android:layout_toEndOf="@+id/imgnotif"
                 android:fontFamily="@font/poppins_regular"
                 android:text="Dapatkan Potongan 50% Tiket! "
                 android:textColor="@color/black"
@@ -76,10 +76,10 @@
                 android:layout_width="223dp"
                 android:layout_height="30dp"
                 android:layout_below="@+id/DetailPromo"
-                android:layout_marginLeft="1dp"
+                android:layout_marginStart="1dp"
                 android:layout_marginTop="2dp"
                 android:fontFamily="@font/poppins_regular"
-                android:layout_toRightOf="@+id/imgnotif"
+                android:layout_toEndOf="@+id/imgnotif"
                 android:text="Syarat dan Ketentuan berlaku!"
                 android:textSize="13sp" />
 

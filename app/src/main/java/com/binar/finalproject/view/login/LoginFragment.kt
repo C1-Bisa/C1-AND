@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentLoginBinding
-import com.binar.finalproject.local.DataStore
+import com.binar.finalproject.local.DataStoreUser
 import com.binar.finalproject.model.resetpassword.PatchResetPassword
 import com.binar.finalproject.model.user.login.PostLogin
 import com.binar.finalproject.utils.showCustomToast
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
     lateinit var binding : FragmentLoginBinding
-    private lateinit var dataSotreUser : DataStore
+    private lateinit var dataSotreUser : DataStoreUser
     private val userLoginVm: UserViewModel by viewModels()
 
     override fun onCreateView(
@@ -44,7 +44,7 @@ class LoginFragment : Fragment() {
         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav.visibility = View.GONE
 
-        dataSotreUser = DataStore(requireContext().applicationContext)
+        dataSotreUser = DataStoreUser(requireContext().applicationContext)
 
 
         binding.tvLupaPassword.setOnClickListener {
@@ -92,13 +92,20 @@ class LoginFragment : Fragment() {
                         lifecycleScope.launch {
                             dataSotreUser.saveUser(emailUser1, tokenUser1)
                         }
+                        dataSotreUser.getToken.asLiveData().observe(viewLifecycleOwner){token ->
+                           if (token.isNotEmpty()){
+                               Toast(requireContext()).showCustomToast(
+                                   "Login Berhasil !", requireActivity(), R.layout.toast_alert_green)
 
+                               findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                           }
+                        }
 
                     }
-                    Toast(requireContext()).showCustomToast(
-                        "Login Berhasil !", requireActivity(), R.layout.toast_alert_green)
 
-                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                }else{
+                    Toast(requireContext()).showCustomToast(
+                        "Email dan password tidak terdaftar! ", requireActivity(), R.layout.toast_alert_red)
                 }
             }
 
