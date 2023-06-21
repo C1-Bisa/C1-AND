@@ -32,7 +32,14 @@
         android:id="@+id/detailPenerbanganFragment"
         android:name="com.binar.finalproject.view.home.DetailPenerbanganFragment"
         android:label="fragment_detail_penerbangan"
-        tools:layout="@layout/fragment_detail_penerbangan" />
+        tools:layout="@layout/fragment_detail_penerbangan" >
+        <action
+            android:id="@+id/action_detailPenerbanganFragment_to_hasilPencarianFragment"
+            app:destination="@id/hasilPencarianFragment" />
+        <action
+            android:id="@+id/action_detailPenerbanganFragment_to_biodataPemesanFragment"
+            app:destination="@id/biodataPemesanFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.binar.finalproject.view.login.LoginFragment"
@@ -86,12 +93,24 @@
         <action
             android:id="@+id/action_hasilPencarianFragment_to_detailPenerbanganFragment"
             app:destination="@id/detailPenerbanganFragment" />
+
+<!--        //mencoba untuk memanggil fragmen sendiri-->
+        <action
+            android:id="@+id/action_call_self"
+            app:destination="@id/hasilPencarianFragment" />
+        <action
+            android:id="@+id/action_hasilPencarianFragment_to_biodataPemesanFragment"
+            app:destination="@id/biodataPemesanFragment" />
     </fragment>
     <fragment
         android:id="@+id/biodataPemesanFragment"
         android:name="com.binar.finalproject.view.home.BiodataPemesanFragment"
         android:label="fragment_biodata_pemesan"
-        tools:layout="@layout/fragment_biodata_pemesan" />
+        tools:layout="@layout/fragment_biodata_pemesan" >
+        <action
+            android:id="@+id/action_biodataPemesanFragment_to_biodataPenumpangFragment"
+            app:destination="@id/biodataPenumpangFragment" />
+    </fragment>
     <fragment
         android:id="@+id/paymentFragment"
         android:name="com.binar.finalproject.view.home.PaymentFragment"
