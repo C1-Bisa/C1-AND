@@ -31,8 +31,12 @@ interface RestfulApi {
     fun postLogin(@Body data : PostLogin) : Call<ResponseLogin>
 
     //sementara buat get data flight
+    //dapat diganti dengan query map
     @POST("flight/searchflight")
-    fun getSearchDataFlight(@Body data: PostSearchFlight) : Call<ResponseDataFlight>
+    fun getSearchDataFlight(
+        @Body data: PostSearchFlight,
+        @QueryMap filter : Map<String, Boolean> = mapOf("toLower" to false)
+    ) : Call<ResponseDataFlight>
 
     @PUT("user/verification")
     fun verificationOTP(@Body otp : PutDataOtp) : Call<ResponseOtp>
