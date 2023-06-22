@@ -61,27 +61,29 @@ class AkunFragment : Fragment() {
             }
 
         binding.Btnlogout.setOnClickListener {
+            userLogOut()
+        }
+    }
 
-
-            userVm.postLogoutUser()
-            userVm.responseLogout.observe(viewLifecycleOwner){
-                if (it != null){
-                    lifecycleScope.launch {
-                        dataSotreUser.clear()
-                    }
-                    dataSotreUser.getToken.asLiveData().observe(viewLifecycleOwner){token ->
-                        if (token.isNotEmpty()){
-                            binding.layoutUserLogged.visibility = View.GONE
-                            binding.layoutUserNotLogged.visibility = View.VISIBLE
-                            Toast(requireContext()).showCustomToast(
-                                "Logout akun sukses !", requireActivity(), R.layout.toast_alert_green)
-                        }
-
-                    }
-                }else{
-                    Toast(requireContext()).showCustomToast(
-                        "Logout gagal !", requireActivity(), R.layout.toast_alert_red)
+    private fun userLogOut() {
+        userVm.postLogoutUser()
+        userVm.responseLogout.observe(viewLifecycleOwner){
+            if (it != null){
+                lifecycleScope.launch {
+                    dataSotreUser.clear()
                 }
+                dataSotreUser.getToken.asLiveData().observe(viewLifecycleOwner){token ->
+                    if (token.isNotEmpty()){
+                        binding.layoutUserLogged.visibility = View.GONE
+                        binding.layoutUserNotLogged.visibility = View.VISIBLE
+                        Toast(requireContext()).showCustomToast(
+                            "Logout akun sukses !", requireActivity(), R.layout.toast_alert_green)
+                    }
+
+                }
+            }else{
+                Toast(requireContext()).showCustomToast(
+                    "Logout gagal !", requireActivity(), R.layout.toast_alert_red)
             }
         }
     }
