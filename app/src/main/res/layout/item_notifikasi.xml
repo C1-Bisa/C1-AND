@@ -8,7 +8,7 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="4dp"
         android:backgroundTint="@color/white"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,68 +22,92 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
 
-
             <ImageView
                 android:id="@+id/imgnotif"
-                android:layout_width="30dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_notifikasi" />
 
-
-            <TextView
-                android:fontFamily="@font/poppins_regular"
-                android:id="@+id/tanggal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="139dp"
-                android:layout_toEndOf="@id/promo"
-                android:text="20 Maret, 14:04" />
-
-            <ImageView
-                android:id="@+id/pointer"
-                android:layout_width="10dp"
-                android:layout_height="19dp"
-                android:layout_marginStart="7dp"
-                android:layout_toEndOf="@id/tanggal"
-                android:src="@drawable/point_hijau" />
-
-            <TextView
-                android:fontFamily="@font/poppins_regular"
-                android:id="@+id/promo"
-                android:layout_width="64dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/imgnotif"
-                android:text="@string/promosi"
-                android:textSize="13sp" />
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:id="@+id/promo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        >
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/DetailPromo"
-                android:layout_width="329dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/promo"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="2dp"
-                android:layout_toEndOf="@+id/imgnotif"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Dapatkan Potongan 50% Tiket! "
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tvPromo"
+                            android:fontFamily="@font/poppins_regular"
+                            android:layout_width="64dp"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/imgnotif"
+                            android:text="@string/promosi"
+                            android:textSize="13sp" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/syaratketentuan"
-                android:layout_width="223dp"
-                android:layout_height="30dp"
-                android:layout_below="@+id/DetailPromo"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="2dp"
-                android:fontFamily="@font/poppins_regular"
-                android:layout_toEndOf="@+id/imgnotif"
-                android:text="Syarat dan Ketentuan berlaku!"
-                android:textSize="13sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true">
+                        <TextView
+                            android:fontFamily="@font/poppins_regular"
+                            android:id="@+id/tanggal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="20 Maret, 14:04" />
 
+                        <ImageView
+                            android:id="@+id/pointer"
+                            android:layout_width="10dp"
+                            android:layout_height="19dp"
+                            android:layout_marginStart="7dp"
+                            android:layout_toEndOf="@id/tanggal"
+                            android:src="@drawable/point_hijau" />
+                    </LinearLayout>
 
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_below="@id/promo">
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/DetailPromo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/promo"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Dapatkan Potongan 50% Tiket! "
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/syaratketentuan"
+                        android:layout_width="223dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/DetailPromo"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Syarat dan Ketentuan berlaku!"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

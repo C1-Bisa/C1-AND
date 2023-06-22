@@ -22,7 +22,7 @@ class AdapterNotifikasi(private val listNotifkasi : List<Notifikasi>):
     }
 
     override fun onBindViewHolder(holder: AdapterNotifikasi.ViewHolder, position: Int) {
-        holder.binding.promo.text = listNotifkasi[position].typeNotif
+        holder.binding.tvPromo.text = listNotifkasi[position].typeNotif
         holder.binding.tanggal.text = listNotifkasi[position].tgl
         holder.binding.DetailPromo.text = listNotifkasi[position].title
         holder.binding.syaratketentuan.text = listNotifkasi[position].tagLine
