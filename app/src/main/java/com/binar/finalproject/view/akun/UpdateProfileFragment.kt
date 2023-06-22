@@ -13,6 +13,7 @@ import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentUpdateProfileBinding
 import com.binar.finalproject.local.DataStoreUser
 import com.binar.finalproject.model.user.updateprofile.PutDataUpdateProfile
+import com.binar.finalproject.utils.showCustomToast
 import com.binar.finalproject.viewmodel.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +43,8 @@ class UpdateProfileFragment : Fragment() {
 
         dataStoreUser = DataStoreUser(requireContext().applicationContext)
 
+        binding.pbProfile.visibility = View.VISIBLE
+
         dataStoreUser.getToken.asLiveData().observe(viewLifecycleOwner){
             if (it.isNotEmpty()){
                 token = it
@@ -66,6 +69,7 @@ class UpdateProfileFragment : Fragment() {
                 binding.etFullName.setText(it.data.nama)
                 binding.etNoTelephone.setText(it.data.phone)
                 binding.etEmail.setText(it.data.email)
+                binding.pbProfile.visibility = View.GONE
             }
         }
     }
@@ -77,20 +81,25 @@ class UpdateProfileFragment : Fragment() {
         if(fullName.isNotEmpty() && phoneNumber.isNotEmpty()){
             userViewModel.updateProfileUser(token,PutDataUpdateProfile(fullName, phoneNumber))
 
+            binding.pbProfile.visibility = View.VISIBLE
+
             userViewModel.responseUpdateProfile.observe(viewLifecycleOwner){
                 if(it != null){
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                    Toast(requireContext()).showCustomToast(
+                        it.message, requireActivity(), R.layout.toast_alert_green)
                     binding.etFullName.setText(it.data.nama)
                     binding.etNoTelephone.setText(it.data.phone)
+                    binding.pbProfile.visibility = View.GONE
                 }else{
-                    Toast.makeText(context, "Update profile gagal!", Toast.LENGTH_SHORT).show()
+                    Toast(requireContext()).showCustomToast(
+                        "Update profile gagal!", requireActivity(), R.layout.toast_alert_red)
+                    binding.pbProfile.visibility = View.GONE
                 }
             }
         }else{
-            Toast.makeText(context, "Data tidak boleh kosong!", Toast.LENGTH_SHORT).show()
+            Toast(requireContext()).showCustomToast(
+                "Data tidak boleh kosong!", requireActivity(), R.layout.toast_alert_red)
         }
-
-
 
     }
 
