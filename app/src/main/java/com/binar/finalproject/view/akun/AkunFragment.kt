@@ -2,6 +2,7 @@ package com.binar.finalproject.view.akun
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -36,12 +37,13 @@ class AkunFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav.visibility = View.VISIBLE
+
+        Log.d("AKUN_FRAGMENT", "AKTIF")
 
         binding.updateProfile.setOnClickListener {
             findNavController().navigate(R.id.action_akunFragment_to_updateProfileFragment)
@@ -52,36 +54,39 @@ class AkunFragment : Fragment() {
 
         dataSotreUser = DataStoreUser(requireContext().applicationContext)
 
-            if (dataSotreUser.isAlreadyLogin()) {
-                binding.layoutUserLogged.visibility = View.VISIBLE
-                binding.layoutUserNotLogged.visibility = View.GONE
-            } else {
-                binding.layoutUserLogged.visibility = View.GONE
-                binding.layoutUserNotLogged.visibility = View.VISIBLE
-            }
+
+        if (dataSotreUser.isAlreadyLogin()) {
+            binding.layoutUserLogged.visibility = View.VISIBLE
+            binding.layoutUserNotLogged.visibility = View.GONE
+        } else {
+            binding.layoutUserLogged.visibility = View.GONE
+            binding.layoutUserNotLogged.visibility = View.VISIBLE
+        }
 
         binding.Btnlogout.setOnClickListener {
+            accountLogout()
+        }
+    }
 
-
-            userVm.postLogoutUser()
-            userVm.responseLogout.observe(viewLifecycleOwner){
-                if (it != null){
-                    lifecycleScope.launch {
-                        dataSotreUser.clear()
-                    }
-                    dataSotreUser.getToken.asLiveData().observe(viewLifecycleOwner){token ->
-                        if (token.isNotEmpty()){
-                            binding.layoutUserLogged.visibility = View.GONE
-                            binding.layoutUserNotLogged.visibility = View.VISIBLE
-                            Toast(requireContext()).showCustomToast(
-                                "Logout akun sukses !", requireActivity(), R.layout.toast_alert_green)
-                        }
-
-                    }
-                }else{
-                    Toast(requireContext()).showCustomToast(
-                        "Logout gagal !", requireActivity(), R.layout.toast_alert_red)
+    private fun accountLogout() {
+        userVm.postLogoutUser()
+        userVm.responseLogout.observe(viewLifecycleOwner){
+            if (it != null){
+                lifecycleScope.launch {
+                    dataSotreUser.clear()
                 }
+                dataSotreUser.getToken.asLiveData().observe(viewLifecycleOwner){token ->
+                    if (token.isNotEmpty()){
+                        binding.layoutUserLogged.visibility = View.GONE
+                        binding.layoutUserNotLogged.visibility = View.VISIBLE
+                        Toast(requireContext()).showCustomToast(
+                            "Logout akun sukses !", requireActivity(), R.layout.toast_alert_green)
+                    }
+
+                }
+            }else{
+                Toast(requireContext()).showCustomToast(
+                    "Logout gagal !", requireActivity(), R.layout.toast_alert_red)
             }
         }
     }
