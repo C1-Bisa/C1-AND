@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/splashScreen">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_detailPenerbanganFragment_to_biodataPemesanFragment"
             app:destination="@id/biodataPemesanFragment" />
+        <action
+            android:id="@+id/action_detailPenerbanganFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -53,7 +56,12 @@
             app:destination="@id/lupaPasswordFragment" />
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_loginFragment_to_akunFragment"
+            app:destination="@id/akunFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -81,7 +89,9 @@
         tools:layout="@layout/fragment_splash_screen" >
         <action
             android:id="@+id/action_splashScreen_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashScreen"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/hasilPencarianFragment"
@@ -102,6 +112,10 @@
         <action
             android:id="@+id/action_hasilPencarianFragment_to_biodataPemesanFragment"
             app:destination="@id/biodataPemesanFragment" />
+        <action
+            android:id="@+id/action_hasilPencarianFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/biodataPemesanFragment"
@@ -132,7 +146,8 @@
             app:destination="@id/updateProfileFragment" />
         <action
             android:id="@+id/action_akunFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            />
 
     </fragment>
     <fragment
@@ -144,7 +159,12 @@
         android:id="@+id/riwayatFragment"
         android:name="com.binar.finalproject.view.riwayat.RiwayatFragment"
         android:label="fragment_riwayat"
-        tools:layout="@layout/fragment_riwayat" />
+        tools:layout="@layout/fragment_riwayat" >
+        <action
+            android:id="@+id/action_riwayatFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            />
+    </fragment>
     <fragment
         android:id="@+id/notifikasiFragment"
         android:name="com.binar.finalproject.view.notifikasi.NotifikasiFragment"
