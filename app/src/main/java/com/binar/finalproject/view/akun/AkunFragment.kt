@@ -1,11 +1,17 @@
 package com.binar.finalproject.view.akun
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -60,9 +66,30 @@ class AkunFragment : Fragment() {
                 binding.layoutUserNotLogged.visibility = View.VISIBLE
             }
 
+
         binding.Btnlogout.setOnClickListener {
+            val message : String? ="Are you sure want to log out ?"
+            showCustomDialogBox(message)
 
 
+        }
+
+    }
+
+    private fun showCustomDialogBox(message : String?){
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.custom_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val tvMessage = dialog.findViewById<TextView>(R.id.tvMessage)
+        val btnYes: Button = dialog.findViewById(R.id.btnYes)
+        val btnNo: Button = dialog.findViewById(R.id.btnNo)
+
+        tvMessage.text = message
+
+        btnYes.setOnClickListener {
             userVm.postLogoutUser()
             userVm.responseLogout.observe(viewLifecycleOwner){
                 if (it != null){
@@ -83,7 +110,13 @@ class AkunFragment : Fragment() {
                         "Logout gagal !", requireActivity(), R.layout.toast_alert_red)
                 }
             }
+            dialog.dismiss()
         }
+
+        btnNo.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
 
