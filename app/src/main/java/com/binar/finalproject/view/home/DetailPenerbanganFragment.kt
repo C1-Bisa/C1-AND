@@ -9,9 +9,12 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.binar.finalproject.R
+import com.binar.finalproject.databinding.DialogAlertCheckoutNonLoginBinding
 import com.binar.finalproject.databinding.DialogTicketSoldOutBinding
 import com.binar.finalproject.databinding.FragmentDetailPenerbanganBinding
+import com.binar.finalproject.databinding.PassangerDialogLayoutBinding
 import com.binar.finalproject.databinding.SeatclassDialogLayoutBinding
+import com.binar.finalproject.local.DataStoreUser
 import com.binar.finalproject.model.searchflight.Flight
 import com.binar.finalproject.model.searchflight.FlightTicketOneTrip
 import com.binar.finalproject.model.searchflight.FlightTicketRoundTrip
@@ -29,6 +32,7 @@ class DetailPenerbanganFragment : Fragment() {
 
     private lateinit var binding : FragmentDetailPenerbanganBinding
     private lateinit var flight: Flight
+    private lateinit var dataStoreUser : DataStoreUser
     private var flightTicketOneTrip = FlightTicketOneTrip()
     private var flightTicketRoundTrip = FlightTicketRoundTrip()
     private var dataSearchFlight = SearchFlight()
@@ -48,6 +52,7 @@ class DetailPenerbanganFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        dataStoreUser = DataStoreUser(requireContext().applicationContext)
 
         val getBundleDetailFlight = arguments?.getSerializable("DATA_FLIGHT")
         val getDataSearch = arguments?.getSerializable("DATA_SEARCH")
@@ -79,8 +84,12 @@ class DetailPenerbanganFragment : Fragment() {
                 val putBundleDataFlight = Bundle().apply {
                     putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
                 }
+                if(dataStoreUser.isAlreadyLogin()){
+                    findNavController().navigate(R.id.action_detailPenerbanganFragment_to_biodataPemesanFragment, putBundleDataFlight)
+                }else{
+                    showDialogToLogin()
+                }
 
-                findNavController().navigate(R.id.action_detailPenerbanganFragment_to_biodataPemesanFragment, putBundleDataFlight)
             }else{
                 if(!statusPickFlightReturn){
                     flightTicketRoundTrip.flightIdDeparture = flight.id
@@ -93,6 +102,7 @@ class DetailPenerbanganFragment : Fragment() {
                         putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
                     }
                     Log.i("ID_FLIGHT_DEPARTURE", flightTicketRoundTrip.toString())
+
                     findNavController().navigate(R.id.action_detailPenerbanganFragment_to_hasilPencarianFragment, putBundleFlight)
                 }else{
                     flightTicketRoundTrip.flightIdReturn = flight.id
@@ -100,8 +110,13 @@ class DetailPenerbanganFragment : Fragment() {
                     val putBundleDataFlight = Bundle().apply {
                         putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
                     }
-                    findNavController().navigate(R.id.action_detailPenerbanganFragment_to_biodataPemesanFragment, putBundleDataFlight)
-                }
+                    //jika belum login maka akan show dialog login
+                    if(dataStoreUser.isAlreadyLogin()){
+                        findNavController().navigate(R.id.action_detailPenerbanganFragment_to_biodataPemesanFragment, putBundleDataFlight)
+                    }else{
+                        showDialogToLogin()
+                    }
+                  }
             }
 
         }
@@ -112,6 +127,30 @@ class DetailPenerbanganFragment : Fragment() {
         }
 
 
+    }
+
+    private fun showDialogToLogin() {
+        val dialog = BottomSheetDialog(requireContext())
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_alert_checkout_non_login)
+        val bindingDialog = DialogAlertCheckoutNonLoginBinding.inflate(layoutInflater)
+        dialog.setContentView(bindingDialog.root)
+
+        bindingDialog.btnClose.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        bindingDialog.btnLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_detailPenerbanganFragment_to_loginFragment)
+            dialog.dismiss()
+        }
+
+        dialog.show()
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation;
+        dialog.window?.setGravity(Gravity.BOTTOM);
     }
 
     @SuppressLint("SetTextI18n")

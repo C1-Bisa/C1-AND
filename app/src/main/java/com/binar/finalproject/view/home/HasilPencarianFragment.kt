@@ -16,8 +16,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binar.finalproject.R
+import com.binar.finalproject.databinding.DialogAlertCheckoutNonLoginBinding
 import com.binar.finalproject.databinding.DialogFilterHasilPenerbanganBinding
 import com.binar.finalproject.databinding.FragmentHasilPencarianBinding
+import com.binar.finalproject.local.DataStoreUser
 import com.binar.finalproject.model.DateDeparture
 import com.binar.finalproject.model.searchflight.*
 import com.binar.finalproject.view.adapter.DepartureDateAdapter
@@ -42,6 +44,9 @@ class HasilPencarianFragment : Fragment() {
     //Adapter
     private lateinit var departureDateAdapter: DepartureDateAdapter
     private lateinit var flightSearchResultAdapter: FlightSearchResultAdapter
+
+    //data store
+    private lateinit var dataStoreUser: DataStoreUser
 
     //Viewmodel
     private val flightViewModel : FlightViewModel by viewModels()
@@ -79,6 +84,8 @@ class HasilPencarianFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        dataStoreUser = DataStoreUser(requireContext().applicationContext)
 
         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav.visibility = View.GONE
@@ -232,7 +239,13 @@ class HasilPencarianFragment : Fragment() {
                 val putBundleDataFlight = Bundle().apply {
                     putIntArray("DATA_LIST_NUM_SEAT", listNumSeatPassenger)
                 }
-                findNavController().navigate(R.id.action_hasilPencarianFragment_to_biodataPemesanFragment, putBundleDataFlight)
+
+                if(dataStoreUser.isAlreadyLogin()){
+                    findNavController().navigate(R.id.action_hasilPencarianFragment_to_biodataPemesanFragment, putBundleDataFlight)
+                }else{
+                    showDialogToLogin()
+                }
+
             }else{
                 if(!statusFlightReturnFlight){
                     flightTicketRoundTrip.flightIdDeparture = it.id
@@ -253,12 +266,40 @@ class HasilPencarianFragment : Fragment() {
                     val putBundleDataFlight = Bundle().apply {
                         putIntArray("DATA_LIST_NUM_SEAT", listNumSeatPassenger)
                     }
+                    if (dataStoreUser.isAlreadyLogin()){
+                        findNavController().navigate(R.id.action_hasilPencarianFragment_to_biodataPemesanFragment, putBundleDataFlight)
+                    }else{
+                        showDialogToLogin()
+                    }
 
-                    findNavController().navigate(R.id.action_hasilPencarianFragment_to_biodataPemesanFragment, putBundleDataFlight)
                 }
             }
         }
 
+    }
+
+    private fun showDialogToLogin() {
+        val dialog = BottomSheetDialog(requireContext())
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_alert_checkout_non_login)
+        val bindingDialog = DialogAlertCheckoutNonLoginBinding.inflate(layoutInflater)
+        dialog.setContentView(bindingDialog.root)
+
+        bindingDialog.btnClose.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        bindingDialog.btnLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_hasilPencarianFragment_to_loginFragment)
+            dialog.dismiss()
+        }
+
+        dialog.show()
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation;
+        dialog.window?.setGravity(Gravity.BOTTOM);
     }
 
     private fun getAllDataFlight(dataSearch : PostSearchFlight){
