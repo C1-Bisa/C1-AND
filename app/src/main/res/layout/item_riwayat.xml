@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/labelRiwayat"
             android:layout_marginTop="30dp"
+            android:layout_marginStart="8dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:src="@drawable/maps_ic" />
@@ -53,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/labelRiwayat"
             android:layout_marginTop="30dp"
-            android:layout_marginStart="230dp"
+            android:layout_marginStart="222dp"
             android:layout_centerVertical="true"
             android:src="@drawable/maps_ic" />
 
@@ -106,7 +107,7 @@
                 android:id="@+id/layoutFlightTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="26dp"
                 android:layout_marginEnd="13dp"
                 android:layout_toEndOf="@id/layoutDeparture"
                 android:gravity="center"

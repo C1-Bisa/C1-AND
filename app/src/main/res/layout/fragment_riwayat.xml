@@ -10,7 +10,6 @@
         android:id="@+id/layoutNonLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -59,6 +58,8 @@
             android:layout_below="@+id/imageView"
             android:layout_marginTop="50dp"
             android:fontFamily="@font/poppins_bold"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:lineHeight="20dp"
             android:text="@string/masuk"
             android:textAlignment="center"
@@ -75,7 +76,7 @@ namun jika empty maka neutral 01-->
         android:id="@+id/linearLayoutLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/NEUTRAL01"
+        android:background="@drawable/bg_splash_screen"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -175,6 +176,7 @@ namun jika empty maka neutral 01-->
 
         <RelativeLayout
             android:id="@+id/layoutRiwayatEmpty"
+            android:background="@color/NEUTRAL01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"
