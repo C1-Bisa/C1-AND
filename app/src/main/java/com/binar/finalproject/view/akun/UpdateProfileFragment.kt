@@ -1,14 +1,17 @@
 package com.binar.finalproject.view.akun
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentUpdateProfileBinding
+import com.binar.finalproject.local.DataStoreUser
 import com.binar.finalproject.model.user.updateprofile.PutDataUpdateProfile
 import com.binar.finalproject.viewmodel.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -19,9 +22,9 @@ class UpdateProfileFragment : Fragment() {
 
     private lateinit var binding : FragmentUpdateProfileBinding
     private val userViewModel : UserViewModel by viewModels()
-
+    private lateinit var dataStoreUser : DataStoreUser
     //contoh
-    private lateinit var token : String
+    private var token : String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,11 +40,22 @@ class UpdateProfileFragment : Fragment() {
         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav.visibility = View.GONE
 
-        token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoiemVlemVyby4yMWluY0BnbWFpbC5jb20iLCJuYW1hIjoiWmVlIEFOWHl6Iiwicm9sZSI6IlVzZXIiLCJpYXQiOjE2ODcxMDMwMzQsImV4cCI6MTY4NzEwNjYzNH0.ddQBqGGnC-lzkJ_nijam3yt2YfWDv0fAtzxznYrEhJs"
-        //nanti dikasih kondisi apakah toke null atau tidak
-        setFillEditTextProfile()
+        dataStoreUser = DataStoreUser(requireContext().applicationContext)
+
+        dataStoreUser.getToken.asLiveData().observe(viewLifecycleOwner){
+            if (it.isNotEmpty()){
+                token = it
+                Log.d("TOKEN_USER", it.toString())
+                setFillEditTextProfile()
+            }
+        }
+       //nanti dikasih kondisi apakah toke null atau tidak
+
         binding.btnUpdateProfile.setOnClickListener {
-            updateProfileUser()
+            if(token.isNotEmpty()){
+                updateProfileUser()
+            }
+
         }
     }
     //set nilai pada fillEditText
