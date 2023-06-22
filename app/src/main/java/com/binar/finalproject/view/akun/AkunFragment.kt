@@ -67,7 +67,7 @@ class AkunFragment : Fragment() {
             }
 
         binding.Btnlogout.setOnClickListener {
-            val message: String? = "Are you sure you want to log out"
+            val message: String? = "Apakah kamu yakin ingin keluar ?"
             showCustomDialogBox(message)
         }
     }
