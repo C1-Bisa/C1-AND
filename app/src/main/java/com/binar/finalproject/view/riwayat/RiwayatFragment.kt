@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.DateDialogLayoutBinding
@@ -60,6 +61,9 @@ class RiwayatFragment : Fragment() {
 
         }
 
+        binding.btnMasukRiwayat.setOnClickListener {
+            findNavController().navigate(R.id.action_riwayatFragment_to_loginFragment)
+        }
     }
 
     private fun showDialogFilterDateRiwayat() {
