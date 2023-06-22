@@ -4,5 +4,5 @@ data class Notifikasi (
     val typeNotif : String,
     val tgl : String,
     val title : String,
-    val tagLine : String
+    val tagLine : String,
     )

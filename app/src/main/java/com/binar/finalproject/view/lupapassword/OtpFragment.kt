@@ -77,7 +77,7 @@ class OtpFragment : Fragment() {
             userViewModel.responseOtp.observe(viewLifecycleOwner){
                 if (it != null){
                     Toast(requireContext()).showCustomToast(
-                        "Verifikasi berhasil !", requireActivity(), R.layout.toast_alert_red)
+                        "Verifikasi berhasil !", requireActivity(), R.layout.toast_alert_green)
                     findNavController().navigate(R.id.action_otpFragment_to_loginFragment)
                 }
             }
