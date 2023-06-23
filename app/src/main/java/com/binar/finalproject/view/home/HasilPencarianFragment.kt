@@ -238,9 +238,12 @@ class HasilPencarianFragment : Fragment() {
 
                 val putBundleDataFlight = Bundle().apply {
                     putIntArray("DATA_LIST_NUM_SEAT", listNumSeatPassenger)
+                    putBoolean("TYPE_TRIP_ROUNDTRIP", false)
+                    putSerializable("DATA_FLIGHT_ONE_TRIP", flightTicketOneTrip)
                 }
 
                 if(dataStoreUser.isAlreadyLogin()){
+
                     findNavController().navigate(R.id.action_hasilPencarianFragment_to_biodataPemesanFragment, putBundleDataFlight)
                 }else{
                     showDialogToLogin()
@@ -265,7 +268,10 @@ class HasilPencarianFragment : Fragment() {
 
                     val putBundleDataFlight = Bundle().apply {
                         putIntArray("DATA_LIST_NUM_SEAT", listNumSeatPassenger)
+                        putBoolean("TYPE_TRIP_ROUNDTRIP", true)
+                        putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
                     }
+
                     if (dataStoreUser.isAlreadyLogin()){
                         findNavController().navigate(R.id.action_hasilPencarianFragment_to_biodataPemesanFragment, putBundleDataFlight)
                     }else{

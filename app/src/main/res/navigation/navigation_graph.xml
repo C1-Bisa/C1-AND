@@ -27,7 +27,11 @@
         android:id="@+id/biodataPenumpangFragment"
         android:name="com.binar.finalproject.view.home.BiodataPenumpangFragment"
         android:label="fragment_biodata_penumpang"
-        tools:layout="@layout/fragment_biodata_penumpang" />
+        tools:layout="@layout/fragment_biodata_penumpang" >
+        <action
+            android:id="@+id/action_biodataPenumpangFragment_to_checkoutFragment3"
+            app:destination="@id/checkoutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailPenerbanganFragment"
         android:name="com.binar.finalproject.view.home.DetailPenerbanganFragment"
@@ -168,4 +172,9 @@
         android:name="com.binar.finalproject.view.notifikasi.NotifikasiFragment"
         android:label="fragment_notifikasi"
         tools:layout="@layout/fragment_notifikasi" />
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.binar.finalproject.view.home.CheckoutFragment"
+        android:label="fragment_checkout"
+        tools:layout="@layout/fragment_checkout" />
 </navigation>

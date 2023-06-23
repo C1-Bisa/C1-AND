@@ -83,6 +83,8 @@ class DetailPenerbanganFragment : Fragment() {
 
                 val putBundleDataFlight = Bundle().apply {
                     putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
+                    putBoolean("TYPE_TRIP_ROUNDTRIP", false)
+                    putSerializable("DATA_FLIGHT_ONE_TRIP", flightTicketOneTrip)
                 }
                 if(dataStoreUser.isAlreadyLogin()){
                     findNavController().navigate(R.id.action_detailPenerbanganFragment_to_biodataPemesanFragment, putBundleDataFlight)
@@ -109,6 +111,8 @@ class DetailPenerbanganFragment : Fragment() {
                     Log.i("ID_FLIGHT_DEPARTURE", flightTicketRoundTrip.toString())
                     val putBundleDataFlight = Bundle().apply {
                         putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
+                        putBoolean("TYPE_TRIP_ROUNDTRIP", true)
+                        putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
                     }
                     //jika belum login maka akan show dialog login
                     if(dataStoreUser.isAlreadyLogin()){

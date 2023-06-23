@@ -13,16 +13,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.ItemFormBiodataPenumpangBinding
 import com.binar.finalproject.model.BiodataPassenger
+import com.binar.finalproject.model.transaction.Passenger
 
 class BiodataPassengerAdapter(private var listBio : List<BiodataPassenger>, val context: Context) : RecyclerView.Adapter<BiodataPassengerAdapter.ViewHolder>() {
 
     private val arrayAdapterTitle = ArrayAdapter(context, R.layout.item_list_title_passenger, listOf("Mr", "Ms"))
 
-    private var listInput = mutableListOf<BiodataPassenger>()
+    private var listInput = mutableListOf<Passenger>()
 
     init {
         for (i in listBio.indices) {
-            listInput.add(BiodataPassenger("", ""))
+            listInput.add(Passenger("","","", "","","",0,"","",listBio[i].ageCategory))
         }
     }
 
@@ -45,7 +46,7 @@ class BiodataPassengerAdapter(private var listBio : List<BiodataPassenger>, val 
         holder.binding.tvPassengers.text = category
         holder.binding.titlePassenger.setAdapter(arrayAdapterTitle)
         //add age categori
-        listInput[position].ageCategory = listBio[position].ageCategory
+        listInput[position].type = listBio[position].ageCategory
         holder.binding.optionClan.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked){
                 holder.binding.layoutNameClan.visibility = View.VISIBLE
@@ -56,24 +57,24 @@ class BiodataPassengerAdapter(private var listBio : List<BiodataPassenger>, val 
         holder.binding.etNamaLengkapPenumpang.addTextChangedListener(
             object : TextWatcher{
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    listInput[position].namePassenger = p0.toString()
+                    listInput[position].name = p0.toString()
                 }
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    listInput[position].namePassenger = p0.toString()
+                    listInput[position].name = p0.toString()
                 }
                 override fun afterTextChanged(p0: Editable?) {}
             }
         )
 
-        listInput[position].titlePassenger = holder.binding.titlePassenger.text.toString()
+        listInput[position].title = holder.binding.titlePassenger.text.toString()
 
         holder.binding.titlePassenger.addTextChangedListener(
             object : TextWatcher{
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    listInput[position].titlePassenger = p0.toString()
+                    listInput[position].title = p0.toString()
                 }
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    listInput[position].titlePassenger = p0.toString()
+                    listInput[position].title = p0.toString()
                 }
                 override fun afterTextChanged(p0: Editable?) {}
             }
@@ -82,10 +83,10 @@ class BiodataPassengerAdapter(private var listBio : List<BiodataPassenger>, val 
         holder.binding.etNameClan.addTextChangedListener(
             object : TextWatcher{
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    listInput[position].nameClan = p0.toString()
+                    listInput[position].familyName = p0.toString()
                 }
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    listInput[position].nameClan = p0.toString()
+                    listInput[position].familyName = p0.toString()
                 }
                 override fun afterTextChanged(p0: Editable?) {}
             }
@@ -94,10 +95,10 @@ class BiodataPassengerAdapter(private var listBio : List<BiodataPassenger>, val 
         holder.binding.etDateOfBirthPassenger.addTextChangedListener(
             object : TextWatcher{
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    listInput[position].birthDate = p0.toString()
+                    listInput[position].birthday = p0.toString()
                 }
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    listInput[position].birthDate = p0.toString()
+                    listInput[position].birthday = p0.toString()
                 }
                 override fun afterTextChanged(p0: Editable?) {}
             }
@@ -106,10 +107,10 @@ class BiodataPassengerAdapter(private var listBio : List<BiodataPassenger>, val 
         holder.binding.etCitizenship.addTextChangedListener(
             object : TextWatcher{
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    listInput[position].citizen = p0.toString()
+                    listInput[position].nationality = p0.toString()
                 }
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    listInput[position].citizen = p0.toString()
+                    listInput[position].nationality = p0.toString()
                 }
                 override fun afterTextChanged(p0: Editable?) {}
             }
@@ -118,22 +119,30 @@ class BiodataPassengerAdapter(private var listBio : List<BiodataPassenger>, val 
         holder.binding.etIDorPassport.addTextChangedListener(
             object : TextWatcher{
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    listInput[position].idCardOrPassport = p0.toString()
+                    if(p0 != null && p0.isNotEmpty()){
+                        listInput[position].nik = p0.toString().toInt()
+                    }
                 }
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    listInput[position].idCardOrPassport = p0.toString()
+                    if(p0 != null && p0.isNotEmpty()){
+                        listInput[position].nik = p0.toString().toInt()
+                    }
                 }
-                override fun afterTextChanged(p0: Editable?) {}
+                override fun afterTextChanged(p0: Editable?) {
+                    if(p0 != null && p0.isNotEmpty()){
+                        listInput[position].nik = p0.toString().toInt()
+                    }
+                }
             }
         )
 
         holder.binding.etIssuingCountry.addTextChangedListener(
             object : TextWatcher{
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    listInput[position].issuingCountry = p0.toString()
+                    listInput[position].issuedCountry = p0.toString()
                 }
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    listInput[position].issuingCountry = p0.toString()
+                    listInput[position].issuedCountry = p0.toString()
                 }
                 override fun afterTextChanged(p0: Editable?) {}
             }
@@ -144,7 +153,7 @@ class BiodataPassengerAdapter(private var listBio : List<BiodataPassenger>, val 
         }
     }
 
-    fun getDataBioPassenger() : List<BiodataPassenger>{
+    fun getDataBioPassenger() : List<Passenger>{
         return listInput
     }
 }

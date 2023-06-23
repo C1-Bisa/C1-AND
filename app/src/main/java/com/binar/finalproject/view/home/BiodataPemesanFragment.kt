@@ -9,10 +9,14 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentBiodataPemesanBinding
+import com.binar.finalproject.model.searchflight.FlightTicketOneTrip
+import com.binar.finalproject.model.searchflight.FlightTicketRoundTrip
 
 class BiodataPemesanFragment : Fragment() {
 
     private lateinit var binding: FragmentBiodataPemesanBinding
+    private var flightTicketOneTrip = FlightTicketOneTrip()
+    private var flightTicketRoundTrip = FlightTicketRoundTrip()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,18 +31,47 @@ class BiodataPemesanFragment : Fragment() {
 
         //get bundle
         val getListSeatPassenger = arguments?.getIntArray("DATA_LIST_NUM_SEAT")
+        val getTypeRoundTrip = arguments?.getBoolean("TYPE_TRIP_ROUNDTRIP")
+
+
+        if (getTypeRoundTrip != null){
+            if(getTypeRoundTrip){
+                val getRoundTrip = arguments?.getSerializable("DATA_FLIGHT_ROUND_TRIP")
+                flightTicketRoundTrip = getRoundTrip as FlightTicketRoundTrip
+            }else{
+                val getOneTrip = arguments?.getSerializable("DATA_FLIGHT_ONE_TRIP")
+                flightTicketOneTrip = getOneTrip as FlightTicketOneTrip
+            }
+        }
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
         binding.btnSimpanBiodataPemesan.setOnClickListener {
-//            checkField()
-            val putBundleDataFlight = Bundle().apply {
-                putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
+            if(checkField()){
+                if(getTypeRoundTrip != null){
+                    if(getTypeRoundTrip){
+                        val putBundleDataFlight = Bundle().apply {
+                            putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
+                            putBoolean("TYPE_TRIP_ROUNDTRIP", true)
+                            putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
+                        }
+
+                        findNavController().navigate(R.id.action_biodataPemesanFragment_to_biodataPenumpangFragment, putBundleDataFlight)
+                    }else{
+                        val putBundleDataFlight = Bundle().apply {
+                            putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
+                            putBoolean("TYPE_TRIP_ROUNDTRIP", false)
+                            putSerializable("DATA_FLIGHT_ONE_TRIP", flightTicketOneTrip)
+                        }
+
+                        findNavController().navigate(R.id.action_biodataPemesanFragment_to_biodataPenumpangFragment, putBundleDataFlight)
+                    }
+                }
             }
 
-            findNavController().navigate(R.id.action_biodataPemesanFragment_to_biodataPenumpangFragment, putBundleDataFlight)
+
         }
 
         binding.optionClan.setOnCheckedChangeListener { _, isChecked ->
@@ -51,23 +84,25 @@ class BiodataPemesanFragment : Fragment() {
 
     }
 
-    private fun checkField() {
+    private fun checkField() : Boolean {
         val fullName = binding.etNamaLengkapPemesan.text
         val nameClan = binding.etNameClan.text
         val phoneNum = binding.etNoTelephone.text
         val email = binding.etEmail.text
 
-        if(binding.optionClan.isChecked){
+        return if(binding.optionClan.isChecked){
             if(fullName.isNotEmpty() && nameClan.isNotEmpty() && phoneNum.isNotEmpty() && email.isNotEmpty()){
-                findNavController().navigate(R.id.action_biodataPemesanFragment_to_biodataPenumpangFragment)
+                true
             }else{
                 Toast.makeText(context, "Field tidak boleh kosong",Toast.LENGTH_SHORT).show()
+                false
             }
         }else{
             if(fullName.isNotEmpty() &&  phoneNum.isNotEmpty() && email.isNotEmpty()){
-                findNavController().navigate(R.id.action_biodataPemesanFragment_to_biodataPenumpangFragment)
+                true
             }else{
                 Toast.makeText(context, "Field tidak boleh kosong",Toast.LENGTH_SHORT).show()
+                false
             }
         }
     }
