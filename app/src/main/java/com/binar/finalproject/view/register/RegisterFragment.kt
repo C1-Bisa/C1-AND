@@ -42,6 +42,13 @@ class RegisterFragment : Fragment() {
             getRegister()
 
         }
+        binding.tvMasukDiSini.setOnClickListener {
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
+        binding.BtnimageViewRegist.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
     }
 
     private fun getRegister() {
