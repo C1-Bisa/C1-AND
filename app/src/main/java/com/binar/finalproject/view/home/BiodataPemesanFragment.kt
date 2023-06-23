@@ -49,7 +49,8 @@ class BiodataPemesanFragment : Fragment() {
         }
 
         binding.btnSimpanBiodataPemesan.setOnClickListener {
-            if(checkField()){
+//            if(checkField()){
+            if(true){
                 if(getTypeRoundTrip != null){
                     if(getTypeRoundTrip){
                         val putBundleDataFlight = Bundle().apply {

@@ -1,6 +1,8 @@
 package com.binar.finalproject.network
 
 import com.binar.finalproject.model.airport.ResponseDataAirport
+import com.binar.finalproject.model.getdetailflight.PostDataFlight
+import com.binar.finalproject.model.getdetailflight.datadetailflight.ResponseDetailFlight
 import com.binar.finalproject.model.otpcode.GetResendResponseOtp
 import com.binar.finalproject.model.otpcode.PutDataOtp
 import com.binar.finalproject.model.otpcode.ResponseOtp
@@ -43,6 +45,13 @@ interface RestfulApi {
         @Body data: PostSearchFlight,
         @QueryMap filter : Map<String, Boolean> = mapOf("toLower" to false)
     ) : Call<ResponseDataFlight>
+
+
+    @POST("flight/getDetail")
+    fun getDetailFlight(
+        @Body data : PostDataFlight
+    ) : Call<ResponseDetailFlight>
+
 
     @PUT("user/verification")
     fun verificationOTP(@Body otp : PutDataOtp) : Call<ResponseOtp>
