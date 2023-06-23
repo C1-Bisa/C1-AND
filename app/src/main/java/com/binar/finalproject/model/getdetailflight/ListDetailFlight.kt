@@ -1,8 +1,8 @@
 package com.binar.finalproject.model.getdetailflight
 
-import com.binar.finalproject.model.getdetailflight.roundtrip.Airline
-import com.binar.finalproject.model.getdetailflight.roundtrip.AirportFrom
-import com.binar.finalproject.model.getdetailflight.roundtrip.AirportTo
+import com.binar.finalproject.model.getdetailflight.datadetailflight.Airline
+import com.binar.finalproject.model.getdetailflight.datadetailflight.AirportFrom
+import com.binar.finalproject.model.getdetailflight.datadetailflight.AirportTo
 import com.google.gson.annotations.SerializedName
 
 data class ListDetailFlight (
