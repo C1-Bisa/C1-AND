@@ -13,6 +13,8 @@ import com.binar.finalproject.model.resetpassword.createnewpassword.ResponseCrea
 import com.binar.finalproject.model.searchflight.PostSearchFlight
 import com.binar.finalproject.model.searchflight.ResponseDataFlight
 import com.binar.finalproject.model.searchflight.SearchFlight
+import com.binar.finalproject.model.transaction.request.RequestTransaction
+import com.binar.finalproject.model.transaction.response.ResponseDataTransaction
 import com.binar.finalproject.model.user.PostRegister
 import com.binar.finalproject.model.user.ResponRegister
 import com.binar.finalproject.model.user.login.PostLogin
@@ -52,6 +54,12 @@ interface RestfulApi {
         @Body data : PostDataFlight
     ) : Call<ResponseDetailFlight>
 
+    //for transaction
+    @POST("transaction")
+    fun createTransaction(
+        @Header("Authorization") tokenUser: String,
+        @Body data : RequestTransaction
+    ) : Call<ResponseDataTransaction>
 
     @PUT("user/verification")
     fun verificationOTP(@Body otp : PutDataOtp) : Call<ResponseOtp>
