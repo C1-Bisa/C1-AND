@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.ItemFormBiodataPenumpangBinding
 import com.binar.finalproject.model.BiodataPassenger
-import com.binar.finalproject.model.transaction.Passenger
+import com.binar.finalproject.model.transaction.request.Passenger
 
 class BiodataPassengerAdapter(private var listBio : List<BiodataPassenger>, val context: Context) : RecyclerView.Adapter<BiodataPassengerAdapter.ViewHolder>() {
 
