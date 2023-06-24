@@ -8,18 +8,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binar.finalproject.databinding.FragmentCheckoutBinding
+import com.binar.finalproject.local.DataStoreUser
 import com.binar.finalproject.model.getdetailflight.ListDetailFlight
 import com.binar.finalproject.model.getdetailflight.PostDataFlight
 import com.binar.finalproject.model.getdetailflight.datadetailflight.Berangkat
 import com.binar.finalproject.model.getdetailflight.datadetailflight.Pulang
 import com.binar.finalproject.model.searchflight.FlightTicketOneTrip
 import com.binar.finalproject.model.searchflight.FlightTicketRoundTrip
+import com.binar.finalproject.model.transaction.request.Flight
 import com.binar.finalproject.model.transaction.request.Passenger
+import com.binar.finalproject.model.transaction.request.RequestTransaction
 import com.binar.finalproject.view.adapter.DetailFlightAdapter
 import com.binar.finalproject.viewmodel.FlightViewModel
+import com.binar.finalproject.viewmodel.TransactionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -30,6 +35,8 @@ class CheckoutFragment : Fragment() {
 
     private lateinit var binding : FragmentCheckoutBinding
     private val flightViewModel : FlightViewModel by viewModels()
+    private val transactionViewModel : TransactionViewModel by viewModels()
+    private lateinit var dataStoreUser : DataStoreUser
 
     private lateinit var detailFlightAdapter: DetailFlightAdapter
 
@@ -37,6 +44,8 @@ class CheckoutFragment : Fragment() {
     private var flightTicketOneTrip = FlightTicketOneTrip()
     private var flightTicketRoundTrip = FlightTicketRoundTrip()
     private var listSeatPass = IntArray(3)
+
+    private var amount : Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,11 +61,14 @@ class CheckoutFragment : Fragment() {
 
         detailFlightAdapter = DetailFlightAdapter(emptyList())
 
+        dataStoreUser = DataStoreUser(requireContext().applicationContext)
 
         val getListSeatPassenger = arguments?.getIntArray("DATA_LIST_NUM_SEAT")
         val getTypeRoundTrip = arguments?.getBoolean("TYPE_TRIP_ROUNDTRIP")
         val getDataPemesan = arguments?.getSerializable("DATA_PEMESAN")
         val getDataPassenger = arguments?.getParcelableArrayList<Passenger>("DATA_PASSENGER")
+
+
 
         if (getTypeRoundTrip != null && getListSeatPassenger != null){
             if(getTypeRoundTrip == true){
@@ -75,6 +87,9 @@ class CheckoutFragment : Fragment() {
         //cek nullable data pemesan dan data passenger
         if(getDataPemesan != null && getDataPassenger != null){
             Log.i("HASIL DATA PASS", "$getDataPemesan & $getDataPassenger")
+            Log.i("HASIL DATA PASSANGER",
+                (getDataPassenger as kotlin.collections.List<Passenger>).toString()
+            )
         }
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
@@ -86,6 +101,50 @@ class CheckoutFragment : Fragment() {
 
             setDetailFlight(getTypeRoundTrip, listSeatPass)
         }
+
+        binding.btnLanjutPembayaran.setOnClickListener {
+            if(getTypeRoundTrip != null && amount != 0 && getDataPassenger != null){
+                createTransaction(getTypeRoundTrip, getDataPassenger)
+            }
+
+        }
+
+    }
+
+    private fun createTransaction(roundTrip: Boolean, dataPassenger : List<Passenger>) {
+        val listFlight = mutableListOf<Flight>()
+        if (roundTrip){
+            if(flightTicketRoundTrip.toString().isNotEmpty()){
+                listFlight.add(Flight(flightTicketRoundTrip.flightIdDeparture, "Departure"))
+                listFlight.add(Flight(flightTicketRoundTrip.flightIdDeparture, "Arrival"))
+            }
+        }else{
+            if(flightTicketOneTrip.toString().isNotEmpty()){
+                listFlight.add(Flight(flightTicketOneTrip.flightIdDeparture,"Departure"))
+            }
+        }
+
+        val totalPrice = amount
+
+        val postTrasanction = RequestTransaction(
+            totalPrice, listFlight, dataPassenger
+        )
+
+        dataStoreUser.getToken.asLiveData().observe(viewLifecycleOwner){
+            if (it != null){
+                if(postTrasanction.toString().isNotEmpty()){
+                    transactionViewModel.createTransaction(postTrasanction, it)
+                }
+            }
+        }
+
+        transactionViewModel.responDataTransaction.observe(viewLifecycleOwner){
+            if (it != null){
+                Log.i("HASIL RESPON TRANSACTION", it.toString())
+            }
+        }
+
+
 
     }
 
@@ -132,6 +191,8 @@ class CheckoutFragment : Fragment() {
                 binding.tvTotalPromo.text = "IDR 0"
 
                 binding.tvTotalPrice.text = "IRD ${convertToCurrencyIDR(it.totalPrice)}"
+
+                amount = it.totalPrice
             }
 
 

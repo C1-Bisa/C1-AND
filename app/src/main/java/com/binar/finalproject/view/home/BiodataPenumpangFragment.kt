@@ -145,26 +145,26 @@ class BiodataPenumpangFragment : Fragment() {
     }
 
     private fun checkBioIsNotEmpty(dataBioPassenger: List<Passenger>): Boolean {
-//        val bioNotEmpty = dataBioPassenger.any { passenger ->
-//                    passenger.type.isNotEmpty() &&
-//                    passenger.birthday.isNotEmpty() &&
-//                    passenger.expired.isNotEmpty() &&
-//                    passenger.name.isNotEmpty() &&
-//                    passenger.nationality.isNotEmpty() &&
-//                    passenger.seat.isNotEmpty() &&
-//                    passenger.issuedCountry.isNotEmpty() &&
-//                    passenger.title.isNotEmpty() &&
-//                    passenger.nik.toString().isNotEmpty()
-//        }
         val bioNotEmpty = dataBioPassenger.any { passenger ->
                     passenger.type.toString().isNotEmpty() &&
                     passenger.birthday.toString().isNotEmpty() &&
+                    passenger.expired.toString().isNotEmpty() &&
                     passenger.name.toString().isNotEmpty() &&
                     passenger.nationality.toString().isNotEmpty() &&
+                    passenger.seat.toString().isNotEmpty() &&
                     passenger.issuedCountry.toString().isNotEmpty() &&
                     passenger.title.toString().isNotEmpty() &&
                     passenger.nik.toString().isNotEmpty()
         }
+//        val bioNotEmpty = dataBioPassenger.any { passenger ->
+//                    passenger.type.toString().isNotEmpty() &&
+//                    passenger.birthday.toString().isNotEmpty() &&
+//                    passenger.name.toString().isNotEmpty() &&
+//                    passenger.nationality.toString().isNotEmpty() &&
+//                    passenger.issuedCountry.toString().isNotEmpty() &&
+//                    passenger.title.toString().isNotEmpty() &&
+//                    passenger.nik.toString().isNotEmpty()
+//        }
         return bioNotEmpty
     }
 
