@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentBiodataPemesanBinding
 import com.binar.finalproject.local.DataStoreUser
+import com.binar.finalproject.model.bio.BiodataPemesan
 import com.binar.finalproject.model.searchflight.FlightTicketOneTrip
 import com.binar.finalproject.model.searchflight.FlightTicketRoundTrip
 import com.binar.finalproject.utils.showCustomToast
@@ -94,6 +95,7 @@ class BiodataPemesanFragment : Fragment() {
                             putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
                             putBoolean("TYPE_TRIP_ROUNDTRIP", true)
                             putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
+                            putSerializable("DATA_PEMESAN", setDataPemesan())
                         }
 
                         findNavController().navigate(R.id.action_biodataPemesanFragment_to_biodataPenumpangFragment, putBundleDataFlight)
@@ -102,6 +104,7 @@ class BiodataPemesanFragment : Fragment() {
                             putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
                             putBoolean("TYPE_TRIP_ROUNDTRIP", false)
                             putSerializable("DATA_FLIGHT_ONE_TRIP", flightTicketOneTrip)
+                            putSerializable("DATA_PEMESAN", setDataPemesan())
                         }
 
                         findNavController().navigate(R.id.action_biodataPemesanFragment_to_biodataPenumpangFragment, putBundleDataFlight)
@@ -148,5 +151,17 @@ class BiodataPemesanFragment : Fragment() {
             }
         }
     }
+
+    private fun setDataPemesan() : BiodataPemesan{
+        val nama = binding.etNamaLengkapPemesan.text.toString()
+//        val familyName = binding.etNameClan.toString()
+        val familyName = "Sanjaya"
+        val phoneNumber = binding.etNoTelephone.text.toString()
+        val email = binding.etEmail.text.toString()
+
+        return BiodataPemesan(nama,familyName,phoneNumber,email)
+
+    }
+
 
 }

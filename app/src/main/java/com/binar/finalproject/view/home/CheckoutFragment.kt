@@ -17,6 +17,7 @@ import com.binar.finalproject.model.getdetailflight.datadetailflight.Berangkat
 import com.binar.finalproject.model.getdetailflight.datadetailflight.Pulang
 import com.binar.finalproject.model.searchflight.FlightTicketOneTrip
 import com.binar.finalproject.model.searchflight.FlightTicketRoundTrip
+import com.binar.finalproject.model.transaction.request.Passenger
 import com.binar.finalproject.view.adapter.DetailFlightAdapter
 import com.binar.finalproject.viewmodel.FlightViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,6 +55,8 @@ class CheckoutFragment : Fragment() {
 
         val getListSeatPassenger = arguments?.getIntArray("DATA_LIST_NUM_SEAT")
         val getTypeRoundTrip = arguments?.getBoolean("TYPE_TRIP_ROUNDTRIP")
+        val getDataPemesan = arguments?.getSerializable("DATA_PEMESAN")
+        val getDataPassenger = arguments?.getParcelableArrayList<Passenger>("DATA_PASSENGER")
 
         if (getTypeRoundTrip != null && getListSeatPassenger != null){
             if(getTypeRoundTrip == true){
@@ -69,6 +72,10 @@ class CheckoutFragment : Fragment() {
             }
         }
 
+        //cek nullable data pemesan dan data passenger
+        if(getDataPemesan != null && getDataPassenger != null){
+            Log.i("HASIL DATA PASS", "$getDataPemesan & $getDataPassenger")
+        }
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }

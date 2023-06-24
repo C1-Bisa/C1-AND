@@ -14,7 +14,7 @@ import com.binar.finalproject.databinding.FragmentBiodataPenumpangBinding
 import com.binar.finalproject.model.BiodataPassenger
 import com.binar.finalproject.model.searchflight.FlightTicketOneTrip
 import com.binar.finalproject.model.searchflight.FlightTicketRoundTrip
-import com.binar.finalproject.model.transaction.Passenger
+import com.binar.finalproject.model.transaction.request.Passenger
 import com.binar.finalproject.utils.showCustomToast
 import com.binar.finalproject.view.adapter.BiodataPassengerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -45,6 +45,7 @@ class BiodataPenumpangFragment : Fragment() {
         //get bundle
         val getListSeatPassenger = arguments?.getIntArray("DATA_LIST_NUM_SEAT")
         val getTypeRoundTrip = arguments?.getBoolean("TYPE_TRIP_ROUNDTRIP")
+        val getDataPemesan = arguments?.getSerializable("DATA_PEMESAN")
 
 
         if (getTypeRoundTrip != null){
@@ -72,49 +73,53 @@ class BiodataPenumpangFragment : Fragment() {
         }
 
         binding.btnLanjutPilihKursi.setOnClickListener {
-            if(getTypeRoundTrip != null){
-                if(getTypeRoundTrip){
-                    val putBundleDataFlight = Bundle().apply {
-                        putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
-                        putBoolean("TYPE_TRIP_ROUNDTRIP", true)
-                        putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
-                    }
-                    findNavController().navigate(R.id.action_biodataPenumpangFragment_to_checkoutFragment3, putBundleDataFlight)
-                }else{
-                    val putBundleDataFlight = Bundle().apply {
-                        putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
-                        putBoolean("TYPE_TRIP_ROUNDTRIP", false)
-                        putSerializable("DATA_FLIGHT_ONE_TRIP", flightTicketOneTrip)
-                    }
-                    findNavController().navigate(R.id.action_biodataPenumpangFragment_to_checkoutFragment3, putBundleDataFlight)
-                }
-            }
-//            val bioIsNotEmpty = checkBioIsNotEmpty(biodataPassengerAdapter.getDataBioPassenger())
-//            Log.i("DATA_PASSENGGER", biodataPassengerAdapter.getDataBioPassenger().toString())
-//            if(bioIsNotEmpty){
-//                if(getTypeRoundTrip != null){
-//                    if(getTypeRoundTrip){
-//                        val putBundleDataFlight = Bundle().apply {
-//                            putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
-//                            putBoolean("TYPE_TRIP_ROUNDTRIP", true)
-//                            putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
-//                        }
-//                        findNavController().navigate(R.id.action_biodataPenumpangFragment_to_checkoutFragment3, putBundleDataFlight)
-//                    }else{
-//                        val putBundleDataFlight = Bundle().apply {
-//                            putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
-//                            putBoolean("TYPE_TRIP_ROUNDTRIP", false)
-//                            putSerializable("DATA_FLIGHT_ONE_TRIP", flightTicketOneTrip)
-//                        }
-//                        findNavController().navigate(R.id.action_biodataPenumpangFragment_to_checkoutFragment3, putBundleDataFlight)
+//            if(getTypeRoundTrip != null){
+//                if(getTypeRoundTrip){
+//                    val putBundleDataFlight = Bundle().apply {
+//                        putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
+//                        putBoolean("TYPE_TRIP_ROUNDTRIP", true)
+//                        putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
 //                    }
+//                    findNavController().navigate(R.id.action_biodataPenumpangFragment_to_checkoutFragment3, putBundleDataFlight)
+//                }else{
+//                    val putBundleDataFlight = Bundle().apply {
+//                        putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
+//                        putBoolean("TYPE_TRIP_ROUNDTRIP", false)
+//                        putSerializable("DATA_FLIGHT_ONE_TRIP", flightTicketOneTrip)
+//                    }
+//                    findNavController().navigate(R.id.action_biodataPenumpangFragment_to_checkoutFragment3, putBundleDataFlight)
 //                }
-//                Log.i("DATA_PASSENGGER", biodataPassengerAdapter.getDataBioPassenger().toString())
 //            }
-//            else{
-//                Toast(requireContext()).showCustomToast(
-//                    "Data Passenger tidak boleh kosong!", requireActivity(), R.layout.toast_alert_red)
-//            }
+            val bioIsNotEmpty = checkBioIsNotEmpty(biodataPassengerAdapter.getDataBioPassenger())
+            Log.i("DATA_PASSENGGER", biodataPassengerAdapter.getDataBioPassenger().toString())
+            if(bioIsNotEmpty){
+                if(getTypeRoundTrip != null && getDataPemesan != null){
+                    if(getTypeRoundTrip){
+                        val putBundleDataFlight = Bundle().apply {
+                            putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
+                            putBoolean("TYPE_TRIP_ROUNDTRIP", true)
+                            putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
+                            putSerializable("DATA_PEMESAN", getDataPemesan)
+                            putParcelableArrayList("DATA_PASSENGER", ArrayList(biodataPassengerAdapter.getDataBioPassenger()))
+                        }
+                        findNavController().navigate(R.id.action_biodataPenumpangFragment_to_checkoutFragment3, putBundleDataFlight)
+                    }else{
+                        val putBundleDataFlight = Bundle().apply {
+                            putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
+                            putBoolean("TYPE_TRIP_ROUNDTRIP", false)
+                            putSerializable("DATA_FLIGHT_ONE_TRIP", flightTicketOneTrip)
+                            putSerializable("DATA_PEMESAN", getDataPemesan)
+                            putParcelableArrayList("DATA_PASSENGER", ArrayList(biodataPassengerAdapter.getDataBioPassenger()))
+                        }
+                        findNavController().navigate(R.id.action_biodataPenumpangFragment_to_checkoutFragment3, putBundleDataFlight)
+                    }
+                }
+                Log.i("DATA_PASSENGGER", biodataPassengerAdapter.getDataBioPassenger().toString())
+            }
+            else{
+                Toast(requireContext()).showCustomToast(
+                    "Data Passenger tidak boleh kosong!", requireActivity(), R.layout.toast_alert_red)
+            }
 
         }
     }
@@ -152,12 +157,12 @@ class BiodataPenumpangFragment : Fragment() {
 //                    passenger.nik.toString().isNotEmpty()
 //        }
         val bioNotEmpty = dataBioPassenger.any { passenger ->
-            passenger.type.isNotEmpty() &&
-                    passenger.birthday.isNotEmpty() &&
-                    passenger.name.isNotEmpty() &&
-                    passenger.nationality.isNotEmpty() &&
-                    passenger.issuedCountry.isNotEmpty() &&
-                    passenger.title.isNotEmpty() &&
+                    passenger.type.toString().isNotEmpty() &&
+                    passenger.birthday.toString().isNotEmpty() &&
+                    passenger.name.toString().isNotEmpty() &&
+                    passenger.nationality.toString().isNotEmpty() &&
+                    passenger.issuedCountry.toString().isNotEmpty() &&
+                    passenger.title.toString().isNotEmpty() &&
                     passenger.nik.toString().isNotEmpty()
         }
         return bioNotEmpty
