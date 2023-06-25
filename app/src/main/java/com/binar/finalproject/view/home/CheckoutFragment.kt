@@ -116,7 +116,7 @@ class CheckoutFragment : Fragment() {
         if (roundTrip){
             if(flightTicketRoundTrip.toString().isNotEmpty()){
                 listFlight.add(Flight(flightTicketRoundTrip.flightIdDeparture, "Departure"))
-                listFlight.add(Flight(flightTicketRoundTrip.flightIdDeparture, "Arrival"))
+                listFlight.add(Flight(flightTicketRoundTrip.flightIdReturn, "Arrival"))
             }
         }else{
             if(flightTicketOneTrip.toString().isNotEmpty()){
