@@ -7,10 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentCheckoutBinding
 import com.binar.finalproject.local.DataStoreUser
 import com.binar.finalproject.model.getdetailflight.ListDetailFlight
@@ -22,6 +24,7 @@ import com.binar.finalproject.model.searchflight.FlightTicketRoundTrip
 import com.binar.finalproject.model.transaction.request.Flight
 import com.binar.finalproject.model.transaction.request.Passenger
 import com.binar.finalproject.model.transaction.request.RequestTransaction
+import com.binar.finalproject.utils.showCustomToast
 import com.binar.finalproject.view.adapter.DetailFlightAdapter
 import com.binar.finalproject.viewmodel.FlightViewModel
 import com.binar.finalproject.viewmodel.TransactionViewModel
@@ -62,6 +65,8 @@ class CheckoutFragment : Fragment() {
         detailFlightAdapter = DetailFlightAdapter(emptyList())
 
         dataStoreUser = DataStoreUser(requireContext().applicationContext)
+
+        binding.pbLoadDataCheckout.visibility = View.VISIBLE
 
         val getListSeatPassenger = arguments?.getIntArray("DATA_LIST_NUM_SEAT")
         val getTypeRoundTrip = arguments?.getBoolean("TYPE_TRIP_ROUNDTRIP")
@@ -141,6 +146,12 @@ class CheckoutFragment : Fragment() {
         transactionViewModel.responDataTransaction.observe(viewLifecycleOwner){
             if (it != null){
                 Log.i("HASIL RESPON TRANSACTION", it.toString())
+                val bundleDataTransaction = Bundle().apply {
+                    putSerializable("DATA_TRANSACTION", it)
+                }
+                Toast(requireContext()).showCustomToast(
+                    "Transaksi berhasil", requireActivity(), R.layout.toast_alert_green)
+                findNavController().navigate(R.id.action_checkoutFragment_to_paymentFragment, bundleDataTransaction)
             }
         }
 
@@ -153,6 +164,8 @@ class CheckoutFragment : Fragment() {
 
         flightViewModel.detailFlight.observe(viewLifecycleOwner){
             if(it != null){
+
+                binding.pbLoadDataCheckout.visibility = View.GONE
 
                 if(getTypeRoundTrip){
                     detailFlightAdapter.setListFlight(listOf(
@@ -193,6 +206,8 @@ class CheckoutFragment : Fragment() {
                 binding.tvTotalPrice.text = "IRD ${convertToCurrencyIDR(it.totalPrice)}"
 
                 amount = it.totalPrice
+            }else{
+                binding.pbLoadDataCheckout.visibility = View.GONE
             }
 
 
