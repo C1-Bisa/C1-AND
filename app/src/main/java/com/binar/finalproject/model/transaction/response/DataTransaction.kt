@@ -10,4 +10,4 @@ data class DataTransaction(
     val departure: List<Departure>,
     @SerializedName("transaction")
     val transaction: TransactionUser
-)
+) : java.io.Serializable
