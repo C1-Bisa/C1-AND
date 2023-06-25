@@ -3,7 +3,8 @@ package com.binar.finalproject.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.binar.finalproject.model.searchflight.Flight
+import com.binar.finalproject.model.payment.RequestTransactionCode
+import com.binar.finalproject.model.payment.ResponsePayment
 import com.binar.finalproject.model.transaction.request.RequestTransaction
 import com.binar.finalproject.model.transaction.response.DataTransaction
 import com.binar.finalproject.model.transaction.response.ResponseDataTransaction
@@ -21,7 +22,9 @@ class TransactionViewModel @Inject constructor(private val api: RestfulApi) : Vi
     private val _responDataTransaction = MutableLiveData<DataTransaction?>()
     val responDataTransaction : LiveData<DataTransaction?> = _responDataTransaction
 
-    //gethistory transaction
+    //post payment
+    private val _responsePayment = MutableLiveData<ResponsePayment?>()
+    val responsePayment : LiveData<ResponsePayment?> = _responsePayment
 
 
     fun createTransaction(data : RequestTransaction, token : String){
@@ -39,6 +42,26 @@ class TransactionViewModel @Inject constructor(private val api: RestfulApi) : Vi
 
             override fun onFailure(call: Call<ResponseDataTransaction>, t: Throwable) {
                 _responDataTransaction.postValue(null)
+            }
+
+        })
+    }
+
+    fun postPayment(data : RequestTransactionCode, token : String){
+        api.paymentTicketFlight(tokenUser = "Bearer $token", data).enqueue(object : Callback<ResponsePayment>{
+            override fun onResponse(
+                call: Call<ResponsePayment>,
+                response: Response<ResponsePayment>
+            ) {
+                if(response.isSuccessful){
+                    _responsePayment.postValue(response.body())
+                }else{
+                    _responsePayment.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponsePayment>, t: Throwable) {
+                _responsePayment.postValue(null)
             }
 
         })

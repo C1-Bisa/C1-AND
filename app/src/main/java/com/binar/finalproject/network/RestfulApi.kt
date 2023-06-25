@@ -6,6 +6,8 @@ import com.binar.finalproject.model.getdetailflight.datadetailflight.ResponseDet
 import com.binar.finalproject.model.otpcode.GetResendResponseOtp
 import com.binar.finalproject.model.otpcode.PutDataOtp
 import com.binar.finalproject.model.otpcode.ResponseOtp
+import com.binar.finalproject.model.payment.RequestTransactionCode
+import com.binar.finalproject.model.payment.ResponsePayment
 import com.binar.finalproject.model.resetpassword.PatchResetPassword
 import com.binar.finalproject.model.resetpassword.ResponseResetPassword
 import com.binar.finalproject.model.resetpassword.createnewpassword.PutCreateNewPassword
@@ -60,6 +62,13 @@ interface RestfulApi {
         @Header("Authorization") tokenUser: String,
         @Body data : RequestTransaction
     ) : Call<ResponseDataTransaction>
+
+    //payment
+    @PUT("transaction/update")
+    fun paymentTicketFlight(
+        @Header("Authorization") tokenUser: String,
+        @Body codeTransaction: RequestTransactionCode
+    ) : Call<ResponsePayment>
 
     @PUT("user/verification")
     fun verificationOTP(@Body otp : PutDataOtp) : Call<ResponseOtp>
