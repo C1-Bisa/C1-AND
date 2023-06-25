@@ -136,7 +136,7 @@ class BiodataPenumpangFragment : Fragment() {
             }
 
         }
-        biodataPassengerAdapter = BiodataPassengerAdapter(listPassenger, requireContext())
+        biodataPassengerAdapter = BiodataPassengerAdapter(listPassenger, requireContext(), requireActivity())
 
         binding.rvBioPassenger.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

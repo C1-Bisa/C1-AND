@@ -339,4 +339,46 @@
             tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
+<!--    expire date-->
+    <LinearLayout
+        android:id="@+id/layoutExpired"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/layoutIssuingCountry"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Berlaku sampai"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="14sp"
+            android:lineHeight="20dp"
+            android:textColor="@color/DARKBLUE05"/>
+
+        <EditText
+            android:id="@+id/etExpired"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_rounded_neutral_two"
+            android:fontFamily="@font/poppins_medium"
+            android:hint="yyyy-mm-hh"
+            android:textSize="16sp"
+            android:textColor="@color/NEUTRAL04"
+            android:textColorHint="@color/NEUTRAL03"
+            android:inputType="date"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="10dp"
+            android:drawableEnd="@drawable/ic_date"
+            android:drawableTint="@color/NEUTRAL03"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
 </RelativeLayout>
