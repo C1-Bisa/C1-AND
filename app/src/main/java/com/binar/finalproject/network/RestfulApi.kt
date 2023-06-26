@@ -3,6 +3,8 @@ package com.binar.finalproject.network
 import com.binar.finalproject.model.airport.ResponseDataAirport
 import com.binar.finalproject.model.getdetailflight.PostDataFlight
 import com.binar.finalproject.model.getdetailflight.datadetailflight.ResponseDetailFlight
+import com.binar.finalproject.model.notification.responsegetnotif.ResponseDataNotification
+import com.binar.finalproject.model.notification.updatenotif.ResponseUpdateNotif
 import com.binar.finalproject.model.otpcode.GetResendResponseOtp
 import com.binar.finalproject.model.otpcode.PutDataOtp
 import com.binar.finalproject.model.otpcode.ResponseOtp
@@ -78,6 +80,18 @@ interface RestfulApi {
         @Header("Authorization") tokenUser: String,
         @Body idTransacction: RequestTransactionId
     ) : Call<ResponseTransactionPerId>
+
+    //get all notification
+    @GET("notification")
+    fun getNotification(
+        @Header("Authorization") tokenUser: String
+    ) : Call<ResponseDataNotification>
+
+    @GET("notification/update")
+    fun UpdateReadNotification(
+        @Header("Authorization") tokenUser: String
+    ) : Call<ResponseUpdateNotif>
+
 
     @PUT("user/verification")
     fun verificationOTP(@Body otp : PutDataOtp) : Call<ResponseOtp>

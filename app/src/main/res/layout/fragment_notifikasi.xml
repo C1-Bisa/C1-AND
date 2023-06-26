@@ -7,18 +7,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.notifikasi.NotifikasiFragment">
 
-    <TextView
-        android:id="@+id/tv_notif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:text="Notifikasi"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+   <RelativeLayout
+       android:id="@+id/titleLayout"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:layout_constraintTop_toTopOf="parent"
+       android:layout_marginTop="50dp"
+       android:layout_marginStart="20dp"
+       android:layout_marginEnd="20dp"
+       >
+       <TextView
+           android:id="@+id/tv_notif"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Notifikasi"
+           android:textColor="@color/black"
+           android:textSize="24sp"
+           android:textStyle="bold"
+           android:layout_alignParentStart="true"
+           android:layout_centerVertical="true"/>
+       <Button
+           android:id="@+id/btnMarkAllRead"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentEnd="true"
+           android:layout_centerVertical="true"
+           android:text="Mark all is read"
+           android:textAllCaps="false"
+           android:textSize="10sp"
+           />
+   </RelativeLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -28,6 +46,6 @@
         android:layout_marginEnd="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tv_notif" />
+        app:layout_constraintTop_toBottomOf="@+id/titleLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

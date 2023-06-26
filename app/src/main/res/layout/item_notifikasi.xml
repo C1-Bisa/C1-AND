@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:backgroundTint="@color/white"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+<androidx.cardview.widget.CardView android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="2dp"
+    android:layout_marginEnd="2dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginTop="2dp"
+    android:backgroundTint="@color/white"
+    app:cardCornerRadius="10dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <RelativeLayout
             android:id="@+id/detail"
@@ -48,13 +48,13 @@
                         >
 
                         <TextView
-                            android:id="@+id/tvPromo"
+                            android:id="@+id/tvTypeNotif"
                             android:fontFamily="@font/poppins_regular"
                             android:layout_width="64dp"
                             android:layout_height="wrap_content"
                             android:layout_toEndOf="@id/imgnotif"
                             android:text="@string/promosi"
-                            android:textSize="13sp" />
+                            android:textSize="10sp" />
 
                     </LinearLayout>
                     <LinearLayout
@@ -62,13 +62,16 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true">
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        >
                         <TextView
                             android:fontFamily="@font/poppins_regular"
                             android:id="@+id/tanggal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="20 Maret, 14:04" />
+                            android:text="20 Maret, 14:04"
+                            android:textSize="10sp"/>
 
                         <ImageView
                             android:id="@+id/pointer"
@@ -76,7 +79,7 @@
                             android:layout_height="19dp"
                             android:layout_marginStart="7dp"
                             android:layout_toEndOf="@id/tanggal"
-                            android:src="@drawable/point_hijau" />
+                            android:src="@drawable/point_merah" />
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -86,7 +89,7 @@
                     android:orientation="vertical"
                     android:layout_below="@id/promo">
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/DetailPromo"
+                        android:id="@+id/DetailMessage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/promo"
@@ -105,10 +108,9 @@
                         android:layout_marginTop="2dp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="Syarat dan Ketentuan berlaku!"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:visibility="gone"/>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
