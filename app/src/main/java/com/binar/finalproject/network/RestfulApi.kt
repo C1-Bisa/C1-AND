@@ -17,6 +17,8 @@ import com.binar.finalproject.model.searchflight.ResponseDataFlight
 import com.binar.finalproject.model.searchflight.SearchFlight
 import com.binar.finalproject.model.transaction.request.RequestTransaction
 import com.binar.finalproject.model.transaction.response.ResponseDataTransaction
+import com.binar.finalproject.model.transactionhistoryperid.request.RequestTransactionId
+import com.binar.finalproject.model.transactionhistoryperid.response.ResponseTransactionPerId
 import com.binar.finalproject.model.user.PostRegister
 import com.binar.finalproject.model.user.ResponRegister
 import com.binar.finalproject.model.user.login.PostLogin
@@ -69,6 +71,13 @@ interface RestfulApi {
         @Header("Authorization") tokenUser: String,
         @Body codeTransaction: RequestTransactionCode
     ) : Call<ResponsePayment>
+
+    //get data transaction per ID transaction
+    @POST("transaction/getById")
+    fun getDataTrasactionById(
+        @Header("Authorization") tokenUser: String,
+        @Body idTransacction: RequestTransactionId
+    ) : Call<ResponseTransactionPerId>
 
     @PUT("user/verification")
     fun verificationOTP(@Body otp : PutDataOtp) : Call<ResponseOtp>

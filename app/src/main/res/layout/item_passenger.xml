@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/layoutPenumpangRincianPertama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvNumPassenger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Penumpang 1: "
+            android:textSize="14sp"
+            android:lineHeight="20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/DARKBLUE05" />
+
+        <TextView
+            android:id="@+id/tvPassengerRincianRiwayat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Mr. Harry Potter "
+            android:textSize="14sp"
+            android:lineHeight="20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/NEUTRAL05" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layputIdPertama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID: "
+            android:textSize="14sp"
+            android:lineHeight="20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/NEUTRAL05" />
+
+        <TextView
+            android:id="@+id/tvNumIDPassenger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123456 "
+            android:textSize="14sp"
+            android:lineHeight="20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/NEUTRAL05" />
+    </LinearLayout>
+</LinearLayout>
