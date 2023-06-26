@@ -3,6 +3,7 @@ package com.binar.finalproject.view.home
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
@@ -13,10 +14,8 @@ import androidx.navigation.fragment.findNavController
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.DialogPaymentSuccessBinding
 import com.binar.finalproject.databinding.FragmentPaymentBinding
-import com.binar.finalproject.databinding.PassangerDialogLayoutBinding
 import com.binar.finalproject.local.DataStoreUser
 import com.binar.finalproject.model.payment.RequestTransactionCode
-import com.binar.finalproject.model.transaction.request.RequestTransaction
 import com.binar.finalproject.model.transaction.response.DataTransaction
 import com.binar.finalproject.utils.showCustomToast
 import com.binar.finalproject.viewmodel.TransactionViewModel
@@ -36,6 +35,8 @@ class PaymentFragment : Fragment() {
     private lateinit var binding : FragmentPaymentBinding
     private val transactionViewModel: TransactionViewModel by viewModels()
     private lateinit var dataStoreUser: DataStoreUser
+    private var token : String = ""
+    private var idTransaction = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,6 +55,7 @@ class PaymentFragment : Fragment() {
 
         if(getDataTransaction != null){
             setInformationFlight(getDataTransaction as DataTransaction)
+            Log.d("SET DATA FLIGHT2", getDataTransaction.toString())
         }
 
         binding.btnExpandCreditCard.setOnClickListener {
@@ -69,15 +71,21 @@ class PaymentFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+        dataStoreUser.getToken.asLiveData().observe(viewLifecycleOwner){
+            if(it != null && it.isNotEmpty()){
+                token = it
+            }
+        }
+
         binding.btnBayar.setOnClickListener {
             if(getDataTransaction != null){
-                dataStoreUser.getToken.asLiveData().observe(viewLifecycleOwner){
-                    if(it != null && it.isNotEmpty()){
-                        payFlightTicket(getDataTransaction as DataTransaction, it)
-                    }
+                if(token.isNotEmpty()){
+                    payFlightTicket(getDataTransaction as DataTransaction, token)
                 }
 
             }
+
+//            showDialogShowTicket(15)
 
         }
     }
@@ -93,15 +101,18 @@ class PaymentFragment : Fragment() {
             if(it != null){
                 Toast(requireContext()).showCustomToast(
                     "Pembayaran Berhasil", requireActivity(), R.layout.toast_alert_green)
-                showDialogShowTicket()
+                Log.i("ID TRANSACTION 1", data.transaction.id.toString())
+                showDialogShowTicket(data.transaction.id)
+                idTransaction = data.transaction.id
             }else{
                 Toast(requireContext()).showCustomToast(
                     "Pembayaran gagal", requireActivity(), R.layout.toast_alert_red)
             }
+
         }
     }
 
-    private fun showDialogShowTicket() {
+    private fun showDialogShowTicket(id: Int) {
         //bottom sheet
         val dialog = BottomSheetDialog(requireContext())
 
@@ -112,6 +123,21 @@ class PaymentFragment : Fragment() {
 
         bindingDialog.btnClose.setOnClickListener {
             dialog.dismiss()
+            findNavController().navigate(R.id.action_paymentFragment_to_homeFragment)
+        }
+
+        bindingDialog.btnTerbitkanTiket.setOnClickListener {
+            if(id.toString().isNotEmpty()){
+                val inputBundle = Bundle().apply {
+                    putInt("ID_TRANSACTION", id)
+                }
+
+                Log.i("ID TRANSACTION 2", id.toString())
+                findNavController().navigate(R.id.action_paymentFragment_to_detailRiwayatFragment, inputBundle)
+            }
+
+            dialog.dismiss()
+
         }
 
         dialog.show()
@@ -134,7 +160,7 @@ class PaymentFragment : Fragment() {
 
     private fun setDataFlight(data: DataTransaction, isRoundTrip : Boolean) {
 
-
+        Log.d("SET DATA FLIGHT2", data.toString())
         //PERMASALAHAN DATA DEPARTURE DAN RETURN KETIKA ROUND TRIP MENJADI DOUBLE
 
         val dataFlight = data.departure[0]
@@ -159,8 +185,9 @@ class PaymentFragment : Fragment() {
 
         }
 
+//        DATA DUPLICATE PER PENERBANGAN KETIKA ROUND TRIP
         if(isRoundTrip){
-            val dataFlight = data.arrival[0]
+            val dataFlight = data.arrival[1]
             binding.apply {
                 tvPointReturn.text = dataFlight.flightArrival.from
                 tvPointArriveReturnTrip.text = dataFlight.flightArrival.to
