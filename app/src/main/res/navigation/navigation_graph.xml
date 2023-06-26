@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_biodataPenumpangFragment_to_checkoutFragment3"
             app:destination="@id/checkoutFragment" />
+        <action
+            android:id="@+id/action_biodataPenumpangFragment_to_selectSeatFragment"
+            app:destination="@id/selectSeatFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailPenerbanganFragment"
@@ -183,5 +186,14 @@
         <action
             android:id="@+id/action_checkoutFragment_to_paymentFragment"
             app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectSeatFragment"
+        android:name="com.binar.finalproject.view.home.SelectSeatFragment"
+        android:label="fragment_select_seat"
+        tools:layout="@layout/fragment_select_seat" >
+        <action
+            android:id="@+id/action_selectSeatFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment" />
     </fragment>
 </navigation>

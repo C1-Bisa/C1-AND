@@ -6,19 +6,31 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentSelectSeatBinding
+import com.binar.finalproject.model.searchflight.FlightTicketOneTrip
+import com.binar.finalproject.model.searchflight.FlightTicketRoundTrip
 import com.binar.finalproject.model.seatconfiguration.Seat
+import com.binar.finalproject.model.transaction.request.Passenger
+import com.binar.finalproject.utils.showCustomToast
 import com.binar.finalproject.view.adapter.SeatAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.Serializable
+import java.util.ArrayList
 
 @AndroidEntryPoint
 class SelectSeatFragment : Fragment() {
 
     private lateinit var binding: FragmentSelectSeatBinding
     private lateinit var seatAdapter: SeatAdapter
+
+    private var flightTicketOneTrip = FlightTicketOneTrip()
+    private var flightTicketRoundTrip = FlightTicketRoundTrip()
+    private var listSeatPass = IntArray(3)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,22 +47,120 @@ class SelectSeatFragment : Fragment() {
         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav.visibility = View.GONE
 
-        seatAdapter = SeatAdapter(emptyList(), 3)
-        binding.rvSeat.apply {
-            layoutManager = GridLayoutManager(context, 7)
-            adapter = seatAdapter
+        val getListSeatPassenger = arguments?.getIntArray("DATA_LIST_NUM_SEAT")
+        val getTypeRoundTrip = arguments?.getBoolean("TYPE_TRIP_ROUNDTRIP")
+        val getDataPemesan = arguments?.getSerializable("DATA_PEMESAN")
+        val getDataPassenger = arguments?.getParcelableArrayList<Passenger>("DATA_PASSENGER")
+
+        if (getTypeRoundTrip != null && getListSeatPassenger != null){
+            if(getTypeRoundTrip == true){
+                val getRoundTrip = arguments?.getSerializable("DATA_FLIGHT_ROUND_TRIP")
+                flightTicketRoundTrip = getRoundTrip as FlightTicketRoundTrip
+
+            }else{
+                val getOneTrip = arguments?.getSerializable("DATA_FLIGHT_ONE_TRIP")
+                flightTicketOneTrip = getOneTrip as FlightTicketOneTrip
+            }
         }
 
-        seatAdapter.setListSeat(setListSeat())
+        if(getTypeRoundTrip != null && getListSeatPassenger != null){
+
+            listSeatPass = getListSeatPassenger
+
+            var numPassenger = 0
+
+            for(i in listSeatPass.indices){
+                numPassenger += listSeatPass[i]
+            }
+
+            if(numPassenger != 0){
+                seatAdapter = SeatAdapter(emptyList(), numPassenger)
+                setRecycleviewSeat()
+            }
+
+        }
+
 
         seatAdapter.itemSeatOnClick = {
             Log.i("HASIL_SEAT", it.seatCode)
         }
 
         binding.btnSimpanSeat.setOnClickListener {
+            if(getDataPassenger != null && getTypeRoundTrip != null && getDataPemesan != null && getListSeatPassenger != null){
+                setPositionSeatPassenger(getDataPassenger, getTypeRoundTrip, flightTicketOneTrip, flightTicketRoundTrip, getDataPemesan, getListSeatPassenger)
+            }
             Log.i("HASIL_SEAT", seatAdapter.getConfigurationSeatPass().toString())
         }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
+
+    private fun setPositionSeatPassenger(
+        data: ArrayList<Passenger>,
+        getTypeRoundTrip: Boolean,
+        flightTicketOneTrip: FlightTicketOneTrip,
+        flightTicketRoundTrip: FlightTicketRoundTrip,
+        getDataPemesan: Serializable,
+        getListSeatPassenger: IntArray
+    ) {
+        var dataSeatComplete = true
+        var dataPassenger = data
+
+        for (i in seatAdapter.getConfigurationSeatPass().indices){
+            if(seatAdapter.getConfigurationSeatPass()[i].isEmpty()){
+                dataSeatComplete = false
+                break
+            }
+        }
+
+        if(dataSeatComplete){
+            for( i in dataPassenger.indices){
+                dataPassenger[i].seat = seatAdapter.getConfigurationSeatPass()[i]
+            }
+
+            if(getTypeRoundTrip){
+                if(flightTicketRoundTrip.toString().isNotEmpty()){
+                    val putBundleDataFlight = Bundle().apply {
+                        putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
+                        putBoolean("TYPE_TRIP_ROUNDTRIP", true)
+                        putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
+                        putSerializable("DATA_PEMESAN", getDataPemesan)
+                        putParcelableArrayList("DATA_PASSENGER", ArrayList(dataPassenger))
+                    }
+                    findNavController().navigate(R.id.action_selectSeatFragment_to_checkoutFragment, putBundleDataFlight)
+                }
+
+            }else{
+                if(flightTicketOneTrip.toString().isNotEmpty()){
+                    val putBundleDataFlight = Bundle().apply {
+                        putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
+                        putBoolean("TYPE_TRIP_ROUNDTRIP", false)
+                        putSerializable("DATA_FLIGHT_ONE_TRIP", flightTicketOneTrip)
+                        putSerializable("DATA_PEMESAN", getDataPemesan)
+                        putParcelableArrayList("DATA_PASSENGER", ArrayList(dataPassenger))
+                    }
+                    findNavController().navigate(R.id.action_selectSeatFragment_to_checkoutFragment, putBundleDataFlight)
+                }
+            }
+
+        }else{
+            Toast(requireContext()).showCustomToast(
+                "Pilih tempat duduk sebelum checkout!", requireActivity(), R.layout.toast_alert_red)
+        }
+
+    }
+
+    private fun setRecycleviewSeat() {
+        binding.rvSeat.apply {
+            layoutManager = GridLayoutManager(context, 7)
+            adapter = seatAdapter
+        }
+
+        seatAdapter.setListSeat(setListSeat())
+    }
+
 
     private fun setListSeat() : List<Seat>{
         return listOf(

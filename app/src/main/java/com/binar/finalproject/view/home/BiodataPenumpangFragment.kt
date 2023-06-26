@@ -102,7 +102,7 @@ class BiodataPenumpangFragment : Fragment() {
                             putSerializable("DATA_PEMESAN", getDataPemesan)
                             putParcelableArrayList("DATA_PASSENGER", ArrayList(biodataPassengerAdapter.getDataBioPassenger()))
                         }
-                        findNavController().navigate(R.id.action_biodataPenumpangFragment_to_checkoutFragment3, putBundleDataFlight)
+                        findNavController().navigate(R.id.action_biodataPenumpangFragment_to_selectSeatFragment, putBundleDataFlight)
                     }else{
                         val putBundleDataFlight = Bundle().apply {
                             putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
@@ -111,7 +111,7 @@ class BiodataPenumpangFragment : Fragment() {
                             putSerializable("DATA_PEMESAN", getDataPemesan)
                             putParcelableArrayList("DATA_PASSENGER", ArrayList(biodataPassengerAdapter.getDataBioPassenger()))
                         }
-                        findNavController().navigate(R.id.action_biodataPenumpangFragment_to_checkoutFragment3, putBundleDataFlight)
+                        findNavController().navigate(R.id.action_biodataPenumpangFragment_to_selectSeatFragment, putBundleDataFlight)
                     }
                 }
                 Log.i("DATA_PASSENGGER", biodataPassengerAdapter.getDataBioPassenger().toString())
@@ -145,7 +145,7 @@ class BiodataPenumpangFragment : Fragment() {
     }
 
     private fun checkBioIsNotEmpty(dataBioPassenger: List<Passenger>): Boolean {
-        val bioNotEmpty = dataBioPassenger.any { passenger ->
+        val bioNotEmpty = dataBioPassenger.all { passenger ->
                     passenger.type.toString().isNotEmpty() &&
                     passenger.birthday.toString().isNotEmpty() &&
                     passenger.expired.toString().isNotEmpty() &&

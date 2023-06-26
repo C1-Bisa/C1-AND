@@ -71,7 +71,14 @@ class SeatAdapter(private var listSeat : List<Seat>, var numPassenger : Int) : R
                             }
                         }
                     }else{
-                        if(listConfigurationSeat[0].isEmpty() || listConfigurationSeat[1].isEmpty() || listConfigurationSeat[2].isEmpty()){
+                        var seatNotEmpty = false
+                        for(i in listConfigurationSeat.indices){
+                            if(listConfigurationSeat[i].isEmpty()){
+                                seatNotEmpty = true
+                                break
+                            }
+                        }
+                        if(seatNotEmpty){
                             for (i in listConfigurationSeat.indices){
                                 if(listConfigurationSeat[i].isEmpty()){
                                     listConfigurationSeat[i] = item.seatCode
