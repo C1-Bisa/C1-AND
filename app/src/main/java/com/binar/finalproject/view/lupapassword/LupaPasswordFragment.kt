@@ -38,6 +38,10 @@ class LupaPasswordFragment : Fragment() {
             findNavController().navigate(R.id.action_lupaPasswordFragment_to_loginFragment)
         }
 
+        binding.imageBackResetPassword.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
 
     }
 
