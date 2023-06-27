@@ -1,8 +1,10 @@
 package com.binar.finalproject.view.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.binar.finalproject.R
 import com.binar.finalproject.databinding.ItemRiwayatBinding
 import com.binar.finalproject.model.gethistory.Data
 import java.text.DecimalFormat
@@ -30,6 +32,10 @@ class AdapterRiwayat(private var listRiwayat: List<Data>):
 
     override fun onBindViewHolder(holder: AdapterRiwayat.ViewHolder, position: Int) {
         val listPosition = listRiwayat[position]
+
+        if(listPosition.transaction.transactionStatus == "Issued"){
+            holder.binding.labelRiwayat.setBackgroundResource(R.drawable.background_issued_riwayat)
+        }
 
         holder.binding.cardViewHistory.setOnClickListener {
             itemOnClickRiwayat?.invoke(listPosition)
