@@ -4,31 +4,38 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binar.finalproject.R
-import com.binar.finalproject.databinding.DateDialogLayoutBinding
 import com.binar.finalproject.databinding.DateDialogRiwayatBinding
-import com.binar.finalproject.databinding.FragmentNotifikasiBinding
 import com.binar.finalproject.databinding.FragmentRiwayatBinding
-import com.binar.finalproject.databinding.SearchDialogLayoutBinding
 import com.binar.finalproject.databinding.SearchDialogRiwayatBinding
 import com.binar.finalproject.local.DataStoreUser
-import com.binar.finalproject.model.RiwayatModel
 import com.binar.finalproject.view.adapter.AdapterRiwayat
+import com.binar.finalproject.viewmodel.TransactionHistoryViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.squareup.timessquare.CalendarPickerView
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import kotlin.collections.ArrayList
 
+@AndroidEntryPoint
 class RiwayatFragment : Fragment() {
 
     lateinit var binding : FragmentRiwayatBinding
 
-    private lateinit var riwayatListData : AdapterRiwayat
+    private lateinit var riwayatAdapter : AdapterRiwayat
 
     private lateinit var dataSotreUser : DataStoreUser
+
+    private val transactionHistoryVM : TransactionHistoryViewModel by viewModels()
+
+    private  var tokenUser : String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,7 +47,18 @@ class RiwayatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setLayoutListData()
+
+        dataSotreUser = DataStoreUser(requireContext().applicationContext)
+
+
+        dataSotreUser.getToken.asLiveData().observe(viewLifecycleOwner){
+            if (it != null){
+//                tokenUser = it
+
+            }
+
+        }
+        setLayoutListData(tokenUser)
 
         binding.btnSearchRiwayat.setOnClickListener {
             showDialogSearch()
@@ -119,17 +137,37 @@ class RiwayatFragment : Fragment() {
         dialogSearchRiwayat.window?.setGravity(Gravity.BOTTOM);
     }
 
-    private fun setLayoutListData() {
-        val listDataRiwayattt  = listOf(
-            RiwayatModel("Unpaid", "Jakarta", "5 Maret 2023", "19:30",
-                "Booking Code:", 453716288, "Class: ", "Economy", "IDR 5.950.000", "4h 0m")
-        )
-        riwayatListData = AdapterRiwayat(listDataRiwayattt)
+    private fun setLayoutListData(token: String) {
+        riwayatAdapter = AdapterRiwayat(ArrayList())
+        transactionHistoryVM.getHistoryTransaction(token)
+        transactionHistoryVM.historyTransaction.observe(viewLifecycleOwner){
+            if (it != null){
+                binding.rvRiwayatAfterData.apply {
+                    layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    adapter = riwayatAdapter
+                }
 
-        binding.rvRiwayatAfterData.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = riwayatListData
+                riwayatAdapter.setList(it)
+                Log.i("DATA HISTORY", it.toString())
+
+            }
+
         }
+        riwayatAdapter.itemOnClickRiwayat = {
+            if (it.transaction.flights[0].transactionFlight.transactionId.toString().isNotEmpty()){
+                val bundleIdTransaction = Bundle().apply {
+                    putInt("ID_TRANSACTION", it.transaction.flights[0].transactionFlight.transactionId)
+                }
+                findNavController().navigate(R.id.action_riwayatFragment_to_detailRiwayatFragment, bundleIdTransaction)
+
+            }
+        }
+//        val listDataRiwayattt  = listOf(
+//            RiwayatModel("Unpaid", "Jakarta", "5 Maret 2023", "19:30",
+//                "Booking Code:", 453716288, "Class: ", "Economy", "IDR 5.950.000", "4h 0m")
+//        )
+//        riwayatListData = AdapterRiwayat(listDataRiwayattt)
+
 
     }
 

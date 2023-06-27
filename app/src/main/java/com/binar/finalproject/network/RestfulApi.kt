@@ -3,6 +3,7 @@ package com.binar.finalproject.network
 import com.binar.finalproject.model.airport.ResponseDataAirport
 import com.binar.finalproject.model.getdetailflight.PostDataFlight
 import com.binar.finalproject.model.getdetailflight.datadetailflight.ResponseDetailFlight
+import com.binar.finalproject.model.gethistory.ResponseHistory
 import com.binar.finalproject.model.notification.responsegetnotif.ResponseDataNotification
 import com.binar.finalproject.model.notification.updatenotif.ResponseUpdateNotif
 import com.binar.finalproject.model.otpcode.GetResendResponseOtp
@@ -91,6 +92,12 @@ interface RestfulApi {
     fun UpdateReadNotification(
         @Header("Authorization") tokenUser: String
     ) : Call<ResponseUpdateNotif>
+
+
+
+    @GET("transaction/history")
+    fun getHistoryTransactionUser(
+        @Header("Authorization") tokenUser : String) : Call<ResponseHistory>
 
 
     @PUT("user/verification")

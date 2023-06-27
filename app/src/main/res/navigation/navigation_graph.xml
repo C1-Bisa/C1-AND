@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/splashScreen">
+    app:startDestination="@id/riwayatFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_otpFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_otpFragment_self"
+            app:destination="@id/otpFragment" />
     </fragment>
     <fragment
         android:id="@+id/biodataPenumpangFragment"
@@ -186,6 +189,9 @@
         <action
             android:id="@+id/action_riwayatFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_riwayatFragment_to_detailRiwayatFragment"
+            app:destination="@id/detailRiwayatFragment" />
     </fragment>
     <fragment
         android:id="@+id/notifikasiFragment"
