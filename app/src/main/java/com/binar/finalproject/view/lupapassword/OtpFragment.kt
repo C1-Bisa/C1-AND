@@ -22,7 +22,7 @@ class OtpFragment : Fragment() {
 
     private val userViewModel : UserViewModel by viewModels()
 
-
+    private  var idUser : Int = 0
     private lateinit var binding : FragmentOtpBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +38,9 @@ class OtpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val getIdBundle = arguments?.getInt("ID_USER")
+        if (getIdBundle != null){
+            idUser = getIdBundle
+        }
         binding.mintaKodeVertif.setOnClickListener {
 
             if (getIdBundle != null ){
@@ -76,14 +79,18 @@ class OtpFragment : Fragment() {
             userViewModel.putVerificationOtp(PutDataOtp("$kodeNo1$kodeNo2$kodeNo3$kodeNo4$kodeNo5$kodeNo6"))
             userViewModel.responseOtp.observe(viewLifecycleOwner){
                 if (it != null){
+                    val bundleId = Bundle().apply {
+                        putInt("ID_USER", idUser)
+                    }
                     Toast(requireContext()).showCustomToast(
                         "Verifikasi berhasil !", requireActivity(), R.layout.toast_alert_green)
-                    findNavController().navigate(R.id.action_otpFragment_to_loginFragment)
+                    findNavController().navigate(R.id.action_otpFragment_to_loginFragment, bundleId)
                 }
             }
         }else{
             Toast(requireContext()).showCustomToast(
                 "Kode OTP harus di isi!", requireActivity(), R.layout.toast_alert_red)
+            findNavController().navigate(R.id.action_otpFragment_self)
         }
     }
 
