@@ -53,12 +53,12 @@ class RiwayatFragment : Fragment() {
 
         dataSotreUser.getToken.asLiveData().observe(viewLifecycleOwner){
             if (it != null){
-//                tokenUser = it
-
+                tokenUser = it
+                setLayoutListData(tokenUser)
             }
 
         }
-        setLayoutListData(tokenUser)
+
 
         binding.btnSearchRiwayat.setOnClickListener {
             showDialogSearch()

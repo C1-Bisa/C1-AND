@@ -19,6 +19,7 @@ import com.binar.finalproject.model.transactionhistoryperid.request.RequestTrans
 import com.binar.finalproject.model.transactionhistoryperid.response.Data
 import com.binar.finalproject.view.adapter.PassengerAdapter
 import com.binar.finalproject.viewmodel.TransactionViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -49,6 +50,9 @@ class DetailRiwayatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNav.visibility = View.GONE
 
         val getIdTransaction = arguments?.getInt("ID_TRANSACTION")
 
@@ -99,7 +103,7 @@ class DetailRiwayatFragment : Fragment() {
                 if(it.transaction.transactionStatus == "Issued"){
                     Log.i("HASIL_DETAIL_RIWAYAT" , it.transaction.transactionStatus)
                     binding.btnAction.text = "Beranda"
-                    binding.labelRincianRiwayat.setBackgroundColor(Color.parseColor("#73CA5C"))
+                    binding.labelRincianRiwayat.setBackgroundResource(R.drawable.background_issued_riwayat)
                     binding.tvStatus.text = it.transaction.transactionStatus
                 }else{
                     binding.btnAction.text = "Lanjut Pembayaran"
