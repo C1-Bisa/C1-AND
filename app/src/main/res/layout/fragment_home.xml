@@ -31,7 +31,7 @@
                     android:fontFamily="@font/poppins_bold"
                     android:layout_marginTop="32dp"
                     android:layout_marginStart="12dp"
-                    android:textColor="#151515"
+                    android:textColor="@color/white"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     />

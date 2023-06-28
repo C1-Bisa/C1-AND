@@ -159,6 +159,7 @@ class RiwayatFragment : Fragment() {
                     putInt("ID_TRANSACTION", it.transaction.flights[0].transactionFlight.transactionId)
                 }
                 findNavController().navigate(R.id.action_riwayatFragment_to_detailRiwayatFragment, bundleIdTransaction)
+                Log.i("BUNDLE_ID_TRANSACTION", it.transaction.flights[0]?.transactionFlight?.transactionId.toString())
 
             }
         }

@@ -6,7 +6,7 @@
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:backgroundTint">@color/DARKBLUE04</item>
+        <item name="android:backgroundTint">@color/DARKBLUE03</item>
     </style>
 
     <style name="DialogAnimation">

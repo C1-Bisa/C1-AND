@@ -9,11 +9,11 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- DARKBLUE05 -->
-    <color name="DARKBLUE05">#4B1979</color>
-    <color name="DARKBLUE04">#7126B5</color>
-    <color name="DARKBLUE03">#A06ECE</color>
-    <color name="DARKBLUE02">#D0B7E6</color>
-    <color name="DARKBLUE01">#E2D4F0</color>
+    <color name="DARKBLUE05">#00AD10</color>
+    <color name="DARKBLUE04">#003D20</color>
+    <color name="DARKBLUE03">#00AD10</color>
+    <color name="DARKBLUE02">#00CF6C</color>
+    <color name="DARKBLUE01">#16FF90</color>
 
     <!-- DARKBLUE05 -->
     <color name="LIMEGREEN05">#AA9B87</color>

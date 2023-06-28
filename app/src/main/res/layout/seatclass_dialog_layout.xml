@@ -245,8 +245,7 @@
         android:layout_marginTop="160dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        style="@style/Widget.Material3.Button"
-        android:backgroundTint="#4B1979"
+        style="@style/Btn"
         app:layout_constraintTop_toBottomOf="@id/classLayout"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
