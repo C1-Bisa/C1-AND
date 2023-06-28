@@ -161,7 +161,7 @@ class DetailPenerbanganFragment : Fragment() {
     private fun setDataFlight(data: Flight) {
         //nanti diganti menggunakan data binding
         binding.tvFlightDestination.text = "${data.from} -> ${data.to}"
-        binding.tvFlightTime.text = "(${data.duration/60}h ${data.duration%60}m)"
+        binding.tvFlightTime.text = "(${reformatDuration(data.duration.toString())})"
         binding.tvTimeDeparture.text = timeFormate(data.departureTime)
         binding.tvDateDeparture.text = setDate(data.departureDate)
         binding.tvDepartureAirport.text = data.airportFrom
@@ -195,6 +195,13 @@ class DetailPenerbanganFragment : Fragment() {
         val localDateTimeAsia = zonedDateTimeParse.withZoneSameInstant(ZoneId.of("Asia/Jakarta")).toLocalDateTime()
         val dateFormatterId = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id"))
         return localDateTimeAsia.format(dateFormatterId)
+    }
+
+    private fun reformatDuration(duration: String): String {
+        val text = duration.toCharArray()
+            .filter { it != '9' }
+            .toCharArray()
+        return "${text[0]}h ${text[1]}m"
     }
 
 

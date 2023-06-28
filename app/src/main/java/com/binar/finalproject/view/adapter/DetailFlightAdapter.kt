@@ -34,8 +34,9 @@ class DetailFlightAdapter(private var listData : List<ListDetailFlight>) : Recyc
         val destinationFlight = "${listPosition.from } - ${listPosition.to}"
         holder.binding.tvFlightDestination.text = destinationFlight
 
-        val durationFlight = "(${listPosition.duration/60}h ${listPosition.duration%60}m)"
-        holder.binding.tvFlightTime.text = durationFlight
+//        val durationFlight = "(${listPosition.duration/60}h ${listPosition.duration%60}m)"
+        val flightDuration = "(${reformatDuration(listPosition.duration.toString())})"
+        holder.binding.tvFlightTime.text = flightDuration
 
         holder.binding.tvTimeDeparture.text = timeFormate(listPosition.departureTime)
 
@@ -54,6 +55,13 @@ class DetailFlightAdapter(private var listData : List<ListDetailFlight>) : Recyc
 
         holder.binding.tvArriveAirport.text = listPosition.airportTo.airportName
 
+    }
+
+    private fun reformatDuration(duration: String): String {
+        val text = duration.toCharArray()
+            .filter { it != '9' }
+            .toCharArray()
+        return "${text[0]}h ${text[1]}m"
     }
 
     private fun setDescription(des : String) : String{
