@@ -81,6 +81,7 @@
                         android:lineHeight="20dp"
                         android:textColor="@color/NEUTRAL05"/>
                     <TextView
+                        android:id="@+id/tvPassenger"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2 Adults, 1 Baby"

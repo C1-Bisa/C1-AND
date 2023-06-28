@@ -17,6 +17,8 @@ import com.binar.finalproject.databinding.FragmentPaymentBinding
 import com.binar.finalproject.local.DataStoreUser
 import com.binar.finalproject.model.payment.RequestTransactionCode
 import com.binar.finalproject.model.transaction.response.DataTransaction
+import com.binar.finalproject.model.transactionhistoryperid.request.RequestTransactionId
+import com.binar.finalproject.model.transactionhistoryperid.response.Data
 import com.binar.finalproject.utils.showCustomToast
 import com.binar.finalproject.viewmodel.TransactionViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -37,6 +39,7 @@ class PaymentFragment : Fragment() {
     private lateinit var dataStoreUser: DataStoreUser
     private var token : String = ""
     private var idTransaction = 0
+    private var transactionCode = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,12 +53,28 @@ class PaymentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val getDataTransaction = arguments?.getSerializable("DATA_TRANSACTION")
+        val getIdTransaction = arguments?.getInt("ID_TRANSACTION")
 
         dataStoreUser = DataStoreUser(requireContext().applicationContext)
 
-        if(getDataTransaction != null){
-            setInformationFlight(getDataTransaction as DataTransaction)
-            Log.d("SET DATA FLIGHT2", getDataTransaction.toString())
+//        if(getDataTransaction != null && getIdTransaction != null){
+//            dataStoreUser.getToken.asLiveData().observe(viewLifecycleOwner){
+//                if(it != null){
+//                    setInformationFlightForPayment(it, getIdTransaction)
+////                    setInformationFlight(getDataTransaction as DataTransaction)
+//                    Log.d("SET DATA FLIGHT2", getDataTransaction.toString())
+//                }
+//            }
+//        }
+        if(getIdTransaction != null){
+            idTransaction = getIdTransaction
+            dataStoreUser.getToken.asLiveData().observe(viewLifecycleOwner){
+                if(it != null){
+                    setInformationFlightForPayment(it, getIdTransaction)
+//                    setInformationFlight(getDataTransaction as DataTransaction)
+                    Log.d("SET DATA FLIGHT2", getIdTransaction.toString())
+                }
+            }
         }
 
         binding.btnExpandCreditCard.setOnClickListener {
@@ -78,9 +97,9 @@ class PaymentFragment : Fragment() {
         }
 
         binding.btnBayar.setOnClickListener {
-            if(getDataTransaction != null){
+            if(getIdTransaction != null){
                 if(token.isNotEmpty()){
-                    payFlightTicket(getDataTransaction as DataTransaction, token)
+                    payFlightTicket(token)
                 }
 
             }
@@ -90,20 +109,89 @@ class PaymentFragment : Fragment() {
         }
     }
 
-    private fun payFlightTicket(data: DataTransaction, token: String) {
-        if(data.transaction.transactionCode.isNotEmpty()){
+    private fun setInformationFlightForPayment(token : String, idTrans: Int) {
+        transactionViewModel.getTransactionById(token, RequestTransactionId(idTrans))
+
+        transactionViewModel.responseTransactionById.observe(viewLifecycleOwner){
+            if(it != null){
+                if(it.arrival?.flight != null){
+                    binding.layoutReturnFlight.visibility = View.VISIBLE
+                    setDataFlightToPayment(it, true)
+                }else{
+                    binding.layoutReturnFlight.visibility = View.GONE
+                    setDataFlightToPayment(it, false)
+                }
+            }
+        }
+    }
+
+    private fun setDataFlightToPayment(item: Data, roundTrip: Boolean) {
+        binding.apply {
+            tvPointDeparture.text = item.departure.flight.from
+            tvPointArrive.text = item.departure.flight.to
+            //perlu diubah durasinya
+            tvTotalFlight.text = item.departure.flight.duration.toString()
+            tvDateDeparture.text = setDate(item.departure.flight.departureDate)
+            tvDateArrive.text = setDate(item.departure.flight.arrivalDate)
+
+            //convert to format hh:ss
+            tvTimeDeparture.text = timeFormate(item.departure.flight.departureTime)
+            tvTimeArrive.text = timeFormate(item.departure.flight.arrivalTime)
+
+            tvBookingCode.text = item.transaction.transactionCode
+            tvSeatClass.text = item.departure.flight.flightClass
+
+            //convert to idr
+            val totalPrice = "IDR ${convertToCurrencyIDR(item.departure.transaction.amount)}"
+            tvTotalPrice.text = totalPrice
+
+            binding.tvPassenger.text = if(item.passenger.adult != 0 && item.passenger.child != 0){
+                "${item.passenger.adult} Adults, ${item.passenger.child} Child"
+            }else{
+                if(item.passenger.adult != 0){
+                    "${item.passenger.adult} Adults"
+                }else{
+                    "${item.passenger.child} Child"
+                }
+            }
+
+            binding.tvTotalFlight.text = reformatDuration(item.departure.flight.duration.toString())
+
+        }
+
+        transactionCode = item.transaction.transactionCode
+
+        if(roundTrip){
+
+            Log.i("ROUND TRIP PAYMENT", "YES")
+            binding.apply {
+                tvPointReturn.text = item.arrival!!.flight.from
+                tvPointArriveReturnTrip.text = item.arrival.flight.to
+                //perlu diubah durasinya
+                tvTotalFlightReturn.text = item.arrival.flight.duration.toString()
+                tvDateReturn.text = setDate(item.arrival.flight.departureDate)
+                tvDateArriveReturnTrip.text = setDate(item.arrival.flight.arrivalDate)
+                tvTimeReturn.text = timeFormate(item.arrival.flight.departureTime)
+                tvTimeArriveReturnTrip.text = timeFormate(item.arrival.flight.arrivalTime)
+                tvTotalFlightReturn.text = reformatDuration(item.arrival.flight.duration.toString())
+            }
+        }
+    }
+
+
+    private fun payFlightTicket(token: String) {
+        if(transactionCode.isNotEmpty()){
             transactionViewModel.postPayment(
-                RequestTransactionCode(data.transaction.transactionCode), token
+                RequestTransactionCode(transactionCode), token
             )
         }
 
         transactionViewModel.responsePayment.observe(viewLifecycleOwner){
-            if(it != null){
+            if(it != null && idTransaction != 0){
                 Toast(requireContext()).showCustomToast(
                     "Pembayaran Berhasil", requireActivity(), R.layout.toast_alert_green)
-                Log.i("ID TRANSACTION 1", data.transaction.id.toString())
-                showDialogShowTicket(data.transaction.id)
-                idTransaction = data.transaction.id
+                Log.i("ID TRANSACTION 1", transactionCode)
+                showDialogShowTicket(idTransaction)
             }else{
                 Toast(requireContext()).showCustomToast(
                     "Pembayaran gagal", requireActivity(), R.layout.toast_alert_red)
@@ -187,16 +275,16 @@ class PaymentFragment : Fragment() {
 
 //        DATA DUPLICATE PER PENERBANGAN KETIKA ROUND TRIP
         if(isRoundTrip){
-            val dataFlight = data.arrival[1]
+            val dataFlightReturn = data.arrival[1]
             binding.apply {
-                tvPointReturn.text = dataFlight.flightArrival.from
-                tvPointArriveReturnTrip.text = dataFlight.flightArrival.to
+                tvPointReturn.text = dataFlightReturn.flightArrival.from
+                tvPointArriveReturnTrip.text = dataFlightReturn.flightArrival.to
                 //perlu diubah durasinya
-                tvTotalFlightReturn.text = dataFlight.flightArrival.duration.toString()
-                tvDateReturn.text = setDate(dataFlight.flightArrival.departureDate)
-                tvDateArriveReturnTrip.text = setDate(dataFlight.flightArrival.arrivalDate)
-                tvTimeReturn.text = timeFormate(dataFlight.flightArrival.departureTime)
-                tvTimeArriveReturnTrip.text = timeFormate(dataFlight.flightArrival.arrivalTime)
+                tvTotalFlightReturn.text = dataFlightReturn.flightArrival.duration.toString()
+                tvDateReturn.text = setDate(dataFlightReturn.flightArrival.departureDate)
+                tvDateArriveReturnTrip.text = setDate(dataFlightReturn.flightArrival.arrivalDate)
+                tvTimeReturn.text = timeFormate(dataFlightReturn.flightArrival.departureTime)
+                tvTimeArriveReturnTrip.text = timeFormate(dataFlightReturn.flightArrival.arrivalTime)
             }
         }
     }
@@ -219,5 +307,13 @@ class PaymentFragment : Fragment() {
         val dateFormatterId = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id"))
         return localDateTimeAsia.format(dateFormatterId)
     }
+
+    fun reformatDuration(duration: String): String {
+        val text = duration.toCharArray()
+            .filter { it != '9' }
+            .toCharArray()
+        return "${text[0]}h ${text[1]}m"
+    }
+
 
 }

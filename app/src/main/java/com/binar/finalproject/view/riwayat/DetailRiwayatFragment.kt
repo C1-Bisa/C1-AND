@@ -79,11 +79,18 @@ class DetailRiwayatFragment : Fragment() {
         }
         binding.btnAction.setOnClickListener {
             val respon = transactionViewModel.responseTransactionById.value?.transaction?.transactionStatus
+            val idTrans = transactionViewModel.responseTransactionById.value?.transaction?.id
             if(respon != null){
                 if(respon == "Issued"){
                     findNavController().navigate(R.id.action_detailRiwayatFragment_to_homeFragment)
                 }else{
-                    findNavController().navigate(R.id.action_detailRiwayatFragment_to_paymentFragment)
+                    if(idTrans != null){
+                        val bundleIdTrans = Bundle().apply {
+                            putInt("ID_TRANSACTION", idTrans)
+                        }
+                        findNavController().navigate(R.id.action_detailRiwayatFragment_to_paymentFragment, bundleIdTrans)
+                    }
+
                 }
             }
         }
@@ -136,6 +143,8 @@ class DetailRiwayatFragment : Fragment() {
 
             tvTotalPrice.text = "IDR ${convertToCurrencyIDR(item.price.totalPrice)}"
             tvTotalTax.text = "IDR ${convertToCurrencyIDR(item.price.tax)}"
+
+
         }
 
         if(item.passenger.adult != 0 || item.passenger.child != 0){

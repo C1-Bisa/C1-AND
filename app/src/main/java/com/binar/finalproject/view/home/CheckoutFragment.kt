@@ -148,6 +148,7 @@ class CheckoutFragment : Fragment() {
                 Log.i("HASIL RESPON TRANSACTION", it.toString())
                 val bundleDataTransaction = Bundle().apply {
                     putSerializable("DATA_TRANSACTION", it)
+                    putInt("ID_TRANSACTION", it.transaction.id)
                 }
                 Toast(requireContext()).showCustomToast(
                     "Transaksi berhasil", requireActivity(), R.layout.toast_alert_green)
