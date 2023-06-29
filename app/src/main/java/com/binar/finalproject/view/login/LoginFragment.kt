@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentLoginBinding
@@ -21,7 +22,13 @@ import com.binar.finalproject.utils.showCustomToast
 import com.binar.finalproject.viewmodel.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.sync.Mutex
 
 
 @AndroidEntryPoint
@@ -83,31 +90,41 @@ class LoginFragment : Fragment() {
 
         if (email.isNotEmpty() && password.isNotEmpty()){
             userLoginVm.postLogin(PostLogin(email, password))
-
             userLoginVm.responseLogin.observe(viewLifecycleOwner){
+                Log.i("TAG LOGIN OBSERVER", "YA")
+
                 if (it != null){
+                    Log.i("TAG LOGIN OBSERVER", "1")
+                    Log.i("RESPONSE_LOGIN", it.toString())
                     val emailUser1 = it.data.email
                     val tokenUser1 = it.data.token
+                    Log.i("RESPONSE_LOGIN_USER", emailUser1 + tokenUser1)
+                    if (emailUser1.isNotEmpty() && tokenUser1.isNotEmpty()) {
 
-                    if (emailUser1.isNotEmpty() && tokenUser1.isNotEmpty()){
                         lifecycleScope.launch {
                             dataSotreUser.saveUser(emailUser1, tokenUser1)
-                        }
-                        dataSotreUser.getToken.asLiveData().observe(viewLifecycleOwner){token ->
-                           if (token.isNotEmpty()){
-                               Toast(requireContext()).showCustomToast(
-                                   "Login Berhasil !", requireActivity(), R.layout.toast_alert_green)
 
-                               findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-                           }
-                        }
+                            if(dataSotreUser.isActiveToken().isNotEmpty()){
+                                userLoginVm.responseLogin.removeObservers(viewLifecycleOwner)
+                                Toast(requireContext()).showCustomToast(
+                                    "Login Berhasil !",
+                                    requireActivity(),
+                                    R.layout.toast_alert_green
+                                )
 
+
+                                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                            }
+                        }
                     }
 
                 }else{
+                    Log.i("TAG LOGIN OBSERVER", "2")
                     Toast(requireContext()).showCustomToast(
                         "Email dan password tidak terdaftar! ", requireActivity(), R.layout.toast_alert_red)
+
                 }
+
             }
 
         }else if (email.isEmpty() && password.isEmpty()){

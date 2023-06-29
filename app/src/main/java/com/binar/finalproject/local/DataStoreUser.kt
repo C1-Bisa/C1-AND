@@ -45,6 +45,12 @@ class DataStoreUser(private val context: Context) {
 
     }
 
+    fun tokenIsActive() : Flow<String>{
+        return context.counterDataStore.data.map { preferences ->
+            preferences[TOKEN] ?: ""
+        }
+    }
+
 
 
 
@@ -57,6 +63,12 @@ class DataStoreUser(private val context: Context) {
     fun isAlreadyLogin() : Boolean {
         return runBlocking {
             isLoggin().first()
+        }
+    }
+
+    fun isActiveToken() : String{
+        return runBlocking {
+            tokenIsActive().first()
         }
     }
 
