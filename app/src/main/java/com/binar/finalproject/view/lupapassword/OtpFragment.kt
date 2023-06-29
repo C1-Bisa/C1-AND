@@ -39,6 +39,9 @@ class OtpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val getIdBundle = arguments?.getInt("ID_USER")
+
+        setEditTextFocusable()
+
         if (getIdBundle != null){
             idUser = getIdBundle
         }
@@ -55,6 +58,9 @@ class OtpFragment : Fragment() {
 
 
     }
+
+
+
     private fun resendKodeOTP(id : Int){
         userViewModel.resendOTP(id)
         userViewModel.resendResponseOtp.observe(viewLifecycleOwner){
@@ -110,6 +116,67 @@ class OtpFragment : Fragment() {
             }
 
         }
+    }
+
+    private fun setEditTextFocusable() {
+       binding.kode1.requestFocus()
+       binding.kode1.addTextChangedListener(object : TextWatcher{
+           override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+           override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+           override fun afterTextChanged(p0: Editable?) {
+               if (p0?.length == 1) {
+                   binding.kode2.requestFocus()
+               }
+           }
+
+       })
+
+        binding.kode2.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0?.length == 1) {
+                    binding.kode3.requestFocus()
+                }
+            }
+
+        })
+        binding.kode3.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0?.length == 1) {
+                    binding.kode4.requestFocus()
+                }
+            }
+
+        })
+        binding.kode4.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0?.length == 1) {
+                    binding.kode5.requestFocus()
+                }
+            }
+
+        })
+        binding.kode5.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0?.length == 1) {
+                    binding.kode6.requestFocus()
+                }
+            }
+
+        })
+        binding.kode6.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {}
+
+        })
     }
 
 
