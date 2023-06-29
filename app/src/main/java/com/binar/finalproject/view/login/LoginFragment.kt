@@ -58,8 +58,7 @@ class LoginFragment : Fragment() {
         binding.tvLupaPassword.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_lupaPasswordFragment)
         }
-        binding.tvDaftarDisini.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        binding.tvDaftarDisini.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
 

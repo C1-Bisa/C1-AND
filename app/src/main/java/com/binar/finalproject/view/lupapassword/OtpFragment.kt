@@ -106,7 +106,7 @@ class OtpFragment : Fragment() {
                 val idUserBundle = Bundle().apply {
                     putInt("ID_USER", idUser)
                 }
-                findNavController().navigate(R.id.action_otpFragment_self)
+                findNavController().navigate(R.id.action_otpFragment_self, idUserBundle)
             }
 
         }
