@@ -137,6 +137,8 @@ class OtpFragment : Fragment() {
             override fun afterTextChanged(p0: Editable?) {
                 if (p0?.length == 1) {
                     binding.kode3.requestFocus()
+                }else if(p0?.isEmpty() == true){
+                    binding.kode1.requestFocus()
                 }
             }
 
@@ -147,6 +149,8 @@ class OtpFragment : Fragment() {
             override fun afterTextChanged(p0: Editable?) {
                 if (p0?.length == 1) {
                     binding.kode4.requestFocus()
+                }else if(p0?.isEmpty() == true){
+                    binding.kode2.requestFocus()
                 }
             }
 
@@ -157,6 +161,8 @@ class OtpFragment : Fragment() {
             override fun afterTextChanged(p0: Editable?) {
                 if (p0?.length == 1) {
                     binding.kode5.requestFocus()
+                }else if(p0?.isEmpty() == true){
+                    binding.kode3.requestFocus()
                 }
             }
 
@@ -167,6 +173,8 @@ class OtpFragment : Fragment() {
             override fun afterTextChanged(p0: Editable?) {
                 if (p0?.length == 1) {
                     binding.kode6.requestFocus()
+                }else if(p0?.isEmpty() == true){
+                    binding.kode4.requestFocus()
                 }
             }
 
@@ -174,7 +182,11 @@ class OtpFragment : Fragment() {
         binding.kode6.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun afterTextChanged(p0: Editable?) {}
+            override fun afterTextChanged(p0: Editable?) {
+                if(p0?.isEmpty() == true){
+                    binding.kode5.requestFocus()
+                }
+            }
 
         })
     }
