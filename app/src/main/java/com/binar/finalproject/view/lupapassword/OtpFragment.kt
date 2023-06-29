@@ -58,9 +58,11 @@ class OtpFragment : Fragment() {
         userViewModel.resendOTP(id)
         userViewModel.resendResponseOtp.observe(viewLifecycleOwner){
             if (it != null){
-                Toast.makeText(context, "Kode akan dikirim kembali via email", Toast.LENGTH_SHORT).show()
+                Toast(requireContext()).showCustomToast(
+                    "Kode telah dikirim", requireActivity(), R.layout.toast_alert_green)
             }else{
-                Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                Toast(requireContext()).showCustomToast(
+                    "Terjadi error", requireActivity(), R.layout.toast_alert_red)
 
             }
         }

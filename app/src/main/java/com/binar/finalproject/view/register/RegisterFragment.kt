@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentRegisterBinding
@@ -61,28 +62,35 @@ class RegisterFragment : Fragment() {
 
 
 
-        if (namaLengkap.isNotEmpty() && email.isNotEmpty() && nomorTelepon.isNotEmpty() && password.isNotEmpty()) {
-            userViewModel.postRegist(PostRegister(email, namaLengkap, password, nomorTelepon))
-            userViewModel.responseUserRegist.observe(viewLifecycleOwner) { response ->
-                if (response != null) {
-                    val idBundle = Bundle().apply {
-                        putInt("ID_USER", response.data.user.id)
-                    }
-                    Toast(requireContext()).showCustomToast(
-                        "Kode OTP telah dikirim", requireActivity(), R.layout.toast_alert_green)
-                    try {
+        if (namaLengkap.isNotEmpty() && email.isNotEmpty() && nomorTelepon.isNotEmpty() && password.isNotEmpty()){
+            if (password.length > 8){
+                userViewModel.postRegist(PostRegister(email, namaLengkap, password, nomorTelepon))
+                userViewModel.responseUserRegist.observe(viewLifecycleOwner, Observer { response ->
+                    if (response != null){
+                        val idBundle = Bundle().apply {
+                            putInt("ID_USER", response.data.user.id)
+                        }
+                        userViewModel.responseUserRegist.removeObservers(viewLifecycleOwner)
+                        Toast(requireContext()).showCustomToast(
+                            "Kode OTP telah dikirim", requireActivity(), R.layout.toast_alert_green)
                         findNavController().navigate(R.id.action_registerFragment_to_otpFragment, idBundle)
-                    } catch (e: IllegalArgumentException) {
-                        Log.e("NavigationError", "Navigation action tidak ditemukan", e)
+                        try {
+                            findNavController().navigate(R.id.action_registerFragment_to_otpFragment, idBundle)
+                        } catch (e: IllegalArgumentException) {
+                            Log.e("NavigationError", "Navigation action tidak ditemukan", e)
+                        }
+                    }else{
+                        Toast(requireContext()).showCustomToast(
+                            "Email telah digunakan", requireActivity(), R.layout.toast_alert_red)
                     }
-                } else if (password.length < 8) {
-                    Toast(requireContext()).showCustomToast(
-                        "Password minimal 8 karakter!", requireActivity(), R.layout.toast_alert_red)
-                }
+                })
+            }else{
+                Toast(requireContext()).showCustomToast(
+                    "Minimal password 8 karakter !", requireActivity(), R.layout.toast_alert_red)
             }
-        } else {
+        }else{
             Toast(requireContext()).showCustomToast(
-                "Data register tidak boleh kosong!", requireActivity(), R.layout.toast_alert_red)
+                "Data register harus di isi !", requireActivity(), R.layout.toast_alert_red)
         }
     }
 
