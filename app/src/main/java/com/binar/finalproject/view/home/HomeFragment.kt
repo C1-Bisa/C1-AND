@@ -12,7 +12,6 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -20,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.*
 import com.binar.finalproject.databinding.FragmentHomeBinding
-import com.binar.finalproject.model.Destination
 import com.binar.finalproject.model.DestinationFavorite
 import com.binar.finalproject.model.airport.Airport
 import com.binar.finalproject.model.searchflight.SearchFlight
@@ -34,7 +32,6 @@ import com.squareup.timessquare.CalendarPickerView
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
@@ -52,9 +49,6 @@ class HomeFragment : Fragment() {
     private val airportViewModel : AirportViewModel by viewModels()
     private val flightSearchViewModel : FlightSearchViewModel by viewModels()
 
-    //data class for search flight
-    private lateinit var dataSearch : SearchFlight
-
     //from and to
     private lateinit var from : String
     private lateinit var to : String
@@ -65,7 +59,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -113,13 +107,11 @@ class HomeFragment : Fragment() {
 
                 if(!dateReturnBeforeDateDeparture(flightSearchViewModel.dateDeparture.value.toString(), flightSearchViewModel.dateReturn.value.toString())){
                     //set date return trip more than date departure date
-                    val dateDeparture = flightSearchViewModel.dateDeparture.value
-                    val dateReturnTrip = setDateReturn(dateDeparture.toString())
-                    flightSearchViewModel.setDateReturn(setDateReturn(dateReturnTrip))
-                    flightSearchViewModel.setSearchReturnDate(changeFormatDateEn(setDateReturn(dateReturnTrip)))
+                    flightSearchViewModel.dateDeparture.value
+                    flightSearchViewModel.setDateReturn(setDateReturn())
+                    flightSearchViewModel.setSearchReturnDate(changeFormatDateEn(setDateReturn()))
                 }
 
-//                Toast.makeText(context, "${flightSearchViewModel.dateDeparture.value}", Toast.LENGTH_SHORT).show()
 
             }else{
                 binding.setDateReturn.visibility = View.GONE
@@ -152,7 +144,6 @@ class HomeFragment : Fragment() {
             Log.d("DATA_PASSENGER", flightSearchViewModel.dataPassenger.value.toString())
 
         }
-        //belum bisa
 
         showDataSearchFlight()
 
@@ -262,7 +253,6 @@ class HomeFragment : Fragment() {
 
     //CHOICE SEATCLASS
     private fun setSeatClassPassengers() {
-        //ketika klik set seat masih tidak menyimpan pilihan sementara di antara 4 pilihan tersebut
 
         val dialog = BottomSheetDialog(requireContext())
 
@@ -271,7 +261,6 @@ class HomeFragment : Fragment() {
         val bindingDialog = SeatclassDialogLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(bindingDialog.root)
 
-        //tambahan
         var seatClass : String
 
         if(flightSearchViewModel.seatClass.value != null){
@@ -319,10 +308,10 @@ class HomeFragment : Fragment() {
             dialog.dismiss()
         }
         dialog.show()
-        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation;
-        dialog.window?.setGravity(Gravity.BOTTOM);
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialog.window?.setGravity(Gravity.BOTTOM)
     }
     private fun setChoiceClass(i: Int, bindingDialog : SeatclassDialogLayoutBinding)  {
 
@@ -400,10 +389,10 @@ class HomeFragment : Fragment() {
             dialog.dismiss()
         }
         dialog.show()
-        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation;
-        dialog.window?.setGravity(Gravity.BOTTOM);
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialog.window?.setGravity(Gravity.BOTTOM)
     }
 
     private fun setTotalPassengers(bindingDialog: PassangerDialogLayoutBinding) {
@@ -494,10 +483,10 @@ class HomeFragment : Fragment() {
             dialog.dismiss()
         }
         dialog.show()
-        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation;
-        dialog.window?.setGravity(Gravity.BOTTOM);
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialog.window?.setGravity(Gravity.BOTTOM)
     }
 
     private fun dateFlight(bindingDialog: DateDialogLayoutBinding, checked: Boolean) {
@@ -508,8 +497,8 @@ class HomeFragment : Fragment() {
         val dateDepartureVm = flightSearchViewModel.dateDeparture.value.toString()
         val dateReturnVm = flightSearchViewModel.dateReturn.value.toString()
         val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale("id", "ID"))
-        var dateDepartureFormat : Date = Date()
-        var dateReturnFormat : Date = Date()
+        var dateDepartureFormat = Date()
+        var dateReturnFormat = Date()
         if(dateDepartureVm.isNotEmpty() && dateReturnVm.isNotEmpty()){
             dateDepartureFormat = dateFormat.parse(dateDepartureVm) as Date
             dateReturnFormat = dateFormat.parse(dateReturnVm) as Date
@@ -554,19 +543,19 @@ class HomeFragment : Fragment() {
         bindingDialog.dateFlight.setOnDateSelectedListener(object : CalendarPickerView.OnDateSelectedListener {
             override fun onDateSelected(date: Date) {
                 val selectedDates = bindingDialog.dateFlight.selectedDates
-                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val dateFormatSelected = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 if (selectedDates.size >= 2) {
                     val dateDeparture = selectedDates[0]
                     val dateReturn = selectedDates[selectedDates.size - 1]
-                    bindingDialog.tvDepartureDate.text = convertDateFormatID(dateFormat.format(dateDeparture).toString())
-                    bindingDialog.tvReturnDate.text = convertDateFormatID(dateFormat.format(dateReturn).toString())
+                    bindingDialog.tvDepartureDate.text = convertDateFormatID(dateFormatSelected.format(dateDeparture).toString())
+                    bindingDialog.tvReturnDate.text = convertDateFormatID(dateFormatSelected.format(dateReturn).toString())
                 }else{
-                    bindingDialog.tvDepartureDate.text = convertDateFormatID(dateFormat.format(date).toString())
+                    bindingDialog.tvDepartureDate.text = convertDateFormatID(dateFormatSelected.format(date).toString())
                 }
             }
 
             override fun onDateUnselected(date: Date) {
-                // Tindakan saat tanggal yang dipilih dibatalkan (tidak digunakan dalam mode selection range)
+                // Tindakan saat tanggal yang dipilih dibatalkan
             }
         })
 
@@ -579,7 +568,7 @@ class HomeFragment : Fragment() {
     }
 
     //set date pada return trip sehingga date return tidak < dari date departure
-    private fun setDateReturn(date : String) : String{
+    private fun setDateReturn(): String{
         val dateReturnFormat = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id", "ID"))
         val dateDeparture = flightSearchViewModel.dateDeparture.value
         val parseDateDeparture = LocalDate.parse(dateDeparture, dateReturnFormat)
@@ -605,12 +594,6 @@ class HomeFragment : Fragment() {
         return formatPattern.format(currentTime)
     }
 
-    //set tanggal jika 01 Juni 2023 menjadi 1 Juni
-    private fun modifyDate(date : String) : String{
-
-        return date.replaceFirst("^0".toRegex(), "")
-    }
-
     //SET LOCATION FLIGHT AND DESTINATION
     //menampilkan dialog untuk pencarian destinasi
     private fun setLocationFlight(action : String) {
@@ -629,13 +612,13 @@ class HomeFragment : Fragment() {
         }
 
         dialogSearchDestination.show()
-        dialogSearchDestination.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-        dialogSearchDestination.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        dialogSearchDestination.window?.attributes?.windowAnimations = R.style.DialogAnimation;
-        dialogSearchDestination.window?.setGravity(Gravity.BOTTOM);
+        dialogSearchDestination.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT)
+        dialogSearchDestination.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialogSearchDestination.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialogSearchDestination.window?.setGravity(Gravity.BOTTOM)
 
-        //testing adapter searchdestination
-        var listDestination = mutableListOf<Airport>()
+
+        val listDestination = mutableListOf<Airport>()
         searchDestinationAdapter = SearchDestinationAdapter(ArrayList())
 
         bindingSearch.rvDestination.apply {
@@ -692,6 +675,7 @@ class HomeFragment : Fragment() {
     }
 
     //filtering input search destination
+    @SuppressLint("DefaultLocale")
     private fun filterDestination(newText: String?, listDestination : List<Airport>) {
         val listSearchDestination = mutableListOf<Airport>()
 
@@ -714,9 +698,6 @@ class HomeFragment : Fragment() {
 
         val fromTemporary = this.to
         val toTemporary = this.from
-
-//        binding.tvDeparture.text = arrival
-//        binding.tvArrival.text = departure
 
         flightSearchViewModel.setFrom(arrival as String)
         flightSearchViewModel.setTo(departure as String)
