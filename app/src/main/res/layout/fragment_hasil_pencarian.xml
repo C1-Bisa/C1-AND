@@ -8,7 +8,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
-        android:background="@color/DARKBLUE05"
+        android:background="@color/DARKBLUE04"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
@@ -109,7 +109,8 @@
                 android:src="@drawable/ic_change"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="6dp"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginStart="8dp"
+                app:tint="@color/DARKBLUE04" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

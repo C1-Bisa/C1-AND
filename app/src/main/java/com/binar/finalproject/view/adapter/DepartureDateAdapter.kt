@@ -1,5 +1,6 @@
 package com.binar.finalproject.view.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -31,7 +32,7 @@ class DepartureDateAdapter(private var listDate : List<DateDeparture>) : Recycle
         holder.binding.tvDate.text = listDate[position].date
 
         if(dateDeparture == listDate[position].date){
-            holder.binding.itemCardDateFlight.setCardBackgroundColor(Color.parseColor("#A06ECE"))
+            holder.binding.itemCardDateFlight.setCardBackgroundColor(Color.parseColor("#00AD10"))
             holder.binding.tvDate.setTextColor(Color.parseColor("#FFFFFF"))
             holder.binding.tvDay.setTextColor(Color.parseColor("#FFFFFF"))
         }else{
@@ -46,6 +47,7 @@ class DepartureDateAdapter(private var listDate : List<DateDeparture>) : Recycle
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setListDate(list: List<DateDeparture>){
         listDate = list
         notifyDataSetChanged()
