@@ -3,6 +3,7 @@ package com.binar.finalproject.view.lupapassword
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -86,13 +87,28 @@ class OtpFragment : Fragment() {
                     }
                     Toast(requireContext()).showCustomToast(
                         "Verifikasi berhasil !", requireActivity(), R.layout.toast_alert_green)
-                    findNavController().navigate(R.id.action_otpFragment_to_loginFragment, bundleId)
+
+                    try {
+                        findNavController().navigate(R.id.action_otpFragment_to_loginFragment, bundleId)
+                    } catch (e: IllegalArgumentException) {
+                        Log.e("NavigationError", "Navigation action tidak ditemukan", e)
+                    }
+
+                }else{
+                    Toast(requireContext()).showCustomToast(
+                        "Verifikasi gagal !", requireActivity(), R.layout.toast_alert_red)
                 }
             }
         }else{
             Toast(requireContext()).showCustomToast(
                 "Kode OTP harus di isi!", requireActivity(), R.layout.toast_alert_red)
-            findNavController().navigate(R.id.action_otpFragment_self)
+            if (idUser != 0){
+                val idUserBundle = Bundle().apply {
+                    putInt("ID_USER", idUser)
+                }
+                findNavController().navigate(R.id.action_otpFragment_self)
+            }
+
         }
     }
 

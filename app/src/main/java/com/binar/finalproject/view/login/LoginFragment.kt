@@ -156,7 +156,8 @@ class LoginFragment : Fragment() {
                     findNavController().navigate(R.id.action_loginFragment_to_lupaPasswordFragment)
 
                 }else{
-                    Toast.makeText(context, "terdapat error", Toast.LENGTH_SHORT).show()
+                    Toast(requireContext()).showCustomToast(
+                        "Terdapat error !", requireActivity(), R.layout.toast_alert_red)
                 }
             }
         }
