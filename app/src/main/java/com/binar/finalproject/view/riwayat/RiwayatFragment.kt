@@ -48,13 +48,14 @@ class RiwayatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dataSotreUser = DataStoreUser(requireContext().applicationContext)
 
+        dataSotreUser = DataStoreUser(requireContext().applicationContext)
 
         dataSotreUser.getToken.asLiveData().observe(viewLifecycleOwner){
             if (it != null){
                 tokenUser = it
                 setLayoutListData(tokenUser)
+
             }
 
         }
@@ -68,7 +69,7 @@ class RiwayatFragment : Fragment() {
             showDialogFilterDateRiwayat()
         }
 
-        dataSotreUser = DataStoreUser(requireContext().applicationContext)
+
 
         if (dataSotreUser.isAlreadyLogin()) {
             binding.layoutNonLogin.visibility = View.GONE
@@ -141,7 +142,7 @@ class RiwayatFragment : Fragment() {
         riwayatAdapter = AdapterRiwayat(ArrayList())
         transactionHistoryVM.getHistoryTransaction(token)
         transactionHistoryVM.historyTransaction.observe(viewLifecycleOwner){
-            if (it != null){
+            if (it != null && it.isNotEmpty()){
                 binding.rvRiwayatAfterData.apply {
                     layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                     adapter = riwayatAdapter
@@ -150,6 +151,9 @@ class RiwayatFragment : Fragment() {
                 riwayatAdapter.setList(it)
                 Log.i("DATA HISTORY", it.toString())
 
+            }else{
+                binding.rvRiwayatAfterData.visibility = View.GONE
+                binding.layoutRiwayatEmpty.visibility = View.VISIBLE
             }
 
         }

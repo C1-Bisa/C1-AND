@@ -177,7 +177,6 @@ namun jika empty maka neutral 01-->
 
         <RelativeLayout
             android:id="@+id/layoutRiwayatEmpty"
-            android:background="@color/NEUTRAL01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"

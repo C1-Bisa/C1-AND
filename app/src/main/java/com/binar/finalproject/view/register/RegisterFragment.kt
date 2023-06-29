@@ -1,6 +1,7 @@
 package com.binar.finalproject.view.register
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -60,26 +61,28 @@ class RegisterFragment : Fragment() {
 
 
 
-        if (namaLengkap.isNotEmpty() && email.isNotEmpty() && nomorTelepon.isNotEmpty() && password.isNotEmpty()){
+        if (namaLengkap.isNotEmpty() && email.isNotEmpty() && nomorTelepon.isNotEmpty() && password.isNotEmpty()) {
             userViewModel.postRegist(PostRegister(email, namaLengkap, password, nomorTelepon))
-            userViewModel.responseUserRegist.observe(viewLifecycleOwner){
-
-                // response message belom berhasil
-                if (it != null){
+            userViewModel.responseUserRegist.observe(viewLifecycleOwner) { response ->
+                if (response != null) {
                     val idBundle = Bundle().apply {
-                        putInt("ID_USER", it.data.user.id)
+                        putInt("ID_USER", response.data.user.id)
                     }
                     Toast(requireContext()).showCustomToast(
                         "Kode OTP telah dikirim", requireActivity(), R.layout.toast_alert_green)
-                    findNavController().navigate(R.id.action_registerFragment_to_otpFragment, idBundle)
-                }else if (password.length < 8){
+                    try {
+                        findNavController().navigate(R.id.action_registerFragment_to_otpFragment, idBundle)
+                    } catch (e: IllegalArgumentException) {
+                        Log.e("NavigationError", "Navigation action tidak ditemukan", e)
+                    }
+                } else if (password.length < 8) {
                     Toast(requireContext()).showCustomToast(
-                        "Password minimal 8 karakter !", requireActivity(), R.layout.toast_alert_red)
+                        "Password minimal 8 karakter!", requireActivity(), R.layout.toast_alert_red)
                 }
             }
-        }else{
+        } else {
             Toast(requireContext()).showCustomToast(
-                "Kata sandi harus di isi", requireActivity(), R.layout.toast_alert_red)
+                "Data register tidak boleh kosong!", requireActivity(), R.layout.toast_alert_red)
         }
     }
 

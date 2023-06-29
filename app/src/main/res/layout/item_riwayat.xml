@@ -178,7 +178,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginStart="8dp"
-            android:layout_below="@id/layoutFlightScheduleRiwayat">
+            android:layout_below="@id/layoutFlightScheduleRiwayat"
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/imageLokasiKiriReturnTrip"
