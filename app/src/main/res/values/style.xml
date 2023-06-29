@@ -13,4 +13,10 @@
         <item name="android:windowEnterAnimation">@anim/slide_in_bottom_sheet</item>
         <item name="android:windowExitAnimation">@anim/slide_out_bottom_sheet</item>
     </style>
+
+    <style name="SwitchStyle" parent="Theme.MaterialComponents">
+        <item name="colorOnSurface">@color/DARKBLUE03</item>
+        <item name="colorSecondary">@color/DARKBLUE01</item>
+    </style>
+
 </resources>

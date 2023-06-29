@@ -178,8 +178,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:checked="false"
-                                app:trackTint="#4B1979"
                                 app:thumbTint="#FFFFFF"
+                                android:theme="@style/SwitchStyle"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"/>
                         </RelativeLayout>

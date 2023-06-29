@@ -144,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            app:trackTint="#4B1979"
+            android:theme="@style/SwitchStyle"
             app:thumbTint="#FFFFFF"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"/>
