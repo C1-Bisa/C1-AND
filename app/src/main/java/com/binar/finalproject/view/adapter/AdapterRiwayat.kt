@@ -2,6 +2,7 @@ package com.binar.finalproject.view.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.finalproject.R
@@ -37,6 +38,7 @@ class AdapterRiwayat(private var listRiwayat: List<Data>):
             holder.binding.labelRiwayat.setBackgroundResource(R.drawable.background_issued_riwayat)
         }
 
+
         holder.binding.cardViewHistory.setOnClickListener {
             itemOnClickRiwayat?.invoke(listPosition)
         }
@@ -47,6 +49,8 @@ class AdapterRiwayat(private var listRiwayat: List<Data>):
 
         holder.binding.codeBooking.text = listPosition.transaction.transactionCode
 
+
+
         holder.binding.jamKeberangkatanKiri.text = timeFormate(listPosition.transaction.flights[0]?.departureTime ?: "")
         holder.binding.jamKeberangkatanKanan.text = timeFormate(listPosition.transaction.flights[0]?.arrivalTime ?: "")
 
@@ -55,9 +59,34 @@ class AdapterRiwayat(private var listRiwayat: List<Data>):
 
         holder.binding.classPlane.text = listPosition.transaction.flights[0]?.flightClass
 
+        val durationFlight = reformatDuration(listPosition.transaction.flights[0]?.duration.toString())
+        holder.binding.jarakTempuh.text = durationFlight
 
         val price = "IDR ${convertToCurrencyIDR(listPosition.price.total)}"
         holder.binding.tvPriceFlightRiwayat.text = price
+
+        if (listPosition.transaction.flights.size > 1){
+            holder.binding.apply {
+                layoutFlightScheduleRiwayatReturn.visibility = View.VISIBLE
+
+                holder.binding.namaKotaKiriReturnTrip.text = listPosition.transaction.flights[1]?.from
+                holder.binding.namaKotaKananReturnTrip.text = listPosition.transaction.flights[1]?.to
+
+
+                holder.binding.jamKeberangkatanKiriReturnTrip.text = timeFormate(listPosition.transaction.flights[1]?.departureTime ?: "")
+                holder.binding.jamKeberangkatanKananReturnTrip.text = timeFormate(listPosition.transaction.flights[1]?.arrivalTime ?: "")
+
+                holder.binding.tanggalKiriReturnTrip.text = setDate(listPosition.transaction.flights[1]?.departureDate ?: "")
+                holder.binding.tanggalKananReturnTrip.text = setDate(listPosition.transaction.flights[1]?.arrivalDate ?: "")
+
+                val durationFlightReturn = reformatDuration(listPosition.transaction.flights[1]?.duration.toString())
+                holder.binding.jarakTempuhReturnTrip.text = durationFlightReturn
+
+
+            }
+
+        }
+
 
 
 
@@ -91,4 +120,12 @@ class AdapterRiwayat(private var listRiwayat: List<Data>):
         val parsedTimeLocal = LocalTime.parse(time, timeFormatter)
         return parsedTimeLocal.format(DateTimeFormatter.ofPattern("HH:mm"))
     }
+
+    private fun reformatDuration(duration: String): String {
+        val text = duration.toCharArray()
+            .filter { it != '9' }
+            .toCharArray()
+        return "${text[0]}h ${text[1]}m"
+    }
+
 }

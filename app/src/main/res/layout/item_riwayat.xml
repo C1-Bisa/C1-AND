@@ -39,25 +39,7 @@
                 android:textColor="@color/white"/>
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageLokasiKiri"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/labelRiwayat"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="8dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/maps_ic" />
-        <ImageView
-            android:id="@+id/imageLokasiKanan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/labelRiwayat"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="222dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/maps_ic" />
+
 
 
 
@@ -66,12 +48,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="8dp"
             android:layout_below="@id/labelRiwayat">
+
+            <ImageView
+                android:id="@+id/imageLokasiKiri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/maps_ic" />
+
             <LinearLayout
                 android:id="@+id/layoutDeparture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imageLokasiKiri"
                 android:layout_marginTop="2dp"
                 android:orientation="vertical">
                 <TextView
@@ -132,13 +124,20 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/imageLokasiKanan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/layoutFlightTime"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/maps_ic" />
+
             <LinearLayout
                 android:id="@+id/layoutArrive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:layout_marginStart="20dp"
-                android:layout_toEndOf="@id/layoutFlightTime"
+                android:layout_toEndOf="@id/imageLokasiKanan"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/namaKotaKanan"
@@ -172,6 +171,8 @@
             </LinearLayout>
 
         </RelativeLayout>
+
+<!--        layout jika roundtrip maka visible-->
         <RelativeLayout
             android:id="@+id/layoutFlightScheduleRiwayatReturn"
             android:layout_width="match_parent"
@@ -179,7 +180,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginStart="8dp"
             android:layout_below="@id/layoutFlightScheduleRiwayat"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/imageLokasiKiriReturnTrip"
@@ -267,7 +268,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-
                 android:layout_toEndOf="@id/imageLokasiKananReturnTrip"
                 android:orientation="vertical">
                 <TextView
