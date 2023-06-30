@@ -154,7 +154,8 @@
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/background_button_change_position"
                                 android:src="@drawable/ic_change"
-                                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
+                                app:tint="@color/DARKBLUE04" />
                         </RelativeLayout>
                         <!--       pulang pergi-->
                         <RelativeLayout
