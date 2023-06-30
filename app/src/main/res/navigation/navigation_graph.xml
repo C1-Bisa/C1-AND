@@ -21,7 +21,9 @@
         tools:layout="@layout/fragment_otp" >
         <action
             android:id="@+id/action_otpFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/otpFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_otpFragment_self"
             app:destination="@id/otpFragment" />
