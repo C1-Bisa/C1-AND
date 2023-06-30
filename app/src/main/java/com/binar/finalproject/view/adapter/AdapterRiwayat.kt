@@ -36,6 +36,7 @@ class AdapterRiwayat(private var listRiwayat: List<Data>):
 
         if(listPosition.transaction.transactionStatus == "Issued"){
             holder.binding.labelRiwayat.setBackgroundResource(R.drawable.background_issued_riwayat)
+            holder.binding.txtLabelPembayaran.text = listPosition.transaction.transactionStatus
         }
 
 
@@ -86,10 +87,6 @@ class AdapterRiwayat(private var listRiwayat: List<Data>):
             }
 
         }
-
-
-
-
 
     }
 
