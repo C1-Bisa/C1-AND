@@ -164,6 +164,9 @@
         <action
             android:id="@+id/action_detailRiwayatFragment_to_paymentFragment"
             app:destination="@id/paymentFragment" />
+        <action
+            android:id="@+id/action_detailRiwayatFragment_to_riwayatFragment"
+            app:destination="@id/riwayatFragment" />
     </fragment>
     <fragment
         android:id="@+id/akunFragment"
