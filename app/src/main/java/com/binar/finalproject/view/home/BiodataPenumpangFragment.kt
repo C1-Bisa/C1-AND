@@ -46,6 +46,7 @@ class BiodataPenumpangFragment : Fragment() {
         val getListSeatPassenger = arguments?.getIntArray("DATA_LIST_NUM_SEAT")
         val getTypeRoundTrip = arguments?.getBoolean("TYPE_TRIP_ROUNDTRIP")
         val getDataPemesan = arguments?.getSerializable("DATA_PEMESAN")
+        val getSearchFlight = arguments?.getSerializable("DATA_SEARCH")
 
 
         if (getTypeRoundTrip != null){
@@ -73,23 +74,6 @@ class BiodataPenumpangFragment : Fragment() {
         }
 
         binding.btnLanjutPilihKursi.setOnClickListener {
-//            if(getTypeRoundTrip != null){
-//                if(getTypeRoundTrip){
-//                    val putBundleDataFlight = Bundle().apply {
-//                        putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
-//                        putBoolean("TYPE_TRIP_ROUNDTRIP", true)
-//                        putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
-//                    }
-//                    findNavController().navigate(R.id.action_biodataPenumpangFragment_to_checkoutFragment3, putBundleDataFlight)
-//                }else{
-//                    val putBundleDataFlight = Bundle().apply {
-//                        putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
-//                        putBoolean("TYPE_TRIP_ROUNDTRIP", false)
-//                        putSerializable("DATA_FLIGHT_ONE_TRIP", flightTicketOneTrip)
-//                    }
-//                    findNavController().navigate(R.id.action_biodataPenumpangFragment_to_checkoutFragment3, putBundleDataFlight)
-//                }
-//            }
             val bioIsNotEmpty = checkBioIsNotEmpty(biodataPassengerAdapter.getDataBioPassenger())
             Log.i("DATA_PASSENGGER", biodataPassengerAdapter.getDataBioPassenger().toString())
             if(bioIsNotEmpty){
@@ -101,6 +85,7 @@ class BiodataPenumpangFragment : Fragment() {
                             putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
                             putSerializable("DATA_PEMESAN", getDataPemesan)
                             putParcelableArrayList("DATA_PASSENGER", ArrayList(biodataPassengerAdapter.getDataBioPassenger()))
+                            putSerializable("DATA_SEARCH", getSearchFlight)
                         }
                         findNavController().navigate(R.id.action_biodataPenumpangFragment_to_selectSeatFragment, putBundleDataFlight)
                     }else{
@@ -110,6 +95,7 @@ class BiodataPenumpangFragment : Fragment() {
                             putSerializable("DATA_FLIGHT_ONE_TRIP", flightTicketOneTrip)
                             putSerializable("DATA_PEMESAN", getDataPemesan)
                             putParcelableArrayList("DATA_PASSENGER", ArrayList(biodataPassengerAdapter.getDataBioPassenger()))
+                            putSerializable("DATA_SEARCH", getSearchFlight)
                         }
                         findNavController().navigate(R.id.action_biodataPenumpangFragment_to_selectSeatFragment, putBundleDataFlight)
                     }
@@ -156,15 +142,6 @@ class BiodataPenumpangFragment : Fragment() {
                     passenger.title.toString().isNotEmpty() &&
                     passenger.nik.toString().isNotEmpty()
         }
-//        val bioNotEmpty = dataBioPassenger.any { passenger ->
-//                    passenger.type.toString().isNotEmpty() &&
-//                    passenger.birthday.toString().isNotEmpty() &&
-//                    passenger.name.toString().isNotEmpty() &&
-//                    passenger.nationality.toString().isNotEmpty() &&
-//                    passenger.issuedCountry.toString().isNotEmpty() &&
-//                    passenger.title.toString().isNotEmpty() &&
-//                    passenger.nik.toString().isNotEmpty()
-//        }
         return bioNotEmpty
     }
 

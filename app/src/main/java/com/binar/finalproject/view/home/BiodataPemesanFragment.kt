@@ -44,6 +44,7 @@ class BiodataPemesanFragment : Fragment() {
         //get bundle
         val getListSeatPassenger = arguments?.getIntArray("DATA_LIST_NUM_SEAT")
         val getTypeRoundTrip = arguments?.getBoolean("TYPE_TRIP_ROUNDTRIP")
+        val getSearchFlight = arguments?.getSerializable("DATA_SEARCH")
 
         //initial data store
         dataStoreUser = DataStoreUser(requireContext().applicationContext)
@@ -89,13 +90,14 @@ class BiodataPemesanFragment : Fragment() {
         binding.btnSimpanBiodataPemesan.setOnClickListener {
             if(checkField()){
 //            if(true){
-                if(getTypeRoundTrip != null){
+                if(getTypeRoundTrip != null && getSearchFlight != null){
                     if(getTypeRoundTrip){
                         val putBundleDataFlight = Bundle().apply {
                             putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
                             putBoolean("TYPE_TRIP_ROUNDTRIP", true)
                             putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
                             putSerializable("DATA_PEMESAN", setDataPemesan())
+                            putSerializable("DATA_SEARCH", getSearchFlight)
                         }
 
                         findNavController().navigate(R.id.action_biodataPemesanFragment_to_biodataPenumpangFragment, putBundleDataFlight)
@@ -105,6 +107,7 @@ class BiodataPemesanFragment : Fragment() {
                             putBoolean("TYPE_TRIP_ROUNDTRIP", false)
                             putSerializable("DATA_FLIGHT_ONE_TRIP", flightTicketOneTrip)
                             putSerializable("DATA_PEMESAN", setDataPemesan())
+                            putSerializable("DATA_SEARCH", getSearchFlight)
                         }
 
                         findNavController().navigate(R.id.action_biodataPemesanFragment_to_biodataPenumpangFragment, putBundleDataFlight)

@@ -12,13 +12,12 @@ import com.binar.finalproject.R
 import com.binar.finalproject.databinding.DialogAlertCheckoutNonLoginBinding
 import com.binar.finalproject.databinding.DialogTicketSoldOutBinding
 import com.binar.finalproject.databinding.FragmentDetailPenerbanganBinding
-import com.binar.finalproject.databinding.PassangerDialogLayoutBinding
-import com.binar.finalproject.databinding.SeatclassDialogLayoutBinding
 import com.binar.finalproject.local.DataStoreUser
 import com.binar.finalproject.model.searchflight.Flight
 import com.binar.finalproject.model.searchflight.FlightTicketOneTrip
 import com.binar.finalproject.model.searchflight.FlightTicketRoundTrip
 import com.binar.finalproject.model.searchflight.SearchFlight
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -85,6 +84,7 @@ class DetailPenerbanganFragment : Fragment() {
                     putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
                     putBoolean("TYPE_TRIP_ROUNDTRIP", false)
                     putSerializable("DATA_FLIGHT_ONE_TRIP", flightTicketOneTrip)
+                    putSerializable("DATA_SEARCH", dataSearchFlight)
                 }
                 if(dataStoreUser.isAlreadyLogin()){
                     findNavController().navigate(R.id.action_detailPenerbanganFragment_to_biodataPemesanFragment, putBundleDataFlight)
@@ -113,6 +113,7 @@ class DetailPenerbanganFragment : Fragment() {
                         putIntArray("DATA_LIST_NUM_SEAT", getListSeatPassenger)
                         putBoolean("TYPE_TRIP_ROUNDTRIP", true)
                         putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
+                        putSerializable("DATA_SEARCH", dataSearchFlight)
                     }
                     //jika belum login maka akan show dialog login
                     if(dataStoreUser.isAlreadyLogin()){
@@ -172,6 +173,10 @@ class DetailPenerbanganFragment : Fragment() {
         binding.tvDateArrive.text = setDate(data.arrivalDate)
         binding.tvArriveAirport.text = data.airportTo
         binding.tvPriceTicket.text = "IDR ${convertToCurrencyIDR(data.price)}/PAX"
+
+        Glide.with(this)
+            .load(data.imageAirline)
+            .into(binding.imgAirline)
     }
 
     private fun setDescription(des : String) : String{
