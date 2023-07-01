@@ -53,6 +53,8 @@
                     android:lineHeight="20dp"
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="@color/NEUTRAL05"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
                     />
                 <TextView
                     android:id="@+id/tvPriceEconomy"
@@ -64,6 +66,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="@color/DARKBLUE04"
                     android:lineHeight="20dp"
+                    android:visibility="gone"
                     />
             </LinearLayout>
             <ImageView
@@ -103,7 +106,9 @@
                     android:textSize="14sp"
                     android:lineHeight="20dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:textColor="@color/NEUTRAL05"/>
+                    android:textColor="@color/NEUTRAL05"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"/>
                 <TextView
                     android:id="@+id/tvPricePremiumEconomy"
                     android:layout_marginTop="2dp"
@@ -114,6 +119,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="@color/DARKBLUE04"
                     android:lineHeight="20dp"
+                    android:visibility="gone"
                     />
             </LinearLayout>
             <ImageView
@@ -153,7 +159,9 @@
                     android:textSize="14sp"
                     android:lineHeight="20dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:textColor="@color/NEUTRAL05"/>
+                    android:textColor="@color/NEUTRAL05"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"/>
                 <TextView
                     android:id="@+id/tvPriceBusiness"
                     android:layout_marginTop="2dp"
@@ -164,6 +172,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="@color/DARKBLUE04"
                     android:lineHeight="20dp"
+                    android:visibility="gone"
                     />
             </LinearLayout>
             <ImageView
@@ -203,7 +212,9 @@
                     android:textSize="14sp"
                     android:lineHeight="20dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:textColor="@color/NEUTRAL05"/>
+                    android:textColor="@color/NEUTRAL05"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"/>
                 <TextView
                     android:id="@+id/tvPriceFristClass"
                     android:layout_marginTop="2dp"
@@ -214,6 +225,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="@color/DARKBLUE04"
                     android:lineHeight="20dp"
+                    android:visibility="gone"
                     />
             </LinearLayout>
             <ImageView
