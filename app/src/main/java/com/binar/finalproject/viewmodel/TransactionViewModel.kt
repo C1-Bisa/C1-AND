@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.binar.finalproject.model.payment.RequestTransactionCode
 import com.binar.finalproject.model.payment.ResponsePayment
+import com.binar.finalproject.model.printticket.RequestBodyPrintTicket
+import com.binar.finalproject.model.printticket.ResponsePrintTicket
 import com.binar.finalproject.model.transaction.request.RequestTransaction
 import com.binar.finalproject.model.transaction.response.DataTransaction
 import com.binar.finalproject.model.transaction.response.ResponseDataTransaction
@@ -33,6 +35,10 @@ class TransactionViewModel @Inject constructor(private val api: RestfulApi) : Vi
     //get transaction by id
     private val _responseTransactionById = MutableLiveData<Data?>()
     val responseTransactionById : LiveData<Data?> = _responseTransactionById
+
+    //print ticket
+    private val _responsePrintTicket = MutableLiveData<ResponsePrintTicket?>()
+    val responsePrintTicket : LiveData<ResponsePrintTicket?> = _responsePrintTicket
 
 
     fun createTransaction(data : RequestTransaction, token : String){
@@ -93,6 +99,26 @@ class TransactionViewModel @Inject constructor(private val api: RestfulApi) : Vi
             override fun onFailure(call: Call<ResponseTransactionPerId>, t: Throwable) {
                 _responseTransactionById.postValue(null)
                 Log.d("DATA_RESPON_TRANS_ID", "fail")
+            }
+
+        })
+    }
+
+    fun printTicket(token: String, data : RequestBodyPrintTicket){
+        api.printTicket(tokenUser = "Bearer $token", data).enqueue(object : Callback<ResponsePrintTicket>{
+            override fun onResponse(
+                call: Call<ResponsePrintTicket>,
+                response: Response<ResponsePrintTicket>
+            ) {
+                if (response.isSuccessful){
+                    _responsePrintTicket.postValue(response.body())
+                }else{
+                    _responsePrintTicket.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponsePrintTicket>, t: Throwable) {
+                _responsePrintTicket.postValue(null)
             }
 
         })

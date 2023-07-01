@@ -11,6 +11,8 @@ import com.binar.finalproject.model.otpcode.PutDataOtp
 import com.binar.finalproject.model.otpcode.ResponseOtp
 import com.binar.finalproject.model.payment.RequestTransactionCode
 import com.binar.finalproject.model.payment.ResponsePayment
+import com.binar.finalproject.model.printticket.RequestBodyPrintTicket
+import com.binar.finalproject.model.printticket.ResponsePrintTicket
 import com.binar.finalproject.model.resetpassword.PatchResetPassword
 import com.binar.finalproject.model.resetpassword.ResponseResetPassword
 import com.binar.finalproject.model.resetpassword.createnewpassword.PutCreateNewPassword
@@ -81,6 +83,13 @@ interface RestfulApi {
         @Header("Authorization") tokenUser: String,
         @Body idTransacction: RequestTransactionId
     ) : Call<ResponseTransactionPerId>
+
+    //for print ticket
+    @POST("transaction/printticket")
+    fun printTicket(
+        @Header("Authorization") tokenUser: String,
+        @Body data : RequestBodyPrintTicket
+    ) : Call<ResponsePrintTicket>
 
     //get all notification
     @GET("notification")
