@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.finalproject.databinding.ItemDetailFlightBinding
 import com.binar.finalproject.model.getdetailflight.ListDetailFlight
+import com.bumptech.glide.Glide
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.time.LocalTime
@@ -55,6 +56,9 @@ class DetailFlightAdapter(private var listData : List<ListDetailFlight>) : Recyc
 
         holder.binding.tvArriveAirport.text = listPosition.airportTo.airportName
 
+        Glide.with(holder.itemView)
+            .load(listPosition.airline.imageAirline)
+            .into(holder.binding.imgAirline)
     }
 
     private fun reformatDuration(duration: String): String {

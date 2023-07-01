@@ -43,5 +43,7 @@ data class Flight(
     @SerializedName("price")
     val price: Int,
     @SerializedName("to")
-    val to: String
+    val to: String,
+    @SerializedName("airline_image")
+    val imageAirline : String
 ) : java.io.Serializable

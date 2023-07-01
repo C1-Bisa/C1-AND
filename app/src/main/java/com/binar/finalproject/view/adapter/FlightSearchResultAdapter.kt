@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.finalproject.databinding.ItemDataFlightBinding
 import com.binar.finalproject.model.searchflight.Flight
+import com.bumptech.glide.Glide
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.time.Duration
@@ -48,6 +49,10 @@ class FlightSearchResultAdapter(private var listFligth : List<Flight>) : Recycle
         holder.binding.tvAirlineAndSeatClass.text = airlineAndSeatClass
         //estimation duration flight (di json sudah ada data duration tinggal diganti)
         holder.binding.tvDurationFlight.text = setFlightDuration(listPosition.departureTime, listPosition.arrivalTime)
+
+        Glide.with(holder.itemView)
+            .load(listPosition.imageAirline)
+            .into(holder.binding.imgAirline)
 
         //onclick detail
         holder.binding.btnDetail.setOnClickListener {

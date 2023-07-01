@@ -75,7 +75,7 @@ class DetailRiwayatFragment : Fragment() {
 //        }
 
         binding.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_detailRiwayatFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_detailRiwayatFragment_to_riwayatFragment)
         }
         binding.btnAction.setOnClickListener {
             val respon = transactionViewModel.responseTransactionById.value?.transaction?.transactionStatus
@@ -147,7 +147,7 @@ class DetailRiwayatFragment : Fragment() {
 
         }
 
-        if(item.passenger.adult != 0 || item.passenger.child != 0){
+        if(item.passenger.adult != 0 || item.passenger.child != 0 || item.passenger.baby != 0){
             if(item.passenger.adult != 0){
                 binding.tvNumAdult.text = "${item.passenger.adult} Adult"
                 if(item.arrival?.flight != null){
@@ -170,9 +170,21 @@ class DetailRiwayatFragment : Fragment() {
             }else{
                 binding.layoutNumChild.visibility = View.GONE
             }
+
+            if (item.passenger.baby != 0){
+                binding.tvNumBaby.text = "${item.passenger.baby} Baby"
+                if(item.arrival?.flight != null){
+                    binding.tvTotalPriceBaby.text = "IDR 0"
+                }else{
+                    binding.tvTotalPriceBaby.text = "IDR 0"
+                }
+            }else{
+                binding.layoutNumBaby.visibility = View.GONE
+            }
         }else{
             binding.layoutNumAdult.visibility = View.GONE
             binding.layoutNumChild.visibility = View.GONE
+            binding.layoutNumBaby.visibility = View.GONE
         }
 
 
