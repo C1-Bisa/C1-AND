@@ -3,6 +3,7 @@ package com.binar.finalproject.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.binar.finalproject.R
 import com.binar.finalproject.databinding.ItemDestinationFavoriteBinding
 import com.binar.finalproject.model.DestinationFavorite
 
@@ -28,6 +29,11 @@ class DestinationFavoriteAdapter(private var listDestination : List<DestinationF
        holder.binding.tvMaskapai.text = listDestination[position].airline
        holder.binding.tvDate.text = listDestination[position].date
        holder.binding.tvPrice.text = listDestination[position].price
+        holder.binding.tvLabelDestination.text = listDestination[position].labelText
+        val imageResourceId = listDestination[position].image
+
+        // Set sumber gambar pada ImageView
+        holder.binding.imageViewDestinastion.setImageResource(imageResourceId)
     }
 
     override fun getItemCount(): Int {
