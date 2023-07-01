@@ -531,6 +531,7 @@
                             android:layout_centerVertical="true"
                             />
                         <ImageView
+                            android:id="@+id/btnExpandGopay"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_expend_more"
@@ -543,10 +544,99 @@
                             android:layout_marginBottom="8dp"/>
                     </RelativeLayout>
                     <LinearLayout
+                        android:id="@+id/layoutGopay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:visibility="gone"
+                        android:orientation="vertical"
+                        android:paddingEnd="18dp"
+                        android:paddingStart="18dp">
                         <!--                disini untuk expandable card view -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="username"
+                            android:fontFamily="@font/poppins_medium"
+                            android:textSize="14sp"
+                            android:lineHeight="20dp"
+                            android:textColor="@color/NEUTRAL05"
+                            android:layout_marginTop="19dp"/>
+
+                        <EditText
+                            android:id="@+id/etUsernameGopay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:hint="username"
+                            android:lineHeight="20dp"
+                            android:textColorHint="@color/NEUTRAL03"
+                            android:textColor="@color/NEUTRAL04"
+                            android:textSize="14sp"
+                            tools:ignore="TouchTargetSizeCheck"
+                            android:visibility="visible"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="10dp"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Nomor Gopay"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:textSize="14sp"
+                                    android:lineHeight="20dp"
+                                    android:textColor="@color/NEUTRAL05"
+                                    />
+                                <EditText
+                                    android:id="@+id/etNomerGopayAkun"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:hint="08237238237"
+                                    android:lineHeight="20dp"
+                                    android:textColorHint="@color/NEUTRAL03"
+                                    android:textColor="@color/NEUTRAL04"
+                                    android:textSize="14sp"
+                                    android:inputType="number"
+                                    tools:ignore="TouchTargetSizeCheck"
+                                    android:visibility="visible"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="10dp"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Expiry date"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:textSize="14sp"
+                                    android:lineHeight="20dp"
+                                    android:textColor="@color/NEUTRAL05"
+                                    />
+                                <EditText
+                                    android:id="@+id/etExpiryDateGopay"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:hint="07/24"
+                                    android:lineHeight="20dp"
+                                    android:textColorHint="@color/NEUTRAL03"
+                                    android:textColor="@color/NEUTRAL04"
+                                    android:textSize="14sp"
+                                    tools:ignore="TouchTargetSizeCheck" />
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -595,6 +685,7 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"/>
                     </RelativeLayout>
+<!--                    expand creadit card-->
                     <LinearLayout
                         android:id="@+id/layoutCreditCard"
                         android:layout_width="match_parent"
