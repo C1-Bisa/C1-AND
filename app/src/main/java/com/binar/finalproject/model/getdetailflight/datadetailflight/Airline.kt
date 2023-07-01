@@ -7,5 +7,7 @@ data class Airline(
     @SerializedName("airline_code")
     val airlineCode: String,
     @SerializedName("airline_name")
-    val airlineName: String
+    val airlineName: String,
+    @SerializedName("image")
+    val imageAirline : String
 )
