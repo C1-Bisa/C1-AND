@@ -240,6 +240,7 @@ class HasilPencarianFragment : Fragment() {
                     putIntArray("DATA_LIST_NUM_SEAT", listNumSeatPassenger)
                     putBoolean("TYPE_TRIP_ROUNDTRIP", false)
                     putSerializable("DATA_FLIGHT_ONE_TRIP", flightTicketOneTrip)
+                    putSerializable("DATA_SEARCH", dataSearchFlight)
                 }
 
                 if(dataStoreUser.isAlreadyLogin()){
@@ -270,6 +271,7 @@ class HasilPencarianFragment : Fragment() {
                         putIntArray("DATA_LIST_NUM_SEAT", listNumSeatPassenger)
                         putBoolean("TYPE_TRIP_ROUNDTRIP", true)
                         putSerializable("DATA_FLIGHT_ROUND_TRIP", flightTicketRoundTrip)
+                        putSerializable("DATA_SEARCH", dataSearchFlight)
                     }
 
                     if (dataStoreUser.isAlreadyLogin()){
