@@ -16,6 +16,7 @@ import com.binar.finalproject.databinding.DialogPaymentSuccessBinding
 import com.binar.finalproject.databinding.FragmentPaymentBinding
 import com.binar.finalproject.local.DataStoreUser
 import com.binar.finalproject.model.payment.RequestTransactionCode
+import com.binar.finalproject.model.printticket.RequestBodyPrintTicket
 import com.binar.finalproject.model.transaction.response.DataTransaction
 import com.binar.finalproject.model.transactionhistoryperid.request.RequestTransactionId
 import com.binar.finalproject.model.transactionhistoryperid.response.Data
@@ -57,21 +58,11 @@ class PaymentFragment : Fragment() {
 
         dataStoreUser = DataStoreUser(requireContext().applicationContext)
 
-//        if(getDataTransaction != null && getIdTransaction != null){
-//            dataStoreUser.getToken.asLiveData().observe(viewLifecycleOwner){
-//                if(it != null){
-//                    setInformationFlightForPayment(it, getIdTransaction)
-////                    setInformationFlight(getDataTransaction as DataTransaction)
-//                    Log.d("SET DATA FLIGHT2", getDataTransaction.toString())
-//                }
-//            }
-//        }
         if(getIdTransaction != null){
             idTransaction = getIdTransaction
             dataStoreUser.getToken.asLiveData().observe(viewLifecycleOwner){
                 if(it != null){
                     setInformationFlightForPayment(it, getIdTransaction)
-//                    setInformationFlight(getDataTransaction as DataTransaction)
                     Log.d("SET DATA FLIGHT2", getIdTransaction.toString())
                 }
             }
@@ -103,8 +94,6 @@ class PaymentFragment : Fragment() {
                 }
 
             }
-
-//            showDialogShowTicket(15)
 
         }
     }
@@ -145,15 +134,25 @@ class PaymentFragment : Fragment() {
             val totalPrice = "IDR ${convertToCurrencyIDR(item.departure.transaction.amount)}"
             tvTotalPrice.text = totalPrice
 
-            binding.tvPassenger.text = if(item.passenger.adult != 0 && item.passenger.child != 0){
-                "${item.passenger.adult} Adults, ${item.passenger.child} Child"
-            }else{
-                if(item.passenger.adult != 0){
-                    "${item.passenger.adult} Adults"
-                }else{
-                    "${item.passenger.child} Child"
+            val listCountPassenger = listOf<Int>(item.passenger.adult,item.passenger.child, item.passenger.baby)
+
+            var countPassenger : String = ""
+            for (i in listCountPassenger.indices){
+                if(listCountPassenger[i] != 0){
+                    countPassenger += if(i == 0){
+                        "${listCountPassenger[i]} Adults"
+                    }else if(i == 1){
+                        if(countPassenger.isNotEmpty()){
+                            ", ${listCountPassenger[i]} Child"
+                        }else{
+                            "${listCountPassenger[i]} Child"
+                        }
+                    }else{
+                        ", ${listCountPassenger[i]} Baby"
+                    }
                 }
             }
+            binding.tvPassenger.text = countPassenger
 
             binding.tvTotalFlight.text = reformatDuration(item.departure.flight.duration.toString())
 
@@ -167,7 +166,6 @@ class PaymentFragment : Fragment() {
             binding.apply {
                 tvPointReturn.text = item.arrival!!.flight.from
                 tvPointArriveReturnTrip.text = item.arrival.flight.to
-                //perlu diubah durasinya
                 tvTotalFlightReturn.text = item.arrival.flight.duration.toString()
                 tvDateReturn.text = setDate(item.arrival.flight.departureDate)
                 tvDateArriveReturnTrip.text = setDate(item.arrival.flight.arrivalDate)
@@ -191,7 +189,7 @@ class PaymentFragment : Fragment() {
                 Toast(requireContext()).showCustomToast(
                     "Pembayaran Berhasil", requireActivity(), R.layout.toast_alert_green)
                 Log.i("ID TRANSACTION 1", transactionCode)
-                showDialogShowTicket(idTransaction)
+                showDialogShowTicket(idTransaction, token)
             }else{
                 Toast(requireContext()).showCustomToast(
                     "Pembayaran gagal", requireActivity(), R.layout.toast_alert_red)
@@ -200,7 +198,7 @@ class PaymentFragment : Fragment() {
         }
     }
 
-    private fun showDialogShowTicket(id: Int) {
+    private fun showDialogShowTicket(id: Int, token : String) {
         //bottom sheet
         val dialog = BottomSheetDialog(requireContext())
 
@@ -216,12 +214,17 @@ class PaymentFragment : Fragment() {
 
         bindingDialog.btnTerbitkanTiket.setOnClickListener {
             if(id.toString().isNotEmpty()){
-                val inputBundle = Bundle().apply {
-                    putInt("ID_TRANSACTION", id)
-                }
+                transactionViewModel.printTicket(token, RequestBodyPrintTicket(id.toString()))
 
-                Log.i("ID TRANSACTION 2", id.toString())
-                findNavController().navigate(R.id.action_paymentFragment_to_detailRiwayatFragment, inputBundle)
+                transactionViewModel.responsePrintTicket.observe(viewLifecycleOwner){
+                    if(it != null){
+                        Toast(requireContext()).showCustomToast(
+                            "Tiket sudah terkirim di email", requireActivity(), R.layout.toast_alert_green)
+                    }else{
+                        Toast(requireContext()).showCustomToast(
+                            "Tiket gagal terkirim", requireActivity(), R.layout.toast_alert_red)
+                    }
+                }
             }
 
             dialog.dismiss()

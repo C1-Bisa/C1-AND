@@ -7,5 +7,7 @@ data class Passenger(
     @SerializedName("adult")
     val adult: Int,
     @SerializedName("child")
-    val child: Int
+    val child: Int,
+    @SerializedName("baby")
+    val baby : Int
 )
