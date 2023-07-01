@@ -75,13 +75,25 @@ class HomeFragment : Fragment() {
         setRecycleViewDestinationFavorite()
 
         //initial
-        if(flightSearchViewModel.searchFrom.value != null && flightSearchViewModel.searchTo.value != null){
-            from = flightSearchViewModel.searchFrom.value.toString()
-            to = flightSearchViewModel.searchTo.value.toString()
+        //update...
+        if(flightSearchViewModel.searchFrom.value != null || flightSearchViewModel.searchTo.value != null){
+            if(flightSearchViewModel.searchFrom.value == null){
+                from = "Jakarta"
+                to = flightSearchViewModel.searchTo.value.toString()
+            }else if(flightSearchViewModel.searchTo.value == null){
+                from = flightSearchViewModel.searchFrom.value.toString()
+                to = "Bali"
+            }else{
+                from = flightSearchViewModel.searchFrom.value.toString()
+                to = flightSearchViewModel.searchTo.value.toString()
+            }
+            Log.i("AFTER BACK", "$from $to")
         }else{
             from = "Jakarta"
             to = "Bali"
         }
+
+        Log.i("AFTER BACK", "$from $to")
         
         //tukar destination dengan tempat keberangkatan
         binding.btnChange.setOnClickListener {
@@ -152,15 +164,18 @@ class HomeFragment : Fragment() {
     private fun searchFlight() {
 
         val from : String = if(flightSearchViewModel.searchFrom.value != null){
-            Log.d("HASIL_FROM", flightSearchViewModel.searchFrom.value.toString())
+            Log.d("HASIL_FROM1", flightSearchViewModel.searchFrom.value.toString())
             flightSearchViewModel.searchFrom.value.toString()
         }else{
+            Log.d("HASIL_FROM2", "JAKARTA")
             "Jakarta"
         }
 
         val to : String = if(flightSearchViewModel.searchTo.value != null){
+            Log.d("HASIL_FROM3", flightSearchViewModel.searchTo.value.toString())
             flightSearchViewModel.searchTo.value.toString()
         }else{
+            Log.d("HASIL_FROM4", "Bali")
             "Bali"
         }
 
@@ -696,6 +711,8 @@ class HomeFragment : Fragment() {
         val departure = binding.tvDeparture.text
         val arrival = binding.tvArrival.text
 
+        Log.d("HASIL_CHANGE1", "$from $to")
+
         val fromTemporary = this.to
         val toTemporary = this.from
 
@@ -706,7 +723,7 @@ class HomeFragment : Fragment() {
         //local var
         this.from = fromTemporary
         this.to = toTemporary
-        Log.d("HASIL_CHANGE", "$from $to")
+        Log.d("HASIL_CHANGE2", "$from $to")
         //update viewmodel
         //belum benar
         flightSearchViewModel.setSearchFrom(fromTemporary)

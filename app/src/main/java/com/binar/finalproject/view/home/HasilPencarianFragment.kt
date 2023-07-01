@@ -399,10 +399,22 @@ class HasilPencarianFragment : Fragment() {
                 filterMap[listFilter[i]] = true
                 break
             }
-
         }
+        //update ...
+        binding.layoutLoadingData.visibility = View.VISIBLE
+        binding.layoutSearchNotFound.visibility = View.GONE
 
         flightViewModel.getDataFlight(postSearchFlight, filterMap)
+
+        flightViewModel.dataFlight.observe(viewLifecycleOwner){
+            if(it != null){
+                flightSearchResultAdapter.setListFlight(it)
+                binding.layoutLoadingData.visibility = View.GONE
+            }else{
+                binding.layoutLoadingData.visibility = View.GONE
+                binding.layoutSearchNotFound.visibility = View.VISIBLE
+            }
+        }
 
     }
 
