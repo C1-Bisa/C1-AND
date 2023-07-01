@@ -5,5 +5,6 @@ data class DestinationFavorite(
     val flightDestination : String,
     val airline : String,
     val date : String,
-    val price : String
+    val price : String,
+    val labelText : String
 )
