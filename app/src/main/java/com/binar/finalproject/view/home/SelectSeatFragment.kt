@@ -13,6 +13,7 @@ import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentSelectSeatBinding
 import com.binar.finalproject.model.searchflight.FlightTicketOneTrip
 import com.binar.finalproject.model.searchflight.FlightTicketRoundTrip
+import com.binar.finalproject.model.searchflight.SearchFlight
 import com.binar.finalproject.model.seatconfiguration.Seat
 import com.binar.finalproject.model.transaction.request.Passenger
 import com.binar.finalproject.utils.showCustomToast
@@ -51,15 +52,24 @@ class SelectSeatFragment : Fragment() {
         val getTypeRoundTrip = arguments?.getBoolean("TYPE_TRIP_ROUNDTRIP")
         val getDataPemesan = arguments?.getSerializable("DATA_PEMESAN")
         val getDataPassenger = arguments?.getParcelableArrayList<Passenger>("DATA_PASSENGER")
+        val getSearchFlight = arguments?.getSerializable("DATA_SEARCH")
 
-        if (getTypeRoundTrip != null && getListSeatPassenger != null){
+        if (getTypeRoundTrip != null && getListSeatPassenger != null && getSearchFlight != null){
+            val dataSearchFlight = getSearchFlight as SearchFlight
             if(getTypeRoundTrip == true){
                 val getRoundTrip = arguments?.getSerializable("DATA_FLIGHT_ROUND_TRIP")
                 flightTicketRoundTrip = getRoundTrip as FlightTicketRoundTrip
 
+                val title = "Pilih Kursi (${dataSearchFlight.from} < > ${dataSearchFlight.to} - ${dataSearchFlight.flightClass}) "
+                binding.tvTitleBar.text = title
+
+
             }else{
                 val getOneTrip = arguments?.getSerializable("DATA_FLIGHT_ONE_TRIP")
                 flightTicketOneTrip = getOneTrip as FlightTicketOneTrip
+
+                val title = "Pilih Kursi (${dataSearchFlight.from} > ${dataSearchFlight.to} - ${dataSearchFlight.flightClass}) "
+                binding.tvTitleBar.text = title
             }
         }
 
