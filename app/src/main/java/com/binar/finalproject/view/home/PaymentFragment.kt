@@ -69,11 +69,22 @@ class PaymentFragment : Fragment() {
         }
 
         binding.btnExpandCreditCard.setOnClickListener {
+            binding.layoutGopay.visibility = View.GONE
+
             if(binding.layoutCreditCard.isVisible){
 
                 binding.layoutCreditCard.visibility = View.GONE
             }else{
                 binding.layoutCreditCard.visibility = View.VISIBLE
+            }
+        }
+
+        binding.btnExpandGopay.setOnClickListener {
+            binding.layoutCreditCard.visibility = View.GONE
+            if(binding.layoutGopay.isVisible){
+                binding.layoutGopay.visibility = View.GONE
+            }else{
+                binding.layoutGopay.visibility = View.VISIBLE
             }
         }
 
@@ -89,12 +100,28 @@ class PaymentFragment : Fragment() {
 
         binding.btnBayar.setOnClickListener {
             if(getIdTransaction != null){
-                if(token.isNotEmpty()){
-                    payFlightTicket(token)
+                if(checkFieldPayment()){
+                    if(token.isNotEmpty()){
+                        payFlightTicket(token)
+                    }
+                }else{
+                    Toast(requireContext()).showCustomToast(
+                        "Metode pembayaran tidak boleh kosong!", requireActivity(), R.layout.toast_alert_red)
                 }
-
             }
 
+        }
+    }
+
+    private fun checkFieldPayment(): Boolean {
+        return if(binding.layoutGopay.isVisible || binding.layoutCreditCard.isVisible){
+            if(binding.layoutGopay.isVisible){
+                binding.etUsernameGopay.text.isNotEmpty() && binding.etNomerGopayAkun.text.isNotEmpty() && binding.etExpiryDateGopay.text.isNotEmpty()
+            }else{
+                binding.etNumberCreditCard.text.isNotEmpty() && binding.etCVVCreditCard.text.isNotEmpty() && binding.etExpiryDateCreditCard.text.isNotEmpty() && binding.etHolderNameCreditCard.text.isNotEmpty()
+            }
+        }else{
+            false
         }
     }
 
@@ -220,6 +247,10 @@ class PaymentFragment : Fragment() {
                     if(it != null){
                         Toast(requireContext()).showCustomToast(
                             "Tiket sudah terkirim di email", requireActivity(), R.layout.toast_alert_green)
+
+                        if(findNavController().currentDestination?.id == R.id.paymentFragment){
+                            findNavController().navigate(R.id.action_paymentFragment_to_homeFragment)
+                        }
                     }else{
                         Toast(requireContext()).showCustomToast(
                             "Tiket gagal terkirim", requireActivity(), R.layout.toast_alert_red)
