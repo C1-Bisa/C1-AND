@@ -236,12 +236,6 @@ class CheckoutFragment : Fragment() {
                 }
             )
         )
-//        Log.i("ID_DEPA", flightTicketOneTrip.flightIdDeparture.toString())
-//        flightViewModel.getDetailFlight(
-//            PostDataFlight(1,1,1, listOf(flightTicketOneTrip.flightIdDeparture)
-//            )
-//        )
-
 
     }
 
