@@ -91,9 +91,9 @@ class SelectSeatFragment : Fragment() {
 
             if(numPassenger != 0){
                 seatFlightAdapter = if(getTypeRoundTrip){
-                    SeatFlightAdapter(listOf(ConfigurationSeat(dataSearch.flightClass, "Keberangkatan"), ConfigurationSeat(dataSearch.flightClass, "Kepulangan")), numPassenger, true)
+                    SeatFlightAdapter(listOf(ConfigurationSeat(dataSearch.flightClass, "Kepergian ${dataSearch.from} > ${dataSearch.to}\n"), ConfigurationSeat(dataSearch.flightClass, "Kepulangan ${dataSearch.to} > ${dataSearch.from}\n")), numPassenger, true)
                 }else{
-                    SeatFlightAdapter(listOf(ConfigurationSeat(dataSearch.flightClass, "Keberangkatan")), numPassenger, false)
+                    SeatFlightAdapter(listOf(ConfigurationSeat(dataSearch.flightClass, "Keberangkatan ")), numPassenger, false)
                 }
                 setRecycleviewSeat()
             }

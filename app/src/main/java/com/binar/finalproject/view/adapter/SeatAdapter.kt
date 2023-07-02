@@ -87,7 +87,7 @@ class SeatAdapter(private var listSeat : List<Seat>, var numPassenger : Int) : R
                                     break
                                 }
                             }
-                            seat.binding.itemSeat.setBackgroundColor(Color.parseColor("#7126B5"))
+                            seat.binding.itemSeat.setBackgroundColor(Color.parseColor("#003D20"))
                         }
                     }
                 }

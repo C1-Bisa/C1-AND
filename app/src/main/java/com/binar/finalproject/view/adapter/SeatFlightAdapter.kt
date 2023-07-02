@@ -38,7 +38,7 @@ class SeatFlightAdapter(private var list : List<ConfigurationSeat>, private var 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val title = "${list[position].title} - ${list[position].flightClass} - 64 Kursi Tersedia"
+        val title = "${list[position].title}${list[position].flightClass} - 52 Kursi Tersedia"
         holder.binding.tvClassAndAviableSeat.text = title
 
         seatAdapter = SeatAdapter(setListSeat(), numPassenger)
