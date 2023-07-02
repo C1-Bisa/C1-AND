@@ -137,7 +137,6 @@ class BiodataPenumpangFragment : Fragment() {
                     passenger.expired.toString().isNotEmpty() &&
                     passenger.name.toString().isNotEmpty() &&
                     passenger.nationality.toString().isNotEmpty() &&
-                    passenger.seat.toString().isNotEmpty() &&
                     passenger.issuedCountry.toString().isNotEmpty() &&
                     passenger.title.toString().isNotEmpty() &&
                     passenger.nik.toString().isNotEmpty()

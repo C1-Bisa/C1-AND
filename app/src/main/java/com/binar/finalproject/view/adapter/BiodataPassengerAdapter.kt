@@ -29,7 +29,7 @@ class BiodataPassengerAdapter(private var listBio : List<BiodataPassenger>, val 
 
     init {
         for (i in listBio.indices) {
-            listInput.add(Passenger("","","", "","","",0,"A4","",listBio[i].ageCategory))
+            listInput.add(Passenger("","","", "","","",0,"",listBio[i].ageCategory, "",""))
         }
     }
 

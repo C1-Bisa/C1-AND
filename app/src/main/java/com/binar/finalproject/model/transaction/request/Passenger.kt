@@ -20,12 +20,14 @@ data class Passenger(
     var nationality: String?,
     @SerializedName("nik")
     var nik: Int?,
-    @SerializedName("seat")
-    var seat: String?,
     @SerializedName("title")
     var title: String?,
     @SerializedName("type")
-    var type: String?
+    var type: String?,
+    @SerializedName("seatDeparture")
+    var seatDeparture : String?,
+    @SerializedName("seatReturn")
+    var seatReturn : String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -34,7 +36,8 @@ data class Passenger(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readInt(),
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
@@ -48,10 +51,11 @@ data class Passenger(
         parcel.writeString(issuedCountry)
         parcel.writeString(name)
         parcel.writeString(nationality)
-        parcel.writeInt(nik!!)
-        parcel.writeString(seat)
+        parcel.writeValue(nik)
         parcel.writeString(title)
         parcel.writeString(type)
+        parcel.writeString(seatDeparture)
+        parcel.writeString(seatReturn)
     }
 
     override fun describeContents(): Int {

@@ -9,15 +9,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.binar.finalproject.R
 import com.binar.finalproject.databinding.FragmentSelectSeatBinding
 import com.binar.finalproject.model.searchflight.FlightTicketOneTrip
 import com.binar.finalproject.model.searchflight.FlightTicketRoundTrip
 import com.binar.finalproject.model.searchflight.SearchFlight
+import com.binar.finalproject.model.seatconfiguration.ConfigurationSeat
 import com.binar.finalproject.model.seatconfiguration.Seat
 import com.binar.finalproject.model.transaction.request.Passenger
 import com.binar.finalproject.utils.showCustomToast
 import com.binar.finalproject.view.adapter.SeatAdapter
+import com.binar.finalproject.view.adapter.SeatFlightAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.Serializable
@@ -27,7 +30,8 @@ import java.util.ArrayList
 class SelectSeatFragment : Fragment() {
 
     private lateinit var binding: FragmentSelectSeatBinding
-    private lateinit var seatAdapter: SeatAdapter
+//    private lateinit var seatAdapter: SeatAdapter
+    private lateinit var seatFlightAdapter: SeatFlightAdapter
 
     private var flightTicketOneTrip = FlightTicketOneTrip()
     private var flightTicketRoundTrip = FlightTicketRoundTrip()
@@ -73,9 +77,11 @@ class SelectSeatFragment : Fragment() {
             }
         }
 
-        if(getTypeRoundTrip != null && getListSeatPassenger != null){
+        if(getTypeRoundTrip != null && getListSeatPassenger != null && getSearchFlight != null){
 
             listSeatPass = getListSeatPassenger
+
+            val dataSearch = getSearchFlight as SearchFlight
 
             var numPassenger = 0
 
@@ -84,22 +90,22 @@ class SelectSeatFragment : Fragment() {
             }
 
             if(numPassenger != 0){
-                seatAdapter = SeatAdapter(emptyList(), numPassenger)
+                seatFlightAdapter = if(getTypeRoundTrip){
+                    SeatFlightAdapter(listOf(ConfigurationSeat(dataSearch.flightClass, "Keberangkatan"), ConfigurationSeat(dataSearch.flightClass, "Kepulangan")), numPassenger, true)
+                }else{
+                    SeatFlightAdapter(listOf(ConfigurationSeat(dataSearch.flightClass, "Keberangkatan")), numPassenger, false)
+                }
                 setRecycleviewSeat()
             }
 
         }
 
 
-        seatAdapter.itemSeatOnClick = {
-            Log.i("HASIL_SEAT", it.seatCode)
-        }
-
         binding.btnSimpanSeat.setOnClickListener {
             if(getDataPassenger != null && getTypeRoundTrip != null && getDataPemesan != null && getListSeatPassenger != null){
                 setPositionSeatPassenger(getDataPassenger, getTypeRoundTrip, flightTicketOneTrip, flightTicketRoundTrip, getDataPemesan, getListSeatPassenger)
             }
-            Log.i("HASIL_SEAT", seatAdapter.getConfigurationSeatPass().toString())
+            Log.i("HASIL_SEAT", seatFlightAdapter.getSeat().toString())
         }
 
         binding.btnBack.setOnClickListener {
@@ -118,17 +124,33 @@ class SelectSeatFragment : Fragment() {
         var dataSeatComplete = true
         var dataPassenger = data
 
-        for (i in seatAdapter.getConfigurationSeatPass().indices){
-            if(seatAdapter.getConfigurationSeatPass()[i].isEmpty()){
+        for (item in seatFlightAdapter.getSeat()){
+            for(z in item){
+                Log.i("ITEM", z)
+                if(z.isEmpty()){
+                    dataSeatComplete = false
+                    Log.i("SEAT4", seatFlightAdapter.getSeat().toString())
+                    break
+                }
+            }
+
+            if(item.isEmpty()){
                 dataSeatComplete = false
+                Log.i("SEAT4", seatFlightAdapter.getSeat().toString())
                 break
             }
         }
 
-        if(dataSeatComplete){
-            for( i in dataPassenger.indices){
-                dataPassenger[i].seat = seatAdapter.getConfigurationSeatPass()[i]
-            }
+            if(dataSeatComplete){
+                Log.i("SEAT5", seatFlightAdapter.getSeat().toString())
+                for( i in dataPassenger.indices){
+                    if(getTypeRoundTrip){
+                        dataPassenger[i].seatDeparture = seatFlightAdapter.getSeat()[0][i]
+                        dataPassenger[i].seatReturn = seatFlightAdapter.getSeat()[1][i]
+                    }else{
+                        dataPassenger[i].seatDeparture = seatFlightAdapter.getSeat()[0][i]
+                    }
+                }
 
             if(getTypeRoundTrip){
                 if(flightTicketRoundTrip.toString().isNotEmpty()){
@@ -154,111 +176,21 @@ class SelectSeatFragment : Fragment() {
                     findNavController().navigate(R.id.action_selectSeatFragment_to_checkoutFragment, putBundleDataFlight)
                 }
             }
+                Log.i("HASIL_DATA PASSENGER", dataPassenger.toString())
 
-        }else{
-            Toast(requireContext()).showCustomToast(
-                "Pilih tempat duduk sebelum checkout!", requireActivity(), R.layout.toast_alert_red)
-        }
+            }else{
+                Toast(requireContext()).showCustomToast(
+                    "Pilih tempat duduk sebelum checkout!", requireActivity(), R.layout.toast_alert_red)
+            }
 
     }
 
     private fun setRecycleviewSeat() {
-        binding.rvSeat.apply {
-            layoutManager = GridLayoutManager(context, 7)
-            adapter = seatAdapter
+
+        binding.rvSeatFlight.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = seatFlightAdapter
         }
-
-        seatAdapter.setListSeat(setListSeat())
-    }
-
-
-    private fun setListSeat() : List<Seat>{
-        return listOf(
-            Seat("A1", true) ,
-            Seat("B1", false),
-            Seat("C1", true),
-            Seat("1", true),
-            Seat("D1", true),
-            Seat("E1", false),
-            Seat("F1", true),
-            Seat("A2", true) ,
-            Seat("B2", false),
-            Seat("C2", false),
-            Seat("2", true),
-            Seat("D2", true),
-            Seat("E2", false),
-            Seat("F2", true),
-            Seat("A3", false) ,
-            Seat("B3", false),
-            Seat("C3", true),
-            Seat("3", true),
-            Seat("D3", false),
-            Seat("E3", true),
-            Seat("F3", false),
-            Seat("A4", true) ,
-            Seat("B4", false),
-            Seat("C4", false),
-            Seat("4", true),
-            Seat("D4", true),
-            Seat("E4", false),
-            Seat("F4", false),
-            Seat("A5", true) ,
-            Seat("B5", false),
-            Seat("C5", true),
-            Seat("5", true),
-            Seat("D5", true),
-            Seat("E5", false),
-            Seat("F5", false),
-            Seat("A6", true) ,
-            Seat("B6", false),
-            Seat("C6", true),
-            Seat("6", true),
-            Seat("D6", true),
-            Seat("E6", false),
-            Seat("F6", true),
-            Seat("A7", false) ,
-            Seat("B7", false),
-            Seat("C7", false),
-            Seat("7", true),
-            Seat("D7", false),
-            Seat("E7", false),
-            Seat("F7", true),
-            Seat("A8", true) ,
-            Seat("B8", false),
-            Seat("C8", true),
-            Seat("8", true),
-            Seat("D8", true),
-            Seat("E8", false),
-            Seat("F8", true),
-            Seat("A9", true) ,
-            Seat("B9", false),
-            Seat("C9", true),
-            Seat("9", true),
-            Seat("D9", false),
-            Seat("E9", false),
-            Seat("F9", true),
-            Seat("A10", true) ,
-            Seat("B10", true),
-            Seat("C10", true),
-            Seat("10", true),
-            Seat("D10", false),
-            Seat("E10", true),
-            Seat("F10", true),
-            Seat("A11", true) ,
-            Seat("B11", false),
-            Seat("C11", true),
-            Seat("11", true),
-            Seat("D11", true),
-            Seat("E11", false),
-            Seat("F11", true),
-            Seat("A12", true) ,
-            Seat("B12", true),
-            Seat("C12", true),
-            Seat("12", true),
-            Seat("D12", false),
-            Seat("E12", true),
-            Seat("F12", true)
-        )
     }
 
 }

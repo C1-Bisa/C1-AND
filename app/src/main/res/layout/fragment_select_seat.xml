@@ -45,123 +45,16 @@
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSeatFlight"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/appBar"
         app:layout_constraintBottom_toTopOf="@id/bottomLayout"
         android:orientation="vertical"
         android:paddingBottom="16dp">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/background_border_primary_purple_three">
-            <LinearLayout
-                android:id="@+id/layoutTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/background_rounded_topleft_topright_purple_three"
-                >
-                <TextView
-                    android:id="@+id/tvClassAndAviableSeat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
-                    android:lineHeight="20dp"
-                    android:text="Economy - 64 Seats Available"
-                    android:textColor="@color/NEUTRAL01"
-                    android:textSize="14sp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_toEndOf="@id/btnBack"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/coloumSeat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/layoutTitle"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                >
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="A"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textColor="@color/NEUTRAL03"
-                    android:layout_weight="1"
-                    android:textAlignment="center"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="B"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textColor="@color/NEUTRAL03"
-                    android:layout_weight="1"
-                    android:textAlignment="center"/>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="C"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textColor="@color/NEUTRAL03"
-                    android:layout_weight="1"
-                    android:textAlignment="center"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:textAlignment="center"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="D"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textColor="@color/NEUTRAL03"
-                    android:layout_weight="1"
-                    android:textAlignment="center"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="E"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textColor="@color/NEUTRAL03"
-                    android:layout_weight="1"
-                    android:textAlignment="center"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="F"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textColor="@color/NEUTRAL03"
-                    android:layout_weight="1"
-                    android:textAlignment="center"/>
-            </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvSeat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/coloumSeat"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                />
-
-        </RelativeLayout>
-    </ScrollView>
+    </androidx.recyclerview.widget.RecyclerView>
     <LinearLayout
         android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
