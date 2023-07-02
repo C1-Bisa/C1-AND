@@ -22,13 +22,14 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
             android:lineHeight="20dp"
-            android:text="Passenger 1 - Adult"
+            android:text="@string/passenger_1_adult"
             android:textColor="@color/NEUTRAL01"
             android:textSize="16sp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_toEndOf="@id/btnBack"/>
+            android:layout_toEndOf="@id/btnBack"
+            tools:ignore="ObsoleteLayoutParam" />
     </LinearLayout>
 <!--    title-->
     <LinearLayout
@@ -43,7 +44,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="@string/title"
             android:fontFamily="@font/poppins_bold"
             android:textSize="14sp"
             android:lineHeight="20dp"
@@ -74,14 +75,14 @@
                 android:id="@+id/titlePassenger"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mr."
+                android:text="@string/mr"
                 android:textSize="16sp"
                 android:fontFamily="@font/poppins_medium"
                 android:padding="2dp"
                 android:inputType="none"
                 app:boxStrokeColor = "@color/NEUTRAL02"
                 android:background="@drawable/background_rounded_neutral_two"
-                tools:ignore="SpeakableTextPresentCheck" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -98,7 +99,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nama Lengkap"
+            android:text="@string/nama_lengkap"
             android:fontFamily="@font/poppins_bold"
             android:textSize="14sp"
             android:lineHeight="20dp"
@@ -110,7 +111,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_rounded_neutral_two"
             android:fontFamily="@font/poppins_medium"
-            android:hint="Nama"
+            android:hint="@string/nama"
             android:textSize="16sp"
             android:textColor="@color/NEUTRAL04"
             android:textColorHint="@color/NEUTRAL03"
@@ -133,7 +134,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Punya Nama Keluarga?"
+            android:text="@string/punya_nama_keluarga"
             android:textSize="14sp"
             android:textColor="@color/NEUTRAL05"
             android:fontFamily="@font/poppins_regular"
@@ -162,7 +163,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nama Keluarga"
+            android:text="@string/nama_keluarga"
             android:fontFamily="@font/poppins_bold"
             android:textSize="14sp"
             android:lineHeight="20dp"
@@ -174,7 +175,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_rounded_neutral_two"
             android:fontFamily="@font/poppins_medium"
-            android:hint="Nama Keluarga"
+            android:hint="@string/nama_keluarga"
             android:textSize="16sp"
             android:textColor="@color/NEUTRAL04"
             android:textColorHint="@color/NEUTRAL03"
@@ -199,7 +200,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tanggal Lahir"
+            android:text="@string/tanggal_lahir"
             android:fontFamily="@font/poppins_bold"
             android:textSize="14sp"
             android:lineHeight="20dp"
@@ -211,7 +212,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_rounded_neutral_two"
             android:fontFamily="@font/poppins_medium"
-            android:hint="yyyy-mm-hh"
+            android:hint="@string/yyyy_mm_hh"
             android:textSize="16sp"
             android:textColor="@color/NEUTRAL04"
             android:textColorHint="@color/NEUTRAL03"
@@ -238,7 +239,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kewarganegaraan"
+            android:text="@string/kewarganegaraan"
             android:fontFamily="@font/poppins_bold"
             android:textSize="14sp"
             android:lineHeight="20dp"
@@ -251,7 +252,7 @@
             android:layout_marginTop="4dp"
             android:background="@drawable/background_rounded_neutral_two"
             android:fontFamily="@font/poppins_medium"
-            android:hint="kewarganegaraan"
+            android:hint="@string/kewarganegaraan"
             android:inputType="text"
             android:paddingStart="16dp"
             android:paddingTop="8dp"
@@ -275,7 +276,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="KTP/Paspor"
+            android:text="@string/ktp_paspor"
             android:fontFamily="@font/poppins_bold"
             android:textSize="14sp"
             android:lineHeight="20dp"
@@ -287,11 +288,12 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_rounded_neutral_two"
             android:fontFamily="@font/poppins_medium"
-            android:hint="ktp / passport number"
+            android:hint="@string/ktp_passport_number"
             android:textSize="16sp"
             android:textColor="@color/NEUTRAL04"
             android:textColorHint="@color/NEUTRAL03"
             android:inputType="number"
+            android:maxLength="9"
             android:paddingStart="16dp"
             android:paddingTop="8dp"
             android:paddingEnd="16dp"
@@ -312,7 +314,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Negara Penerbit"
+            android:text="@string/negara_penerbit"
             android:fontFamily="@font/poppins_bold"
             android:textSize="14sp"
             android:lineHeight="20dp"
@@ -324,7 +326,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_rounded_neutral_two"
             android:fontFamily="@font/poppins_medium"
-            android:hint="negara penerbit"
+            android:hint="@string/negara_penerbit"
             android:textSize="16sp"
             android:textColor="@color/NEUTRAL04"
             android:textColorHint="@color/NEUTRAL03"
@@ -352,7 +354,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Berlaku sampai"
+            android:text="@string/berlaku_sampai"
             android:fontFamily="@font/poppins_bold"
             android:textSize="14sp"
             android:lineHeight="20dp"
@@ -364,7 +366,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_rounded_neutral_two"
             android:fontFamily="@font/poppins_medium"
-            android:hint="yyyy-mm-hh"
+            android:hint="@string/yyyy_mm_hh"
             android:textSize="16sp"
             android:textColor="@color/NEUTRAL04"
             android:textColorHint="@color/NEUTRAL03"

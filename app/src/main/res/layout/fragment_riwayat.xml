@@ -149,7 +149,7 @@ namun jika empty maka neutral 01-->
                     android:layout_marginEnd="12dp"
                     android:layout_marginBottom="6dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Filter"
+                    android:text="@string/filter"
                     android:textColor="@color/NEUTRAL05"
                     android:textSize="12sp" />
 
@@ -175,7 +175,7 @@ namun jika empty maka neutral 01-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mencari riwayat pemesanan..."
+                android:text="@string/mencari_riwayat_pemesanan"
                 android:textSize="14sp"
                 android:lineHeight="20dp"
                 android:fontFamily="@font/poppins_medium"
@@ -221,7 +221,7 @@ namun jika empty maka neutral 01-->
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Oops! Riwayat pesanan anda kosong!"
+                    android:text="@string/oops_riwayat_pesanan_anda_kosong"
                     android:textColor="@color/DARKBLUE05" />
 
                 <TextView
@@ -229,7 +229,7 @@ namun jika empty maka neutral 01-->
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Anda belum melakukan pesanan" />
+                    android:text="@string/anda_belum_melakukan_pesanan" />
             </LinearLayout>
         </RelativeLayout>
 

@@ -28,7 +28,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Today Only!"
+                android:text="@string/today_only"
                 android:textSize="10sp"
                 android:lineHeight="20dp"
                 android:layout_marginStart="32dp"
@@ -36,7 +36,8 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/poppins_regular"
-                android:textColor="@color/NEUTRAL01"/>
+                android:textColor="@color/NEUTRAL01"
+                tools:ignore="SmallSp" />
         </LinearLayout>
         <RelativeLayout
             android:id="@+id/layoutFlightSchedule"
@@ -53,7 +54,7 @@
                     android:id="@+id/tvTimeDeparture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="07:20"
+                    android:text="@string/_07_20"
                     android:fontFamily="@font/poppins_bold"
                     android:textSize="14sp"
                     android:lineHeight="20dp"
@@ -62,7 +63,7 @@
                     android:id="@+id/tvFrom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="JKT"
+                    android:text="@string/jkt"
                     android:fontFamily="@font/poppins_medium"
                     android:textSize="12sp"
                     android:lineHeight="20dp"
@@ -82,7 +83,7 @@
                     android:id="@+id/tvDurationFlight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4h 0m"
+                    android:text="@string/_4h_0m"
                     android:fontFamily="@font/poppins_medium"
                     android:textSize="12sp"
                     android:lineHeight="18dp"
@@ -97,7 +98,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Direct"
+                    android:text="@string/direct"
                     android:fontFamily="@font/poppins_medium"
                     android:textSize="12sp"
                     android:lineHeight="18dp"
@@ -115,7 +116,7 @@
                     android:id="@+id/tvTimeArrival"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="11:20"
+                    android:text="@string/_11_20"
                     android:fontFamily="@font/poppins_bold"
                     android:textSize="14sp"
                     android:lineHeight="20dp"
@@ -124,7 +125,7 @@
                     android:id="@+id/tvTo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MLB"
+                    android:text="@string/mlb"
                     android:fontFamily="@font/poppins_medium"
                     android:textSize="12sp"
                     android:lineHeight="20dp"
@@ -137,7 +138,7 @@
                 android:id="@+id/tvPriceFlight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="IDR 5.950.000"
+                android:text="@string/idr_5_950_000"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="2dp"
                 android:fontFamily="@font/poppins_bold"
@@ -182,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
                     android:lineHeight="18dp"
-                    android:text="Jet Airline - Economy"
+                    android:text="@string/jet_airline_economy"
                     android:textColor="@color/NEUTRAL05"
                     android:textSize="12sp" />
 

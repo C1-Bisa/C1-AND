@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Maaf, Anda harus login terlebih dahulu!"
+            android:text="@string/maaf_anda_harus_login_terlebih_dahulu"
             android:fontFamily="@font/poppins_medium"
             android:textSize="14sp"
             android:lineHeight="20dp"
@@ -48,7 +48,7 @@
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Masuk"
+        android:text="@string/masuk"
         android:fontFamily="@font/poppins_medium"
         android:lineHeight="24dp"
         android:textSize="16sp"

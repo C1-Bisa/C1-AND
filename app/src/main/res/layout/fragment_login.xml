@@ -16,7 +16,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="100dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="Masuk"
+        android:text="@string/masuk"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -27,8 +27,8 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_below="@id/tvMasuk"
-        android:layout_marginLeft="25dp"
-        android:text="Email / Nomor Telepon"
+        android:layout_marginStart="25dp"
+        android:text="@string/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -45,7 +45,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="45dp"
-        android:hint="Contoh : Example@gmail.com">
+        android:hint="@string/contoh_example_gmail_com">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEmail"
@@ -60,8 +60,8 @@
         android:layout_marginTop="10dp"
         android:textStyle="bold"
         android:layout_below="@id/Email"
-        android:layout_marginLeft="25dp"
-        android:text="Password"
+        android:layout_marginStart="25dp"
+        android:text="@string/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -70,11 +70,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/Email"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="25dp"
-        android:text="Lupa Kata Sandi"
+        android:layout_marginEnd="25dp"
+        android:text="@string/lupa_kata_sandi"
         android:textColor="@color/DARKBLUE05"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -91,7 +91,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="45dp"
-        android:hint="Masukan Password"
+        android:hint="@string/masukan_password"
         app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -106,7 +106,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
-        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
         style="@style/Btn"
         app:cornerRadius="16dp"
         android:layout_width="match_parent"
@@ -114,7 +114,7 @@
         android:layout_below="@+id/Password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Masuk"
+        android:text="@string/masuk"
         android:textColor="@color/white" />
 
     <LinearLayout
@@ -127,10 +127,8 @@
             android:id="@+id/tvBelumPunyaAkun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
             android:layout_marginBottom="70dp"
-            android:text="Belum punya akun? "
+            android:text="@string/belum_punya_akun"
             android:textColor="@color/black"
             android:textSize="15sp" />
 
@@ -138,11 +136,8 @@
             android:id="@+id/tvDaftarDisini"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
             android:layout_marginBottom="70dp"
-            android:layout_toRightOf="@id/tvBelumPunyaAkun"
-            android:text="Daftar di sini"
+            android:text="@string/daftar_di_sini"
             android:textColor="@color/DARKBLUE05"
             android:textSize="15sp"
             android:textStyle="bold" />

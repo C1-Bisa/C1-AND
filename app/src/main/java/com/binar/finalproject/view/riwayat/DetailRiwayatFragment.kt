@@ -97,6 +97,7 @@ class DetailRiwayatFragment : Fragment() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setDetailTransaction(idTrans: Int, token: String) {
 
         transactionViewModel.getTransactionById(token, RequestTransactionId(idTrans))

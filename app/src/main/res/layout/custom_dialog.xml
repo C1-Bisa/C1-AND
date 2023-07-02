@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Logout"
+                android:text="@string/logout"
                 android:fontFamily="@font/poppins_medium"
                 android:textSize="16sp"
                 android:layout_gravity="center"
@@ -38,7 +38,7 @@
             android:layout_marginTop="20dp"
             android:padding="5dp"
             android:gravity="center"
-            android:text="message"
+            android:text="@string/message"
             android:fontFamily="@font/poppins_bold"
             android:textSize="16sp" />
 
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Yes"
+                android:text="@string/yes"
                 android:backgroundTint="@color/DARKBLUE02"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:backgroundTint="@color/NEUTRAL03"
-                android:text="No"
+                android:text="@string/no"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="14sp" />

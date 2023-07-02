@@ -42,7 +42,7 @@
             android:layout_marginTop="18dp"
             android:fontFamily="@font/poppins_medium"
             android:lineHeight="20dp"
-            android:text="Maaf, Tiket terjual habis!"
+            android:text="@string/maaf_tiket_terjual_habis"
             android:textColor="@color/NEUTRAL05"
             android:textSize="14sp" />
 
@@ -52,7 +52,7 @@
             android:layout_marginTop="2dp"
             android:fontFamily="@font/poppins_medium"
             android:lineHeight="20dp"
-            android:text="Coba cari perjalanan Lainnya!"
+            android:text="@string/coba_cari_perjalanan_lainnya"
             android:textColor="@color/DARKBLUE04"
             android:textSize="14sp" />
 
@@ -62,7 +62,7 @@
         android:id="@+id/btnUbahPencarian"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ubah Pencarian"
+        android:text="@string/ubah_pencarian"
         android:fontFamily="@font/poppins_medium"
         android:lineHeight="24dp"
         android:textSize="16sp"

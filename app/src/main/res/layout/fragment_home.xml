@@ -26,8 +26,8 @@
                     android:id="@+id/Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hei, Mau kemana?"
-                    android:textSize="24dp"
+                    android:text="@string/hei_mau_kemana"
+                    android:textSize="24sp"
                     android:fontFamily="@font/poppins_bold"
                     android:layout_marginTop="32dp"
                     android:layout_marginStart="12dp"
@@ -72,7 +72,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="from"
+                                    android:text="@string/from"
                                     android:layout_marginStart="12dp"
                                     android:fontFamily="@font/poppins_regular"
                                     android:textSize="12sp"
@@ -90,7 +90,7 @@
                                         android:layout_centerInParent="true"
                                         android:layout_marginStart="20dp"
                                         android:lineHeight="24dp"
-                                        android:text="Jakarta (JKTA)"
+                                        android:text="@string/jakarta_jkta"
                                         android:fontFamily="@font/poppins_medium"
                                         android:textColor="@color/black"
                                         android:textSize="16sp" />
@@ -121,7 +121,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="to"
+                                    android:text="@string/to"
                                     android:layout_marginStart="12dp"
                                     android:fontFamily="@font/poppins_regular"
                                     android:textSize="12sp"
@@ -140,7 +140,7 @@
                                         android:fontFamily="@font/poppins_medium"
                                         android:gravity="center"
                                         android:lineHeight="24dp"
-                                        android:text="Bali (DPS)"
+                                        android:text="@string/bali_dps"
                                         android:textColor="@color/black"
                                         android:textSize="16sp" />
                                 </RelativeLayout>
@@ -168,7 +168,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Pulang-pergi?"
+                                android:text="@string/pulang_pergi"
                                 android:fontFamily="@font/poppins_regular"
                                 android:textColor="@color/NEUTRAL05"
                                 android:textSize="14sp"
@@ -214,7 +214,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Departure"
+                                        android:text="@string/departure"
                                         android:textSize="14sp"
                                         android:fontFamily="@font/poppins_regular"
                                         android:textColor="@color/NEUTRAL03"/>
@@ -223,7 +223,7 @@
                                         android:id="@+id/tvDateDeparture"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="1 Maret 2023"
+                                        android:text="@string/_1_maret_2023"
                                         android:layout_marginTop="6dp"
                                         android:textSize="14sp"
                                         android:fontFamily="@font/poppins_medium"
@@ -259,7 +259,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Return"
+                                        android:text="@string/Return"
                                         android:textSize="14sp"
                                         android:fontFamily="@font/poppins_regular"
                                         android:textColor="@color/NEUTRAL03"/>
@@ -268,7 +268,7 @@
                                         android:id="@+id/tvDateReturn"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="pilih tanggal"
+                                        android:text="@string/pilih_tanggal"
                                         android:layout_marginTop="6dp"
                                         android:textSize="14sp"
                                         android:fontFamily="@font/poppins_medium"
@@ -311,7 +311,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Passengers"
+                                        android:text="@string/passengers"
                                         android:textSize="14sp"
                                         android:fontFamily="@font/poppins_regular"
                                         android:textColor="@color/NEUTRAL03"/>
@@ -320,7 +320,7 @@
                                         android:id="@+id/tvPassengers"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="1 Penumpang"
+                                        android:text="@string/_1_penumpang"
                                         android:layout_marginTop="6dp"
                                         android:textSize="14sp"
                                         android:fontFamily="@font/poppins_medium"
@@ -355,7 +355,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Seat Class"
+                                        android:text="@string/seat_class"
                                         android:textSize="14sp"
                                         android:fontFamily="@font/poppins_regular"
                                         android:textColor="@color/NEUTRAL03"/>
@@ -364,7 +364,7 @@
                                         android:id="@+id/tvSeatClass"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Bussiness"
+                                        android:text="@string/bussiness"
                                         android:layout_marginTop="6dp"
                                         android:textSize="14sp"
                                         android:fontFamily="@font/poppins_medium"
@@ -381,7 +381,7 @@
                             android:id="@+id/btnSearchFlight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Cari Penerbangan"
+                            android:text="@string/cari_penerbangan"
                             android:textAlignment="center"
                             android:fontFamily="@font/poppins_bold"
                             android:textColor="@color/white"
@@ -401,7 +401,7 @@
                 android:id="@+id/TitleDestinationFavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Destination Favorite"
+                android:text="@string/destination_favorite"
                 android:fontFamily="@font/poppins_medium"
                 android:textSize="16sp"
                 android:textColor="#151515"

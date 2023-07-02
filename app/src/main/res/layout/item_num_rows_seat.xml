@@ -27,7 +27,7 @@
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/poppins_medium"
                 android:lineHeight="24dp"
-                android:text="12"
+                android:text="@string/_12"
                 android:textAlignment="center"
                 android:textColor="@color/NEUTRAL03"
                 android:textSize="16sp" />

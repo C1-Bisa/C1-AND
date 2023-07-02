@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
@@ -23,13 +24,14 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
                 android:lineHeight="20dp"
-                android:text="Economy - 64 Seats Available"
+                android:text="@string/economy_64_seats_available"
                 android:textColor="@color/NEUTRAL01"
                 android:textSize="14sp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@id/btnBack"/>
+                android:layout_toEndOf="@id/btnBack"
+                tools:ignore="ObsoleteLayoutParam" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/coloumSeat"
@@ -44,7 +46,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="A"
+                android:text="@string/a"
                 android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/NEUTRAL03"
                 android:layout_weight="1"
@@ -52,7 +54,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="B"
+                android:text="@string/b"
                 android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/NEUTRAL03"
                 android:layout_weight="1"
@@ -61,7 +63,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="C"
+                android:text="@string/c"
                 android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/NEUTRAL03"
                 android:layout_weight="1"
@@ -75,7 +77,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="D"
+                android:text="@string/d"
                 android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/NEUTRAL03"
                 android:layout_weight="1"
@@ -84,7 +86,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="E"
+                android:text="@string/e"
                 android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/NEUTRAL03"
                 android:layout_weight="1"
@@ -93,7 +95,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="F"
+                android:text="@string/f"
                 android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/NEUTRAL03"
                 android:layout_weight="1"
