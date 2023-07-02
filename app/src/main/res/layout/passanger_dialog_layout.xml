@@ -105,7 +105,8 @@
                     android:minWidth="40dp"
                     android:minHeight="40dp"
                     android:src="@drawable/ic_add"
-                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
+                    app:tint="@color/DARKBLUE04" />
             </LinearLayout>
         </RelativeLayout>
         <View
@@ -188,6 +189,7 @@
                     android:minWidth="40dp"
                     android:minHeight="40dp"
                     android:src="@drawable/ic_add"
+                    app:tint="@color/DARKBLUE04"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </LinearLayout>
         </RelativeLayout>
@@ -271,6 +273,7 @@
                     android:minWidth="40dp"
                     android:minHeight="40dp"
                     android:src="@drawable/ic_add"
+                    app:tint="@color/DARKBLUE04"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </LinearLayout>
         </RelativeLayout>
