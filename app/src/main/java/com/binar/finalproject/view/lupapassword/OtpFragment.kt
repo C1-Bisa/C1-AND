@@ -24,6 +24,7 @@ class OtpFragment : Fragment() {
     private val userViewModel : UserViewModel by viewModels()
 
     private  var idUser : Int = 0
+    private var emailUser : String = ""
     private lateinit var binding : FragmentOtpBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,11 +40,15 @@ class OtpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val getIdBundle = arguments?.getInt("ID_USER")
+        val getEmailBundle = arguments?.getString("EMAIL_USER")
 
         setEditTextFocusable()
 
-        if (getIdBundle != null){
+        if (getIdBundle != null && getEmailBundle != null){
             idUser = getIdBundle
+            emailUser = getEmailBundle
+
+            binding.tvNomor.text = emailUser
         }
         binding.mintaKodeVertif.setOnClickListener {
 
@@ -103,6 +108,7 @@ class OtpFragment : Fragment() {
                 if (it != null){
                     val bundleId = Bundle().apply {
                         putInt("ID_USER", idUser)
+                        putString("EMAIL_USER", emailUser)
                     }
                     Toast(requireContext()).showCustomToast(
                         "Verifikasi berhasil !", requireActivity(), R.layout.toast_alert_green)
@@ -123,6 +129,7 @@ class OtpFragment : Fragment() {
             if (idUser != 0){
                 val idUserBundle = Bundle().apply {
                     putInt("ID_USER", idUser)
+                    putString("EMAIL_USER", emailUser)
                 }
                 findNavController().navigate(R.id.action_otpFragment_self, idUserBundle)
             }

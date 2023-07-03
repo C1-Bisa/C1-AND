@@ -77,6 +77,7 @@ class RegisterFragment : Fragment() {
                     if (response != null){
                         val idBundle = Bundle().apply {
                             putInt("ID_USER", response.data.user.id)
+                            putString("EMAIL_USER", email)
                         }
                         userViewModel.responseUserRegist.removeObservers(viewLifecycleOwner)
                         Toast(requireContext()).showCustomToast(
