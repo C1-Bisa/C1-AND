@@ -142,7 +142,6 @@ class BiodataPemesanFragment : Fragment() {
             }else{
                 Toast(requireContext()).showCustomToast(
                     "Field tidak boleh kosong", requireActivity(), R.layout.toast_alert_red)
-//                Toast.makeText(context, "Field tidak boleh kosong",Toast.LENGTH_SHORT).show()
                 false
             }
         }else{
@@ -151,7 +150,6 @@ class BiodataPemesanFragment : Fragment() {
             }else{
                 Toast(requireContext()).showCustomToast(
                     "Field tidak boleh kosong", requireActivity(), R.layout.toast_alert_red)
-//                Toast.makeText(context, "Field tidak boleh kosong",Toast.LENGTH_SHORT).show()
                 false
             }
         }
