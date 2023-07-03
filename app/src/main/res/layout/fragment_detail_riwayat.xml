@@ -42,11 +42,46 @@
                 android:textSize="14sp" />
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
+<!--    loading untuk detail riwayat -->
+    <RelativeLayout
+        android:id="@+id/layoutLoadingData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@+id/appBar"
+        app:layout_constraintBottom_toTopOf="@+id/layoutTotalRincian"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/imgIllustrationLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/img_illustration_loading" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menunggu detail riwayat penerbangan"
+            android:textSize="14sp"
+            android:lineHeight="20dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/NEUTRAL03"
+            android:layout_marginTop="18dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/imgIllustrationLoad"/>
+    </RelativeLayout>
+<!--    scroll view gone karena terdapat loading-->
     <ScrollView
+        android:id="@+id/detaiRiwayatlScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/appBar"
-        app:layout_constraintBottom_toTopOf="@id/layoutTotalRincian">
+        app:layout_constraintBottom_toTopOf="@id/layoutTotalRincian"
+        android:visibility="gone">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

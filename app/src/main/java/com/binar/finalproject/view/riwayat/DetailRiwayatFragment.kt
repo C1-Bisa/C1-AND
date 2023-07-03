@@ -56,6 +56,9 @@ class DetailRiwayatFragment : Fragment() {
 
         val getIdTransaction = arguments?.getInt("ID_TRANSACTION")
 
+        //untuk meload data
+        binding.layoutLoadingData.visibility = View.VISIBLE
+
         passengerAdapter = PassengerAdapter(ArrayList())
 
         dataStoreUser = DataStoreUser(requireContext().applicationContext)
@@ -69,10 +72,6 @@ class DetailRiwayatFragment : Fragment() {
             }
         }
 
-//        if(getIdTransaction != null && token.isNotEmpty()){
-//            setDetailTransaction(getIdTransaction, token)
-//            Log.i("DATA ID TRANSACTION", getIdTransaction.toString())
-//        }
 
         binding.btnBack.setOnClickListener {
             findNavController().navigate(R.id.action_detailRiwayatFragment_to_riwayatFragment)
@@ -106,6 +105,10 @@ class DetailRiwayatFragment : Fragment() {
             if(it != null){
                 setDetail(it)
 
+                //untuk meload data
+                binding.detaiRiwayatlScrollView.visibility = View.VISIBLE
+                binding.layoutLoadingData.visibility = View.GONE
+
                 Log.i("HASIL_DETAIL_RIWAYAT" , it.toString())
 
                 if(it.transaction.transactionStatus == "Issued"){
@@ -117,6 +120,10 @@ class DetailRiwayatFragment : Fragment() {
                     binding.btnAction.text = "Lanjut Pembayaran"
                     Log.i("HASIL_DETAIL_RIWAYAT" , it.transaction.transactionStatus)
                 }
+            }else{
+                binding.layoutLoadingData.visibility = View.GONE
+                binding.detaiRiwayatlScrollView.visibility = View.VISIBLE
+
             }
         }
     }
