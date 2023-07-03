@@ -270,58 +270,6 @@ class PaymentFragment : Fragment() {
 
     }
 
-    private fun setInformationFlight(data: DataTransaction) {
-        if(data.arrival.isNotEmpty()){
-            binding.layoutReturnFlight.visibility = View.VISIBLE
-            setDataFlight(data, true)
-        }else{
-            binding.layoutReturnFlight.visibility = View.GONE
-            setDataFlight(data, false)
-        }
-    }
-
-    private fun setDataFlight(data: DataTransaction, isRoundTrip : Boolean) {
-
-        Log.d("SET DATA FLIGHT2", data.toString())
-        //PERMASALAHAN DATA DEPARTURE DAN RETURN KETIKA ROUND TRIP MENJADI DOUBLE
-
-        val dataFlight = data.departure[0]
-        binding.apply {
-            tvPointDeparture.text = dataFlight.flight.from
-            tvPointArrive.text = dataFlight.flight.to
-            //perlu diubah durasinya
-            tvTotalFlight.text = dataFlight.flight.duration.toString()
-            tvDateDeparture.text = setDate(dataFlight.flight.departureDate)
-            tvDateArrive.text = setDate(dataFlight.flight.arrivalDate)
-
-            //convert to format hh:ss
-            tvTimeDeparture.text = timeFormate(dataFlight.flight.departureTime)
-            tvTimeArrive.text = timeFormate(dataFlight.flight.arrivalTime)
-
-            tvBookingCode.text = data.transaction.transactionCode.toString()
-            tvSeatClass.text = dataFlight.flight.flightClass
-
-            //convert to idr
-            val totalPrice = "IDR ${convertToCurrencyIDR(dataFlight.transaction.amount)}"
-            tvTotalPrice.text = totalPrice
-
-        }
-
-//        DATA DUPLICATE PER PENERBANGAN KETIKA ROUND TRIP
-        if(isRoundTrip){
-            val dataFlightReturn = data.arrival[1]
-            binding.apply {
-                tvPointReturn.text = dataFlightReturn.flightArrival.from
-                tvPointArriveReturnTrip.text = dataFlightReturn.flightArrival.to
-                //perlu diubah durasinya
-                tvTotalFlightReturn.text = dataFlightReturn.flightArrival.duration.toString()
-                tvDateReturn.text = setDate(dataFlightReturn.flightArrival.departureDate)
-                tvDateArriveReturnTrip.text = setDate(dataFlightReturn.flightArrival.arrivalDate)
-                tvTimeReturn.text = timeFormate(dataFlightReturn.flightArrival.departureTime)
-                tvTimeArriveReturnTrip.text = timeFormate(dataFlightReturn.flightArrival.arrivalTime)
-            }
-        }
-    }
 
     private fun convertToCurrencyIDR(price : Int) : String{
         val currencyFormatIDR = DecimalFormat("#,###", DecimalFormatSymbols.getInstance(Locale("id", "ID")))
