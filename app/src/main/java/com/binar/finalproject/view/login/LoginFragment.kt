@@ -153,7 +153,15 @@ class LoginFragment : Fragment() {
                     Toast(requireContext()).showCustomToast(
                         "Tautan reset password terkirim!", requireActivity(), R.layout.toast_alert_green)
 
-                    findNavController().navigate(R.id.action_loginFragment_to_lupaPasswordFragment)
+                    if(findNavController().currentDestination?.id == R.id.loginFragment){
+                        try {
+                            findNavController().navigate(R.id.action_loginFragment_to_lupaPasswordFragment)
+                        } catch (e: IllegalArgumentException) {
+                            Log.e("NavigationError", "Navigation action tidak ditemukan", e)
+                        }
+
+                    }
+
 
                 }
             }
