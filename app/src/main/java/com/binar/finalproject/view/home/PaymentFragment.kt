@@ -68,7 +68,7 @@ class PaymentFragment : Fragment() {
             }
         }
 
-        binding.btnExpandCreditCard.setOnClickListener {
+        binding.layoutTitlePayment2.setOnClickListener {
             binding.layoutGopay.visibility = View.GONE
 
             if(binding.layoutCreditCard.isVisible){
@@ -79,7 +79,7 @@ class PaymentFragment : Fragment() {
             }
         }
 
-        binding.btnExpandGopay.setOnClickListener {
+        binding.layoutTitlePayment1.setOnClickListener {
             binding.layoutCreditCard.visibility = View.GONE
             if(binding.layoutGopay.isVisible){
                 binding.layoutGopay.visibility = View.GONE
