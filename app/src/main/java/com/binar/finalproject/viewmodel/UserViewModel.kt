@@ -1,7 +1,6 @@
 package com.binar.finalproject.viewmodel
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +19,7 @@ import com.binar.finalproject.model.user.updateprofile.PutDataUpdateProfile
 import com.binar.finalproject.model.user.updateprofile.ResponseUpdateProfileUser
 import com.binar.finalproject.network.RestfulApi
 import dagger.hilt.android.lifecycle.HiltViewModel
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,6 +63,11 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
     private val _responseUpdateProfile = MutableLiveData<ResponseUpdateProfileUser?>()
     val responseUpdateProfile : LiveData<ResponseUpdateProfileUser?> = _responseUpdateProfile
 
+    //for toast
+    private val _toastMessage = MutableLiveData<String?>()
+    val toastMessage: LiveData<String?> = _toastMessage
+
+
 
 
     fun resendOTP(id : Int){
@@ -95,6 +100,12 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
                     Log.i("STATUS", response.body()!!.message)
                 }else{
                     _responseOtp.postValue(null)
+
+                    val errorBody = response.errorBody()?.string()
+                    val errorMessage = parseResponseErrorMessage(errorBody)
+
+                    Log.i("STATUS_ERROR", errorMessage)
+                    _toastMessage.value = errorMessage
                 }
             }
 
@@ -116,6 +127,12 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
                     Log.i("STATUS", response.body()!!.message)
 
                 }else{
+                    val errorBody = response.errorBody()?.string()
+                    val errorMessage = parseResponseErrorMessage(errorBody)
+
+                    Log.i("STATUS_ERROR", errorMessage)
+                    _toastMessage.value = errorMessage
+
                     _responseResetPassword.postValue(null)
                 }
             }
@@ -157,6 +174,11 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
                     _responseLogin.postValue(response.body()!!)
                     Log.i("STATUS", response.body()!!.status)
                 }else{
+                    val errorBody = response.errorBody()?.string()
+                    val errorMessage = parseResponseErrorMessage(errorBody)
+
+                    Log.i("STATUS_ERROR", errorMessage)
+                    _toastMessage.value = errorMessage
                     _responseLogin.postValue(null)
 
                 }
@@ -171,7 +193,6 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
     }
 
 
-
     // untuk viewmodel register
     fun postRegist(data : PostRegister){
         apiUser.postRegistUser(data).enqueue(object : Callback<ResponRegister>{
@@ -184,6 +205,10 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
                    Log.i("STATUS", response.body()!!.status)
                }else{
                    _responseUserRegist.postValue(null)
+
+                   val errorBody = response.errorBody()?.string()
+                   val errorMessage = parseResponseErrorMessage(errorBody)
+                   _toastMessage.value = errorMessage
                }
             }
 
@@ -236,6 +261,19 @@ class UserViewModel @Inject constructor(private val apiUser : RestfulApi) : View
         })
     }
 
+    private fun parseResponseErrorMessage(errorBody: String?): String {
+        try {
+            val jsonObject = JSONObject(errorBody!!)
+            return jsonObject.getString("message")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return "Error parsing error message"
+    }
+
+    fun setToasMassenge(){
+        _toastMessage.value = null
+    }
 
 
 }

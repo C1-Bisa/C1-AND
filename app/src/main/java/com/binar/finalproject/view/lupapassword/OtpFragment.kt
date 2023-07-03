@@ -56,6 +56,13 @@ class OtpFragment : Fragment() {
             verifikasiOTP()
         }
 
+        userViewModel.setToasMassenge()
+        userViewModel.toastMessage.observe(viewLifecycleOwner){
+            if(it != null){
+                Toast(requireContext()).showCustomToast(
+                    it, requireActivity(), R.layout.toast_alert_red)
+            }
+        }
 
     }
 
@@ -100,9 +107,6 @@ class OtpFragment : Fragment() {
                         Log.e("NavigationError", "Navigation action tidak ditemukan", e)
                     }
 
-                }else{
-                    Toast(requireContext()).showCustomToast(
-                        "Verifikasi gagal !", requireActivity(), R.layout.toast_alert_red)
                 }
             }
         }else{

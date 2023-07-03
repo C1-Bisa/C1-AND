@@ -51,6 +51,14 @@ class RegisterFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+        userViewModel.setToasMassenge()
+        userViewModel.toastMessage.observe(viewLifecycleOwner){
+            if(it != null){
+                Toast(requireContext()).showCustomToast(
+                            it, requireActivity(), R.layout.toast_alert_red)
+            }
+        }
+
     }
 
     private fun getRegister() {
@@ -79,9 +87,6 @@ class RegisterFragment : Fragment() {
                         } catch (e: IllegalArgumentException) {
                             Log.e("NavigationError", "Navigation action tidak ditemukan", e)
                         }
-                    }else{
-                        Toast(requireContext()).showCustomToast(
-                            "Email telah digunakan", requireActivity(), R.layout.toast_alert_red)
                     }
                 })
             }else{

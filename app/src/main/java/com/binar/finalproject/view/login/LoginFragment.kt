@@ -48,9 +48,6 @@ class LoginFragment : Fragment() {
         dataSotreUser = DataStoreUser(requireContext().applicationContext)
 
 
-        binding.tvLupaPassword.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_lupaPasswordFragment)
-        }
         binding.tvDaftarDisini.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
@@ -71,6 +68,15 @@ class LoginFragment : Fragment() {
         binding.tvLupaPassword.setOnClickListener {
             resetKataSandi()
         }
+
+        userLoginVm.setToasMassenge()
+        userLoginVm.toastMessage.observe(viewLifecycleOwner){
+            if(it != null){
+                Toast(requireContext()).showCustomToast(
+                    it, requireActivity(), R.layout.toast_alert_red)
+            }
+        }
+
 
 
     }
@@ -110,13 +116,7 @@ class LoginFragment : Fragment() {
                         }
                     }
 
-                }else{
-                    Log.i("TAG LOGIN OBSERVER", "2")
-                    Toast(requireContext()).showCustomToast(
-                        "Email dan password tidak terdaftar! ", requireActivity(), R.layout.toast_alert_red)
-
                 }
-
             }
 
         }else if (email.isEmpty() && password.isEmpty()){
@@ -131,6 +131,7 @@ class LoginFragment : Fragment() {
             Toast(requireContext()).showCustomToast(
                 "Password harus di isi !", requireActivity(), R.layout.toast_alert_red)
         }
+
 
     }
 
@@ -147,12 +148,10 @@ class LoginFragment : Fragment() {
 
                     findNavController().navigate(R.id.action_loginFragment_to_lupaPasswordFragment)
 
-                }else{
-                    Toast(requireContext()).showCustomToast(
-                        "Terdapat error !", requireActivity(), R.layout.toast_alert_red)
                 }
             }
         }
+
     }
 
 
