@@ -109,9 +109,16 @@ class LoginFragment : Fragment() {
                                     requireActivity(),
                                     R.layout.toast_alert_green
                                 )
+                                if (findNavController().currentDestination?.id == R.id.loginFragment){
 
+                                    try {
+                                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                                    } catch (e: IllegalArgumentException) {
+                                        Log.e("NavigationError", "Navigation action tidak ditemukan", e)
+                                    }
 
-                                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                                }
+
                             }
                         }
                     }

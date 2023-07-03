@@ -81,11 +81,12 @@ class RegisterFragment : Fragment() {
                         userViewModel.responseUserRegist.removeObservers(viewLifecycleOwner)
                         Toast(requireContext()).showCustomToast(
                             "Kode OTP telah dikirim", requireActivity(), R.layout.toast_alert_green)
-
-                        try {
-                            findNavController().navigate(R.id.action_registerFragment_to_otpFragment, idBundle)
-                        } catch (e: IllegalArgumentException) {
-                            Log.e("NavigationError", "Navigation action tidak ditemukan", e)
+                        if (findNavController().currentDestination?.id == R.id.registerFragment){
+                            try {
+                                findNavController().navigate(R.id.action_registerFragment_to_otpFragment, idBundle)
+                            } catch (e: IllegalArgumentException) {
+                                Log.e("NavigationError", "Navigation action tidak ditemukan", e)
+                            }
                         }
                     }
                 })

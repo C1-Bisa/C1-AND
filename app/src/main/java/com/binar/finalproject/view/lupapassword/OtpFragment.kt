@@ -64,7 +64,13 @@ class OtpFragment : Fragment() {
             }
         }
 
+        binding.back.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
     }
+
+
 
 
 
@@ -100,12 +106,14 @@ class OtpFragment : Fragment() {
                     }
                     Toast(requireContext()).showCustomToast(
                         "Verifikasi berhasil !", requireActivity(), R.layout.toast_alert_green)
-
-                    try {
-                        findNavController().navigate(R.id.action_otpFragment_to_loginFragment, bundleId)
-                    } catch (e: IllegalArgumentException) {
-                        Log.e("NavigationError", "Navigation action tidak ditemukan", e)
+                    if(findNavController().currentDestination?.id == R.id.otpFragment){
+                        try {
+                            findNavController().navigate(R.id.action_otpFragment_to_loginFragment, bundleId)
+                        } catch (e: IllegalArgumentException) {
+                            Log.e("NavigationError", "Navigation action tidak ditemukan", e)
+                        }
                     }
+
 
                 }
             }
