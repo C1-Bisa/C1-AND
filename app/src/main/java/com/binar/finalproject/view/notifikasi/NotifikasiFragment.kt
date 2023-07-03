@@ -44,10 +44,15 @@ class NotifikasiFragment : Fragment() {
 
         dataUserStoreUser = DataStoreUser(requireContext().applicationContext)
 
+        //untuk meload data
+        binding.layoutLoadingData.visibility = View.VISIBLE
+        binding.rvFavoriteDestination.visibility = View.GONE
+
         dataUserStoreUser.getToken.asLiveData().observe(viewLifecycleOwner){
             if(it != null){
                 setLayoutNotifikasi(it)
             }
+
         }
 
         binding.btnMarkAllRead.setOnClickListener {
@@ -84,13 +89,21 @@ class NotifikasiFragment : Fragment() {
         binding.rvFavoriteDestination.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = notifikasiListAdapter
+
         }
+
+
 
         notificationViewModel.responseNotif.observe(viewLifecycleOwner){
             if(it.isNotEmpty()){
                 notifikasiListAdapter.setListNotif(it.sortedByDescending {data->
                     data.createdAt
                 })
+                binding.layoutLoadingData.visibility = View.GONE
+                binding.rvFavoriteDestination.visibility = View.VISIBLE
+            }else{
+                binding.layoutLoadingData.visibility = View.GONE
+                binding.rvFavoriteDestination.visibility = View.VISIBLE
             }
         }
 

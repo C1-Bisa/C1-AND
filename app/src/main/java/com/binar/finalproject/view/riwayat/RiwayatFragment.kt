@@ -189,12 +189,6 @@ class RiwayatFragment : Fragment() {
 
             }
         }
-//        val listDataRiwayattt  = listOf(
-//            RiwayatModel("Unpaid", "Jakarta", "5 Maret 2023", "19:30",
-//                "Booking Code:", 453716288, "Class: ", "Economy", "IDR 5.950.000", "4h 0m")
-//        )
-//        riwayatListData = AdapterRiwayat(listDataRiwayattt)
-
 
     }
 
