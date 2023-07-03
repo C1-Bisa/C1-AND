@@ -736,13 +736,13 @@ class HomeFragment : Fragment() {
     private fun setRecycleViewDestinationFavorite() {
         //testing adapter
         val listDataDestinationFavorite = listOf(
-            DestinationFavorite(R.drawable.contoh_destination_favorite, "Jakarta -> Bangkok", "AirAsia", "23 - 30 July 2023", "IDR 2.000.000", "Limited!"),
+            DestinationFavorite(R.drawable.favourite_bali, "Jakarta -> Bali", "AirAsia", "23 - 30 July 2023", "IDR 2.000.000", "Limited!"),
             DestinationFavorite(R.drawable.favourite_surabaya, "Jakarta -> Surabaya", "Batik Air", "25 - 30 July 2023", "IDR 1.000.000", "Limited!"),
             DestinationFavorite(R.drawable.favourite_jayapura, "Jakarta -> Jayapura", "Citilink", "29 - 30 July 2023", "IDR 4.000.000", "50% OFF"),
             DestinationFavorite(R.drawable.favourite_makasar, "Jakarta -> Makassar", "Superjet", "20 - 30 July 2023", "IDR 3.000.000", "50% OFF"),
             DestinationFavorite(R.drawable.favourite_surabaya, "Jakarta -> Surabaya", "Lion Air", "23 - 30 July 2023", "IDR 1.500.000", "Limited!"),
-            DestinationFavorite(R.drawable.favourite_sydney, "Jakarta -> Sydney", "AirAsia", "5 - 25 July 2023", "IDR 1.500.000", "35% OFF!"),
-            DestinationFavorite(R.drawable.favourite_sydney, "Jakarta -> Sydney", "AirAsia", "23 - 30 July 2023", "IDR 1.500.000", "Limited!")
+            DestinationFavorite(R.drawable.favourite_bali, "Jakarta -> Bali", "AirAsia", "5 - 25 July 2023", "IDR 1.500.000", "35% OFF!"),
+            DestinationFavorite(R.drawable.favourite_jayapura, "Jakarta -> Jayapura", "AirAsia", "23 - 30 July 2023", "IDR 1.500.000", "Limited!")
 
         )
 
