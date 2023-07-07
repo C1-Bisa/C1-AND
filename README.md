@@ -59,4 +59,10 @@ Merupakan sebuah platform pemesanan tiket secara online berbasis android
 8. Android SDK
 9. Gradle
 10. UI code using XML
+11. JUnit4
+12. Glide
+13. Kotlin Coroutines
+14. Linter
+15. MVVM ( Model, View, View-Model)
+16. Material.io / Material Design
   
